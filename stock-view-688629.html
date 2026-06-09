@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>688629 华丰科技 · 单票视图</title>
+<style>
+:root{--bg:#0f1117;--ca:#1a1d27;--bd:#252836;--t1:#e2e8f0;--t2:#94a3b8;--t3:#64748b;--ac:#ef4444;--gr:#22c55e;--yl:#eab308;--rd:#ef4444}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--t1);font-size:13px;padding:24px;max-width:900px;margin:0 auto}
+.header{margin-bottom:24px}
+.header h1{font-size:1.4rem;display:flex;align-items:center;gap:10px}
+.header .code{font-size:0.8rem;color:var(--t3);font-weight:400}
+.badge{display:inline-block;padding:3px 8px;border-radius:4px;font-size:0.65rem;font-weight:600}
+.badge-bottleneck{background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.3)}
+.badge-eco{background:rgba(249,115,22,.12);color:#fb923c}
+.badge-cross{background:rgba(168,85,247,.12);color:#a78bfa}
+.badge-e1{background:rgba(34,197,94,.15);color:#4ade80}
+.badge-e2{background:rgba(59,130,246,.12);color:#60a5fa}
+.badge-e3{background:rgba(148,163,184,.1);color:#94a3b8}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.panel{background:var(--ca);border:1px solid var(--bd);border-radius:10px;padding:16px}
+.panel-title{font-size:0.7rem;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-weight:600}
+.panel.warn{border-color:rgba(234,179,8,.3);background:rgba(234,179,8,.04)}
+.panel.danger{border-color:rgba(239,68,68,.2);background:rgba(239,68,68,.03)}
+.score-bar{display:flex;align-items:center;gap:8px;margin:4px 0}
+.score-label{width:30px;font-size:0.65rem;color:var(--t3);text-align:right}
+.score-fill{height:8px;border-radius:4px;min-width:4px}
+.score-fill.strong{background:var(--gr)}
+.score-fill.medium{background:var(--yl)}
+.score-fill.weak{background:var(--rd)}
+.score-fill.na{background:var(--bd)}
+.score-val{font-size:0.7rem;font-weight:600;width:28px;text-align:center}
+.metric{text-align:center}
+.metric .val{font-size:1.3rem;font-weight:700}
+.metric .val.green{color:var(--gr)}
+.metric .val.red{color:var(--rd)}
+.metric .lbl{font-size:0.6rem;color:var(--t3);margin-top:2px}
+table{width:100%;border-collapse:collapse;font-size:0.68rem}
+th{text-align:left;padding:4px 6px;color:var(--t3);font-weight:500;font-size:0.62rem;border-bottom:1px solid var(--bd)}
+td{padding:5px 6px;border-bottom:1px solid rgba(37,40,54,.4);vertical-align:top}
+.risk-item{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid rgba(37,40,54,.4);font-size:0.7rem}
+.risk-item:last-child{border-bottom:none}
+.risk-icon{font-size:0.8rem;flex-shrink:0}
+.gap-row{display:flex;align-items:center;gap:6px;padding:4px 0;font-size:0.68rem}
+.gap-row .check{width:16px;text-align:center;font-size:0.7rem}
+.note{font-size:0.62rem;color:var(--t3);margin-top:16px;line-height:1.6}
+a{color:var(--ac);text-decoration:none}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<div class="header">
+<h1>华丰科技 <span class="code">688629 · 科创板</span></h1>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+  <span class="badge badge-bottleneck">🔴 物理开关</span>
+  <span class="badge badge-eco">国产AI算力生态 (A)</span>
+  <span class="badge badge-cross">纯国内标的 (无跨生态)</span>
+  <span class="badge badge-e2">E2 初评</span>
+</div>
+</div>
+
+<!-- ═══ KEY METRICS ═══ -->
+<div class="grid-3">
+  <div class="panel"><div class="panel-title">§18.6 总评分</div>
+    <div class="metric"><div class="val green">13</div><div class="lbl">/ 20 · 政策显著受益</div></div>
+  </div>
+  <div class="panel"><div class="panel-title">T3 物理开关</div>
+    <div class="metric"><div class="val green">+2</div><div class="lbl">T1: 国内唯一224G全梯度量产</div></div>
+  </div>
+  <div class="panel"><div class="panel-title">最强 E1 证据</div>
+    <div class="metric"><div class="val">60.52%</div><div class="lbl">华为占营收比 (年报披露)</div></div>
+  </div>
+</div>
+
+<!-- ═══ §18.6 SCORE BREAKDOWN ═══ -->
+<div class="grid">
+  <div class="panel">
+    <div class="panel-title">维度一: 政策锁定度 (P) — 得分 6/8</div>
+    <div class="score-bar"><span class="score-label">P1</span><div class="score-fill strong" style="width:80px"></div><span class="score-val">+2</span><span style="font-size:0.65rem;color:var(--t2)">十五五点名集成电路 (E1)</span></div>
+    <div class="score-bar"><span class="score-label">P2b</span><div class="score-fill medium" style="width:40px"></div><span class="score-val">+1</span><span style="font-size:0.65rem;color:var(--t2)">非正式链长覆盖 (E2)</span></div>
+    <div class="score-bar"><span class="score-label">P3</span><div class="score-fill strong" style="width:80px"></div><span class="score-val">+2</span><span style="font-size:0.65rem;color:var(--t2)">智算国产化率≥70% (E1)</span></div>
+    <div class="score-bar"><span class="score-label">P4b</span><div class="score-fill medium" style="width:40px"></div><span class="score-val">+1</span><span style="font-size:0.65rem;color:var(--t2)">华为哈勃持股2.95% (E2)</span></div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">维度二: 订单转化率 (O) — 得分 3/6</div>
+    <div class="score-bar"><span class="score-label">O1</span><div class="score-fill na" style="width:4px"></div><span class="score-val">0</span><span style="font-size:0.65rem;color:var(--t2)">客户华为非央企</span></div>
+    <div class="score-bar"><span class="score-label">O2</span><div class="score-fill strong" style="width:80px"></div><span class="score-val">+2</span><span style="font-size:0.65rem;color:var(--t2)">批量交付 E1</span></div>
+    <div class="score-bar"><span class="score-label">O3</span><div class="score-fill medium" style="width:40px"></div><span class="score-val">+1</span><span style="font-size:0.65rem;color:var(--t2)">产能+400% 在建 (E2)</span></div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">维度三: 技术锁定度 (T) — 得分 4/6</div>
+    <div class="score-bar"><span class="score-label">T1</span><div class="score-fill strong" style="width:80px"></div><span class="score-val">+2</span><span style="font-size:0.65rem;color:var(--t2)">国内唯一224G全梯度 (E2)</span></div>
+    <div class="score-bar"><span class="score-label">T2</span><div class="score-fill strong" style="width:80px"></div><span class="score-val">+2</span><span style="font-size:0.65rem;color:var(--t2)">224G已验证 与安费诺同代 (E2)</span></div>
+    <div class="score-bar"><span class="score-label">T3b</span><div class="score-fill weak" style="width:4px"></div><span class="score-val">E3</span><span style="font-size:0.65rem;color:var(--t3)">⚠️ 替代路线判断需工程专家</span></div>
+  </div>
+  <div class="panel warn">
+    <div class="panel-title">⚠️ 关键风险</div>
+    <div class="risk-item"><span class="risk-icon">🔴</span><div><b>华为依赖 60.52%</b> — 单一客户占比极高，含排他性合同（不可卖给华为国内竞争对手）</div></div>
+    <div class="risk-item"><span class="risk-icon">🟡</span><div><b>客户集中度 73.25%</b> — 前五大客户占销售总额，华为一家独大</div></div>
+    <div class="risk-item"><span class="risk-icon">🟡</span><div><b>T3=E3 无法判断</b> — "光互联不会替代电互联"为券商判断，非工程技术文档</div></div>
+    <div class="risk-item"><span class="risk-icon">🟡</span><div><b>D5 产能过剩</b> — 定增扩产400%，所有玩家同时扩产→毛利率压缩风险</div></div>
+  </div>
+</div>
+
+<!-- ═══ E1 EVIDENCE AUDIT ═══ -->
+<div class="panel">
+<div class="panel-title">🔍 年报 E1 证据审计</div>
+<table>
+<tr><th>关键论断</th><th>证据级别</th><th>来源</th><th>待升级动作</th></tr>
+<tr>
+  <td>"华为占营收 60.52%"</td>
+  <td><span class="badge badge-e1">E1</span></td>
+  <td>2025年报 前五大客户章节</td>
+  <td>✅ 已确认</td>
+</tr>
+<tr>
+  <td>"高速线模组批量交付"</td>
+  <td><span class="badge badge-e1">E1</span></td>
+  <td>2025年报 业务描述</td>
+  <td>✅ 已确认</td>
+</tr>
+<tr>
+  <td>"华为框架订单 60亿元 (40万套)"</td>
+  <td><span class="badge badge-e2">E2</span></td>
+  <td>券商研报</td>
+  <td>📋 查年报/公告是否披露具体金额</td>
+</tr>
+<tr>
+  <td>"国内唯一 56G/112G/224G 全梯度量产"</td>
+  <td><span class="badge badge-e2">E2</span></td>
+  <td>券商研报多源一致</td>
+  <td>📋 查年报"核心竞争力"章节原文</td>
+</tr>
+<tr>
+  <td>"224Gbps 完成客户验证"</td>
+  <td><span class="badge badge-e2">E2</span></td>
+  <td>券商研报</td>
+  <td>📋 查年报/公告原文</td>
+</tr>
+<tr>
+  <td>"光互联在短距场景不经济"</td>
+  <td><span class="badge badge-e3">E3</span></td>
+  <td>券商技术判断</td>
+  <td>🔴 需半导体工程专家评估</td>
+</tr>
+</table>
+</div>
+
+<!-- ═══ SCENARIO EXPOSURE ═══ -->
+<div class="panel">
+<div class="panel-title">📊 国内情景暴露 (D1-D8)</div>
+<table>
+<tr><th>情景</th><th>方向</th><th>影响逻辑</th></tr>
+<tr><td>D1 政策细则延迟</td><td>🔴 负面</td><td>昇腾采购预期落空 → 估值下杀</td></tr>
+<tr><td>D5 产能过剩</td><td>🔴 负面</td><td>定增扩产+全行业涌入 → 连接器毛利率压缩</td></tr>
+<tr><td>D6 🟢 美国管制升级</td><td>🟢 正面</td><td>国产替代加速 → 昇腾份额提升+华为订单增加</td></tr>
+<tr><td>D8 🟢 链长升级+基金加码</td><td>🟢 正面</td><td>大基金注资半导体产业链 → 估值重定价</td></tr>
+</table>
+</div>
+
+<!-- ═══ EVIDENCE GAPS ═══ -->
+<div class="panel warn">
+<div class="panel-title">📋 待补 E1 证据清单（手动翻年报）</div>
+<div class="gap-row"><span class="check">⬜</span> 年报"核心竞争力"章节 — "224G" + "全梯度"原文摘录</div>
+<div class="gap-row"><span class="check">⬜</span> 年报"前五大客户"章节 — 华为占比 60.52% 的原文页码</div>
+<div class="gap-row"><span class="check">⬜</span> 公告/互动平台 — 60亿元框架订单的原文</div>
+<div class="gap-row"><span class="check">⬜</span> 年报"产能"章节 — 6000→30000套/月的原文</div>
+<div class="gap-row"><span class="check">⬜</span> 🔴 T3b — 找一位半导体/通信工程师朋友确认"224G电互联是否会被光互联替代"</div>
+</div>
+
+<!-- ═══ BUSINESS SNAPSHOT ═══ -->
+<div class="grid-3">
+  <div class="panel"><div class="panel-title">2025 营收</div><div class="metric"><div class="val">25.28亿</div><div class="lbl">+131.5% YoY</div></div></div>
+  <div class="panel"><div class="panel-title">2025 净利润</div><div class="metric"><div class="val green">3.59亿</div><div class="lbl">扭亏为盈</div></div></div>
+  <div class="panel"><div class="panel-title">产能扩张</div><div class="metric"><div class="val">+400%</div><div class="lbl">6K→30K套/月</div></div></div>
+</div>
+
+<div class="note">
+📁 <b>相关文档</b>：<a href="供应链映射方法论.md">方法论 §18.2/§18.6</a> · <a href="domestic-supply-chain.html">国内生态图谱</a> · <a href="瓶颈初筛与验证结果_v3.1.md">证据审计</a><br>
+🕐 生成：2026-06-07 · 方法论 v3.1 · 单票视图 v1<br>
+⚠️ 本页为 E2 初评，所有评分待年报原文验证升级至 E1。不构成投资建议。
+</div>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+# 密钥
+.deepseek-key
+.env
+*.key
+
+# 依赖
+node_modules/
+__pycache__/
+*.pyc
+
+# 临时文件
+*.log
+logininfo.log

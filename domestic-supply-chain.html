@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>🔗 中国自主可控 · 全层级供应链图谱</title>
+<style>
+:root{--bg:#0f1117;--ca:#1a1d27;--bd:#252836;--t1:#e2e8f0;--t2:#94a3b8;--t3:#64748b;--ac:#ef4444;--gr:#22c55e;--yl:#eab308;--rd:#ef4444}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--t1);font-size:14px;padding:20px}
+h1{font-size:1.3rem;margin-bottom:4px;background:linear-gradient(135deg,#ef4444,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+h2{font-size:1rem;margin:20px 0 10px;color:var(--t2);border-bottom:1px solid var(--bd);padding-bottom:6px}
+.sub{font-size:0.68rem;color:var(--t3);margin-bottom:16px}
+.tier{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.tier-label{width:90px;flex-shrink:0;text-align:right;font-size:0.68rem;color:var(--t3);padding-top:10px}
+.tier-content{flex:1;display:flex;flex-wrap:wrap;gap:6px}
+.node{background:var(--ca);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;min-width:150px;max-width:230px;font-size:0.75rem;transition:border-color .2s}
+.node:hover{border-color:var(--ac)}
+.node .name{font-weight:600}
+.node .code{font-size:0.6rem;color:var(--t3)}
+.node .role{font-size:0.65rem;color:var(--t2);margin-top:4px}
+.node .tag{display:inline-block;padding:1px 4px;border-radius:3px;font-size:0.58rem;margin-top:3px;font-weight:600}
+.tag-t1{background:rgba(239,68,68,.15);color:#f87171}
+.tag-t2{background:rgba(249,115,22,.15);color:#fb923c}
+.tag-t3{background:rgba(34,197,94,.12);color:#4ade80}
+.tag-t4{background:rgba(234,179,8,.12);color:#facc15}
+.tag-km{background:rgba(168,85,247,.15);color:#a78bfa;font-size:0.55rem}
+.arrow{display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--bd);padding:4px 0}
+.note{font-size:0.65rem;color:var(--t3);margin-top:20px;line-height:1.8}
+.bottleneck{border-color:#ef4444!important;border-width:2px!important;box-shadow:0 0 8px rgba(239,68,68,.15)}
+.switch{font-size:0.55rem;color:#f87171;margin-top:2px}
+</style>
+</head>
+<body>
+
+<h1>🔗 中国自主可控 — 全层级供应链图谱</h1>
+<p class="sub">四生态 · ~59只标的 · 五只物理开关（红框标注）· 方法论 v2.7</p>
+
+<!-- ═══ A: 国产AI算力 / 昇腾 ═══ -->
+<h2>🧠 国产AI算力 — 华为昇腾 + 寒武纪 + 海光</h2>
+
+<div style="display:flex"><div class="tier-label">T4 原料</div><div class="tier-content">
+  <div class="node"><div class="name">华海诚科</div><div class="code">688535</div><div class="role">环氧塑封料 EMC</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">三环集团</div><div class="code">300408</div><div class="role">陶瓷基板 GPU市占40%</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">兴森科技</div><div class="code">002436</div><div class="role">ABF载板 国内唯一20层+</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">雅克科技</div><div class="code">002409</div><div class="role">HBM前驱体材料</div><span class="tag tag-t4">T4</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T3 部件</div><div class="tier-content">
+  <div class="node bottleneck"><div class="name">华丰科技 ⭐</div><div class="code">688629</div><div class="role">高速背板连接器 国内唯一224G量産</div><span class="tag tag-t3">T3</span><div class="switch">🔴 物理开关 §18.6=13分</div></div>
+  <div class="node"><div class="name">申菱环境</div><div class="code">301018</div><div class="role">华为液冷第一大供应商(50%)</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">光迅科技</div><div class="code">002281</div><div class="role">1.6T光模块 昇腾384超节点</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">深南电路</div><div class="code">002916</div><div class="role">昇腾PCB 华为金牌供应商</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">生益电子</div><div class="code">688183</div><div class="role">昇腾PCB 华为占比40%+</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">泰嘉股份</div><div class="code">002843</div><div class="role">昇腾910C/950电源(>50%)</div><span class="tag tag-t3">T3</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T2 核心</div><div class="tier-content">
+  <div class="node bottleneck"><div class="name">长电科技 ⭐</div><div class="code">600584</div><div class="role">昇腾910C独家封装 950PR份额60%+</div><span class="tag tag-km">跨生态</span><span class="tag tag-t2">T2</span><div class="switch">🔴 物理开关 §18.6=12分</div></div>
+  <div class="node"><div class="name">通富微电</div><div class="code">002156</div><div class="role">昇腾备份供应商</div><span class="tag tag-km">跨生态</span><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">英维克</div><div class="code">002837</div><div class="role">液冷 华为/字节/阿里 冷板>50%</div><span class="tag tag-km">跨生态</span><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">麦格米特</div><div class="code">002851</div><div class="role">HVDC AIDC供电方案</div><span class="tag tag-km">跨生态</span><span class="tag tag-t2">T2</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T1 终端</div><div class="tier-content">
+  <div class="node" style="border-color:#f97316"><div class="name">华为昇腾</div><div class="code">910C / 950 / 950PR</div><div class="role">国产AI算力绝对龙头</div></div>
+  <div class="node" style="border-color:#f97316"><div class="name">寒武纪</div><div class="code">688256</div><div class="role">思元590/690 云端AI芯片</div></div>
+  <div class="node" style="border-color:#f97316"><div class="name">海光信息</div><div class="code">688041</div><div class="role">深算系列 CPU+DCU</div></div>
+</div></div>
+
+<!-- ═══ B: 中国商业航天 ═══ -->
+<h2>🚀 中国商业航天 — 星网 + 千帆 + 蓝箭</h2>
+
+<div style="display:flex"><div class="tier-label">T4 材料</div><div class="tier-content">
+  <div class="node"><div class="name">光威复材</div><div class="code">300699</div><div class="role">碳纤维 市占>60%</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">中复神鹰</div><div class="code">688295</div><div class="role">T1100级高端碳纤维</div><span class="tag tag-t4">T4</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T3 部件</div><div class="tier-content">
+  <div class="node bottleneck"><div class="name">铖昌科技 ⭐</div><div class="code">001270</div><div class="role">星载T/R芯片 市占>70% 国内唯一民企量産</div><span class="tag tag-t3">T3</span><div class="switch">🔴 物理开关 §18.6=16分 (最高)</div></div>
+  <div class="node"><div class="name">中航光电</div><div class="code">002179</div><div class="role">连接器 蓝箭核心供应商</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">陕西华达</div><div class="code">301517</div><div class="role">射频连接器 星网二期</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">天银机电</div><div class="code">300342</div><div class="role">星敏感器</div><span class="tag tag-t3">T3</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T2 核心</div><div class="tier-content">
+  <div class="node"><div class="name">中国卫星</div><div class="code">600118</div><div class="role">星网60%卫星 140亿订单</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">神剑股份</div><div class="code">002361</div><div class="role">朱雀三号尾段独家(>40%)</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">斯瑞新材</div><div class="code">688102</div><div class="role">推力室 朱雀三号独家</div><span class="tag tag-km">跨生态</span><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">菲利华</div><div class="code">300395</div><div class="role">石英纤维 航空航天90%</div><span class="tag tag-km">跨生态</span><span class="tag tag-t2">T2</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T1 终端</div><div class="tier-content">
+  <div class="node" style="border-color:#f97316"><div class="name">中国星网 GW</div><div class="code">央企 · 12,992颗</div><div class="role">国家低轨星座 链长=航天科技集团(E1)</div></div>
+  <div class="node" style="border-color:#f97316"><div class="name">千帆星座 G60</div><div class="code">上海垣信 · 15,000颗</div><div class="role">商业低轨星座</div></div>
+  <div class="node" style="border-color:#f97316"><div class="name">蓝箭航天</div><div class="code">朱雀三号 可重复</div><div class="role">商业火箭龙头</div></div>
+</div></div>
+
+<!-- ═══ C: 国产机器人 ═══ -->
+<h2>🤖 国产人形机器人 — 宇树 + 优必选 + 小米</h2>
+
+<div style="display:flex"><div class="tier-label">T3 核心件</div><div class="tier-content">
+  <div class="node bottleneck"><div class="name">绿的谐波 ⭐</div><div class="code">688017</div><div class="role">谐波减速器 国内60%+ 全球前二</div><span class="tag tag-km">跨生态</span><span class="tag tag-t3">T3</span><div class="switch">🔴 物理开关 §18.6=13分</div></div>
+  <div class="node"><div class="name">柯力传感</div><div class="code">603662</div><div class="role">六维力传感器 50+家送样</div><span class="tag tag-km">跨生态</span><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">恒立液压</div><div class="code">601100</div><div class="role">行星滚柱丝杠</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">汇川技术</div><div class="code">300124</div><div class="role">伺服电机 市占28%</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">贝斯特</div><div class="code">300580</div><div class="role">滚柱丝杠</div><span class="tag tag-t3">T3</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T2 执行器</div><div class="tier-content">
+  <div class="node"><div class="name">拓普集团</div><div class="code">601689</div><div class="role">线性执行器+灵巧手 100万台</div><span class="tag tag-km">跨生态</span><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">三花智控</div><div class="code">002050</div><div class="role">旋转关节 12亿采购订单</div><span class="tag tag-km">跨生态</span><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">奥比中光</div><div class="code">688322</div><div class="role">3D视觉 精度0.1mm</div><span class="tag tag-t2">T2</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T1 终端</div><div class="tier-content">
+  <div class="node" style="border-color:#f97316"><div class="name">宇树科技</div><div class="code">科创板IPO中</div><div class="role">全球出货量第一(5,500台)</div></div>
+  <div class="node" style="border-color:#f97316"><div class="name">优必选</div><div class="code">9880.HK</div><div class="role">Walker系列 年交付~1万台</div></div>
+  <div class="node" style="border-color:#f97316"><div class="name">小米 CyberOne</div><div class="code">1810.HK</div><div class="role">自研人形机器人</div></div>
+</div></div>
+
+<!-- ═══ D: 低空经济 ═══ -->
+<h2>🚁 低空经济 — eVTOL + 无人机 + 空管</h2>
+
+<div style="display:flex"><div class="tier-label">T4 材料</div><div class="tier-content">
+  <div class="node"><div class="name">中航高科</div><div class="code">600862</div><div class="role">预浸料 市占80% 28家eVTOL供应商</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">中复神鹰</div><div class="code">688295</div><div class="role">T1100级高端碳纤维</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">宁德时代</div><div class="code">300750</div><div class="role">航空级高密度电池</div><span class="tag tag-t4">T4</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T3 部件</div><div class="tier-content">
+  <div class="node"><div class="name">卧龙电驱</div><div class="code">600580</div><div class="role">eVTOL电机 小鹏/亿航供应</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">英搏尔</div><div class="code">300681</div><div class="role">亿航eVTOL电推进核心</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">宗申动力</div><div class="code">001696</div><div class="role">航空活塞发动机 >30%</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">海格通信</div><div class="code">002465</div><div class="role">5G-A+北斗 低空通信</div><span class="tag tag-t3">T3</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T2 系统</div><div class="tier-content">
+  <div class="node bottleneck"><div class="name">莱斯信息 ⭐</div><div class="code">688631</div><div class="role">空管系统 市占60-80% 低空天牧45%+</div><span class="tag tag-t2">T2</span><div class="switch">🔴 物理开关 §18.6=13分</div></div>
+  <div class="node"><div class="name">万丰奥威</div><div class="code">002085</div><div class="role">eVTOL整机 Volocopter+钻石</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">纵横股份</div><div class="code">688070</div><div class="role">工业无人机飞控龙头</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">中直股份</div><div class="code">600038</div><div class="role">直升机全链 市占>70%</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">四川九洲</div><div class="code">000801</div><div class="role">空管雷达+通信</div><span class="tag tag-t2">T2</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T1 运营</div><div class="tier-content">
+  <div class="node" style="border-color:#f97316"><div class="name">中信海直</div><div class="code">000099</div><div class="role">A股唯一低空运营商</div></div>
+  <div class="node" style="border-color:#f97316"><div class="name">亿航智能</div><div class="code">EH (美股)</div><div class="role">全球首个eVTOL适航</div></div>
+  <div class="node" style="border-color:#f97316"><div class="name">小鹏汇天</div><div class="code">未上市</div><div class="role">飞行汽车 2026量产</div></div>
+</div></div>
+
+<!-- ═══ 图例 ═══ -->
+<div class="note">
+📌 <b>图例</b><br>
+<span class="tag tag-t1">T1</span> 终端产品 / <span class="tag tag-t2">T2</span> 核心部件/子系统 / <span class="tag tag-t3">T3</span> 基础材料/零部件 / <span class="tag tag-t4">T4</span> 原材料<br>
+<span class="tag tag-km">跨生态</span> 该标的在 ≥2 个生态中（美国+国内）<br>
+🔴 <b style="color:#f87171">红框 = 物理开关</b>（Serenity式瓶颈：该品类国内 ≤2 家能做）<br>
+<br>
+📊 <b>五只物理开关</b>：铖昌科技(16分) > 华丰科技(13) = 绿的谐波(13) = 莱斯信息(13) > 长电科技(12)<br>
+📁 <b>配套文档</b>：<a href="供应链映射方法论.md" style="color:#3b82f6">供应链映射方法论 v2.7</a> · <a href="supply-chain.html" style="color:#3b82f6">美国双生态图谱</a><br>
+🕐 更新：2026-06-06 · 方法论 v2.7
+</div>
+
+</body>
+</html>

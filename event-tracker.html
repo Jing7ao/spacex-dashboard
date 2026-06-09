@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>📡 供应链事件追踪</title>
+<style>
+:root{--bg:#0f1117;--ca:#1a1d27;--bd:#252836;--t1:#e2e8f0;--t2:#94a3b8;--t3:#64748b;--ac:#3b82f6;--gr:#22c55e;--rd:#ef4444;--yl:#eab308;--r:10px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--t1);font-size:14px;padding:20px;max-width:1000px;margin:0 auto}
+h1{font-size:1.2rem;margin-bottom:4px}
+.sub{color:var(--t3);font-size:0.7rem;margin-bottom:20px}
+.panel{background:var(--ca);border:1px solid var(--bd);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.panel-title{font-weight:600;font-size:0.8rem;margin-bottom:10px;color:var(--t2);display:flex;justify-content:space-between;align-items:center}
+table{width:100%;border-collapse:collapse;font-size:0.72rem}
+th{text-align:left;padding:6px 8px;color:var(--t3);font-weight:500;font-size:0.65rem;border-bottom:1px solid var(--bd)}
+td{padding:6px 8px;border-bottom:1px solid rgba(37,40,54,.5);vertical-align:top}
+.ev-type{padding:2px 6px;border-radius:3px;font-size:0.6rem;font-weight:600;white-space:nowrap}
+.t-supply{background:rgba(34,197,94,.12);color:#4ade80}
+.t-order{background:rgba(59,130,246,.12);color:#60a5fa}
+.t-cert{background:rgba(234,179,8,.12);color:#eab308}
+.t-share{background:rgba(168,85,247,.12);color:#c084fc}
+.t-sub{background:rgba(239,68,68,.12);color:#f87171}
+.t-sanction{background:rgba(239,68,68,.18);color:#f87171}
+.t-expand{background:rgba(34,197,94,.12);color:#4ade80}
+.t-refute{background:rgba(239,68,68,.12);color:#f87171}
+.ev-lv{padding:1px 4px;border-radius:2px;font-size:0.58rem;font-weight:600}
+.lv-e1{background:rgba(34,197,94,.15);color:#4ade80}
+.lv-e2{background:rgba(59,130,246,.12);color:#60a5fa}
+.lv-e3{background:rgba(148,163,184,.1);color:#94a3b8}
+.ret{font-family:'SF Mono',Consolas,monospace;font-size:0.68rem}
+.ret-pos{color:#4ade80}.ret-neg{color:#f87171}.ret-na{color:var(--t3)}
+input,select,textarea{background:var(--bg);color:var(--t1);border:1px solid var(--bd);border-radius:6px;padding:6px 8px;font-size:0.72rem;width:100%;margin-bottom:8px;font-family:inherit}
+textarea{resize:vertical;min-height:40px}
+.form-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.form-row-3{display:grid;grid-template-columns:1fr 2fr;gap:8px}
+button{padding:6px 14px;border:1px solid var(--bd);border-radius:6px;background:var(--ca);color:var(--t1);cursor:pointer;font-size:0.72rem}
+button:hover{border-color:var(--ac)}
+.btn-ac{background:var(--ac);color:#fff;border-color:var(--ac)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.stat{padding:10px;background:rgba(59,130,246,.04);border-radius:6px;text-align:center}
+.stat-v{font-size:1.3rem;font-weight:700;font-family:'SF Mono',Consolas,monospace}
+.stat-l{font-size:0.6rem;color:var(--t3);margin-top:2px}
+.warn{background:rgba(234,179,8,.08);border:1px solid rgba(234,179,8,.2);padding:10px 14px;border-radius:6px;font-size:0.7rem;color:var(--yl);margin-bottom:12px}
+</style>
+</head>
+<body>
+
+<h1>📡 供应链事件追踪</h1>
+<div class="sub">方法论 §3.6 · 事件-价格追踪框架 · 目标累计 ≥30 条事件</div>
+
+<div class="warn" id="staleWarn" style="display:none">
+  ⚠️ 数据已超过24小时未更新。双击 <code style="background:rgba(234,179,8,.2);padding:1px 4px;border-radius:3px">update-events.cmd</code> 更新
+</div>
+
+<div class="warn" id="statusWarn" style="display:none">
+  ⚠️ 当前累计 <strong id="eventCount">0</strong> 条事件。≥30 条后可执行首次归因分析。
+</div>
+
+<!-- 统计概览 -->
+<div class="stats-grid">
+  <div class="stat"><div class="stat-v" id="stTotal">0</div><div class="stat-l">总事件</div></div>
+  <div class="stat"><div class="stat-v" id="stE1">0</div><div class="stat-l">E1级(直接引用)</div></div>
+  <div class="stat"><div class="stat-v" id="stE2">0</div><div class="stat-l">E2级(合理推断)</div></div>
+  <div class="stat"><div class="stat-v" id="stFilled">0</div><div class="stat-l">已填收益数据</div></div>
+</div>
+
+<!-- 事件列表 -->
+<div class="panel" style="margin-top:12px">
+  <div class="panel-title">
+    <span>📋 事件列表</span>
+    <button onclick="toggleForm()" class="btn-ac">+ 新增事件</button>
+  </div>
+
+  <!-- 新增表单 -->
+  <div id="addForm" style="display:none;margin-bottom:14px;padding:12px;background:rgba(59,130,246,.04);border-radius:6px">
+    <div class="form-row">
+      <input type="text" id="fCode" placeholder="股票代码 (如 300476)">
+      <input type="text" id="fName" placeholder="股票名称">
+      <input type="date" id="fDate" placeholder="事件日期">
+    </div>
+    <select id="fType">
+      <option value="">选择事件类型</option>
+      <option value="supply_confirm">供应确认(年报/公告)</option>
+      <option value="order_disclose">订单披露(具体金额)</option>
+      <option value="cert_progress">认证进展(通过/送样)</option>
+      <option value="share_change">份额变化(客户集中度变化)</option>
+      <option value="sub_signal">替代信号(竞争对手进展)</option>
+      <option value="sanction">管制/制裁</option>
+      <option value="expand">扩产公告</option>
+      <option value="refute">证伪(否认/终止)</option>
+    </select>
+    <textarea id="fDesc" placeholder="事件描述(≤50字)"></textarea>
+    <div class="form-row-3">
+      <input type="text" id="fSource" placeholder="来源 (如: 2025年报p.52)">
+      <select id="fEvidence">
+        <option value="E1">E1 直接引用</option>
+        <option value="E2">E2 合理推断</option>
+        <option value="E3">E3 估算</option>
+      </select>
+    </div>
+    <textarea id="fNote" placeholder="备注(可选)" style="min-height:30px"></textarea>
+    <button onclick="addEvent()" class="btn-ac" style="margin-top:4px">确认添加</button>
+  </div>
+
+  <div style="overflow-x:auto">
+    <table>
+      <thead>
+        <tr><th>日期</th><th>标的</th><th>类型</th><th>描述</th><th>证据</th><th>D0</th><th>D+5超额</th><th>D+20超额</th><th>D+60超额</th><th></th></tr>
+      </thead>
+      <tbody id="eventTable"></tbody>
+    </table>
+  </div>
+</div>
+
+<script src="events-data.js"></script>
+<script src="stock-price-fetcher.js"></script>
+<script>
+// ═══ 事件类型映射 ═══
+var TYPE_MAP={
+  supply_confirm:{label:'供应确认',cls:'t-supply'},
+  order_disclose:{label:'订单披露',cls:'t-order'},
+  cert_progress:{label:'认证进展',cls:'t-cert'},
+  share_change:{label:'份额变化',cls:'t-share'},
+  sub_signal:{label:'替代信号',cls:'t-sub'},
+  sanction:{label:'管制/制裁',cls:'t-sanction'},
+  expand:{label:'扩产公告',cls:'t-expand'},
+  refute:{label:'证伪',cls:'t-refute'}
+};
+
+// ═══ 加载事件 ═══
+var events=[];
+function loadEvents(){
+  // 优先从自动生成的 events-data.js 加载
+  if(typeof EVENTS_DATA!=='undefined'&&EVENTS_DATA.length>0){
+    events=EVENTS_DATA;
+    saveEvents();
+    renderAll();
+    return;
+  }
+  // fallback: localStorage
+  try{
+    var stored=localStorage.getItem('mx_events');
+    if(stored){events=JSON.parse(stored);renderAll();return}
+  }catch(e){}
+  // fallback: fetch events.json
+  fetch('events.json').then(function(r){return r.json()}).then(function(data){
+    events=data;
+    saveEvents();
+    renderAll();
+  }).catch(function(){
+    events=[];
+    renderAll();
+  });
+}
+
+function saveEvents(){
+  try{localStorage.setItem('mx_events',JSON.stringify(events))}catch(e){}
+}
+
+// ═══ 渲染 ═══
+function renderAll(){
+  renderStats();
+  renderTable();
+}
+
+function renderStats(){
+  var e1=events.filter(function(e){return e.evidence_level==='E1'}).length;
+  var e2=events.filter(function(e){return e.evidence_level==='E2'}).length;
+  var filled=events.filter(function(e){return e.d5_excess!==null}).length;
+  document.getElementById('stTotal').textContent=events.length;
+  document.getElementById('stE1').textContent=e1;
+  document.getElementById('stE2').textContent=e2;
+  document.getElementById('stFilled').textContent=filled;
+
+  // 检查数据新鲜度
+  var latestFill=null;
+  events.forEach(function(e){if(e._filled_at&&(!latestFill||e._filled_at>latestFill))latestFill=e._filled_at;});
+  if(latestFill){
+    var hoursAgo=(Date.now()-new Date(latestFill).getTime())/3600000;
+    var sub=document.querySelector('.sub');
+    if(sub)sub.textContent='数据更新于 '+latestFill+' ('+Math.round(hoursAgo)+'小时前) | 目标累计 >=30 条事件';
+    document.getElementById('staleWarn').style.display=hoursAgo>24?'block':'none';
+  }
+  document.getElementById('eventCount').textContent=events.length;
+  var warn=document.getElementById('statusWarn');
+  if(events.length<30){warn.style.display='block'}
+  else{warn.style.display='none'}
+}
+
+function renderTable(){
+  var tbody=document.getElementById('eventTable');
+  if(events.length===0){
+    tbody.innerHTML='<tr><td colspan="10" style="color:var(--t3);text-align:center;padding:20px">暂无事件。点击"+ 新增事件"开始记录。</td></tr>';
+    return;
+  }
+  // 按日期倒序
+  var sorted=events.slice().sort(function(a,b){return b.event_date.localeCompare(a.event_date)});
+  tbody.innerHTML=sorted.map(function(e,i){
+    var tm=TYPE_MAP[e.event_type]||{label:e.event_type,cls:''};
+    var r=function(v){
+      if(v===null||v===undefined)return'<span class="ret-na">--</span>';
+      var cls=v>=0?'ret-pos':'ret-neg';
+      return'<span class="ret '+cls+'">'+(v>=0?'+':'')+v.toFixed(1)+'%</span>';
+    };
+    return'<tr>'+
+      '<td style="white-space:nowrap">'+e.event_date+'</td>'+
+      '<td><strong>'+e.stock_name+'</strong><br><span style="font-size:0.58rem;color:var(--t3)">'+e.stock_code+'</span></td>'+
+      '<td><span class="ev-type '+tm.cls+'">'+tm.label+'</span></td>'+
+      '<td style="max-width:200px">'+e.event_desc+'</td>'+
+      '<td><span class="ev-lv lv-'+e.evidence_level.toLowerCase()+'">'+e.evidence_level+'</span><br><span style="font-size:0.55rem;color:var(--t3)">'+e.source_ref+'</span></td>'+
+      '<td>'+r(e.d0_return)+'</td>'+
+      '<td>'+r(e.d5_excess)+'</td>'+
+      '<td>'+r(e.d20_excess)+'</td>'+
+      '<td>'+r(e.d60_excess)+'</td>'+
+      '<td><button onclick="editReturns('+i+')" style="font-size:0.55rem;padding:2px 4px" title="填写收益数据">✎</button></td>'+
+      '</tr>';
+  }).join('');
+}
+
+// ═══ 新增事件 ═══
+function toggleForm(){
+  var f=document.getElementById('addForm');
+  f.style.display=f.style.display==='none'?'block':'none';
+}
+
+function addEvent(){
+  var code=document.getElementById('fCode').value.trim();
+  var name=document.getElementById('fName').value.trim();
+  var date=document.getElementById('fDate').value;
+  var type=document.getElementById('fType').value;
+  var desc=document.getElementById('fDesc').value.trim();
+  var source=document.getElementById('fSource').value.trim();
+  var evidence=document.getElementById('fEvidence').value;
+  var note=document.getElementById('fNote').value.trim();
+
+  if(!code||!name||!date||!type||!desc){
+    alert('请填写必填字段：代码、名称、日期、类型、描述');
+    return;
+  }
+
+  events.push({
+    id:'evt_'+Date.now(),
+    stock_code:code,
+    stock_name:name,
+    event_date:date,
+    event_type:type,
+    event_desc:desc.substring(0,100),
+    source_ref:source,
+    source_type:evidence==='E1'?'公告/年报':'券商研报/其他',
+    evidence_level:evidence,
+    d0_return:null,
+    d5_excess:null,
+    d20_excess:null,
+    d60_excess:null,
+    notes:note||null
+  });
+
+  saveEvents();
+  document.getElementById('addForm').style.display='none';
+  // 清空表单
+  ['fCode','fName','fDate','fType','fDesc','fSource','fNote'].forEach(function(id){
+    document.getElementById(id).value='';
+  });
+  renderAll();
+}
+
+// ═══ 编辑收益数据 ═══
+function editReturns(idx){
+  var sorted=events.slice().sort(function(a,b){return b.event_date.localeCompare(a.event_date)});
+  var e=sorted[idx];
+  var d0=prompt('D-Day 收益率 (%):',e.d0_return!==null?e.d0_return:'');
+  if(d0===null)return;
+  var d5=prompt('D+5 相对沪深300超额收益 (%):',e.d5_excess!==null?e.d5_excess:'');
+  if(d5===null)return;
+  var d20=prompt('D+20 相对沪深300超额收益 (%):',e.d20_excess!==null?e.d20_excess:'');
+  if(d20===null)return;
+  var d60=prompt('D+60 相对沪深300超额收益 (%):',e.d60_excess!==null?e.d60_excess:'');
+  if(d60===null)return;
+
+  // 找到原始事件并更新
+  var orig=events.find(function(ev){return ev.id===e.id});
+  if(orig){
+    orig.d0_return=d0?parseFloat(d0):null;
+    orig.d5_excess=d5?parseFloat(d5):null;
+    orig.d20_excess=d20?parseFloat(d20):null;
+    orig.d60_excess=d60?parseFloat(d60):null;
+    saveEvents();
+    renderAll();
+  }
+}
+
+// ═══ 初始化 ═══
+loadEvents();
+</script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>📋 财报数据更新工具</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#0f1117;color:#e2e8f0;padding:20px;font-size:14px}
+h1{font-size:1.2rem;margin-bottom:8px;background:linear-gradient(135deg,#3b82f6,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:0.7rem;color:#64748b;margin-bottom:16px}
+.card{background:#1a1d27;border:1px solid #252836;border-radius:10px;padding:14px;margin-bottom:10px}
+.card h3{font-size:0.85rem;margin-bottom:6px;color:#94a3b8}
+button{padding:8px 16px;border-radius:6px;border:none;cursor:pointer;font-size:0.8rem;font-weight:600;margin-right:6px}
+.btn-go{background:#3b82f6;color:#fff}.btn-go:hover{background:#2563eb}
+.btn-copy{background:#22c55e;color:#fff}.btn-copy:hover{background:#16a34a}
+.btn-clip{background:#eab308;color:#111;font-size:0.65rem;padding:3px 8px;margin-left:4px}
+.status{font-size:0.75rem;padding:6px 10px;border-radius:6px;margin-top:8px}
+.status.ok{background:rgba(34,197,94,.1);color:#22c55e}
+.status.err{background:rgba(239,68,68,.1);color:#ef4444}
+.status.pend{background:rgba(234,179,8,.1);color:#eab308}
+.progress{height:4px;background:#252836;border-radius:2px;margin:8px 0;overflow:hidden}
+.progress-fill{height:100%;background:#3b82f6;border-radius:2px;transition:width .3s}
+table{width:100%;border-collapse:collapse;font-size:0.7rem;margin-top:10px}
+th{text-align:left;padding:6px 8px;color:#64748b;font-weight:500;border-bottom:1px solid #252836;font-size:0.65rem}
+td{padding:6px 8px;border-bottom:1px solid rgba(37,40,54,.5)}
+td .up{color:#22c55e}td .down{color:#ef4444}
+input{background:#0f1117;color:#e2e8f0;border:1px solid #252836;border-radius:6px;padding:6px 8px;font-size:0.8rem;width:100%}
+textarea{width:100%;height:120px;background:#0f1117;color:#e2e8f0;border:1px solid #252836;border-radius:6px;padding:8px;font-size:0.7rem;font-family:monospace;resize:vertical;margin-top:6px}
+.note{font-size:0.62rem;color:#64748b;margin-top:6px;line-height:1.6}
+</style></head><body>
+<h1>📋 财报数据更新工具</h1>
+<p class="sub">每季度财报发布后运行一次，5 分钟更新全部 80 只股票的 ROE/利润增速/毛利率/负债率</p>
+
+<div class="card">
+  <h3>方式一：自动拉取（推荐）</h3>
+  <p style="font-size:0.7rem;color:#94a3b8;margin-bottom:8px">JavaScript 直连东方财富 F10 接口，全自动更新</p>
+  <button class="btn-go" onclick="autoFetch()">🚀 自动拉取全部</button>
+  <span id="autoStatus"></span>
+  <div class="progress"><div class="progress-fill" id="prog" style="width:0%"></div></div>
+  <div id="autoResult"></div>
+</div>
+
+<div class="card">
+  <h3>方式二：手动粘贴（备选）</h3>
+  <p style="font-size:0.7rem;color:#94a3b8;margin-bottom:8px">浏览器打开 F10 接口 → 复制 JSON → 粘贴到下面 → 一次性导入</p>
+  <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;align-items:center">
+    <select id="stockSel" style="background:#0f1117;color:#e2e8f0;border:1px solid #252836;border-radius:6px;padding:6px 8px;font-size:0.8rem"></select>
+    <button class="btn-copy" onclick="openFinURL()">📋 打开 F10 接口</button>
+    <button class="btn-clip" onclick="copyExample()">📎 复制示例</button>
+  </div>
+  <textarea id="jsonInput" placeholder="粘贴从 F10 接口返回的 JSON 数据..."></textarea>
+  <button class="btn-go" onclick="importJSON()" style="margin-top:8px">📥 导入这只股票</button>
+  <span id="manualStatus"></span>
+</div>
+
+<div class="card" id="resultCard" style="display:none"><h3>📊 最近更新结果</h3><div id="resultTable"></div></div>
+
+<div class="note">
+  <strong>使用说明：</strong>每季度财报季（4月、8月、10月）结束后运行一次。<br>
+  数据来源：东方财富 F10 接口（emweb.securities.eastmoney.com）<br>
+  更新后刷新监控面板即可看到新的财务评分。
+</div>
+
+<script>
+var STOCKS=[
+  // space
+  {c:'002149',m:0,n:'西部材料'},{c:'300136',m:0,n:'信维通信'},{c:'300433',m:0,n:'蓝思科技'},{c:'688102',m:1,n:'斯瑞新材'},{c:'603809',m:1,n:'豪能股份'},{c:'301005',m:0,n:'超捷股份'},{c:'002865',m:0,n:'钧达股份'},
+  // ai
+  {c:'300502',m:0,n:'新易盛'},{c:'688256',m:1,n:'寒武纪'},{c:'002230',m:0,n:'科大讯飞'},{c:'688111',m:1,n:'金山办公'},{c:'300418',m:0,n:'昆仑万维'},{c:'600602',m:1,n:'云赛智联'},
+  // newenergy
+  {c:'300750',m:0,n:'宁德时代'},{c:'601012',m:1,n:'隆基绿能'},{c:'002129',m:0,n:'中环股份'},{c:'688599',m:1,n:'天合光能'},{c:'300274',m:0,n:'阳光电源'},
+  // chip
+  {c:'688981',m:1,n:'中芯国际'},{c:'002371',m:0,n:'北方华创'},{c:'603986',m:1,n:'兆易创新'},{c:'688012',m:1,n:'中微公司'},{c:'300782',m:0,n:'卓胜微'},{c:'688008',m:1,n:'澜起科技'},
+  // consumer
+  {c:'002475',m:0,n:'立讯精密'},{c:'601138',m:1,n:'工业富联'},{c:'002241',m:0,n:'歌尔股份'},{c:'600745',m:1,n:'闻泰科技'},
+  // musk
+  {c:'600456',m:1,n:'宝钛股份'},{c:'603601',m:1,n:'再升科技'},{c:'301522',m:0,n:'上大股份'},{c:'688333',m:1,n:'铂力特'},{c:'605123',m:1,n:'派克新材'},{c:'603308',m:1,n:'应流股份'},{c:'300855',m:0,n:'图南股份'},{c:'300395',m:0,n:'菲利华'},{c:'603212',m:1,n:'赛伍技术'},{c:'002792',m:0,n:'通宇通讯'},{c:'603305',m:1,n:'旭升集团'},{c:'603348',m:1,n:'文灿股份'},{c:'601689',m:1,n:'拓普集团'},{c:'002050',m:0,n:'三花智控'},{c:'600699',m:1,n:'均胜电子'},{c:'002036',m:0,n:'联创电子'},{c:'002920',m:0,n:'德赛西威'},{c:'688017',m:1,n:'绿的谐波'},{c:'603662',m:1,n:'柯力传感'},{c:'600143',m:1,n:'金发科技'},{c:'002466',m:0,n:'天齐锂业'},{c:'603799',m:1,n:'华友钴业'},{c:'000970',m:0,n:'中科三环'},{c:'300748',m:0,n:'金力永磁'},
+  // nvidia
+  {c:'601208',m:1,n:'东材科技'},{c:'688300',m:1,n:'联瑞新材'},{c:'301389',m:0,n:'隆扬电子'},{c:'605589',m:1,n:'圣泉集团'},{c:'600183',m:1,n:'生益科技'},{c:'603256',m:1,n:'宏和科技'},{c:'688535',m:1,n:'华海诚科'},{c:'300408',m:0,n:'三环集团'},{c:'300476',m:0,n:'胜宏科技'},{c:'002463',m:0,n:'沪电股份'},{c:'002916',m:0,n:'深南电路'},{c:'600584',m:1,n:'长电科技'},{c:'688153',m:1,n:'英诺赛科'},{c:'300308',m:0,n:'中际旭创'},{c:'300394',m:0,n:'天孚通信'},{c:'002837',m:0,n:'英维克'},{c:'002851',m:0,n:'麦格米特'},{c:'002156',m:0,n:'通富微电'},
+];
+
+// Init
+var sel=document.getElementById('stockSel');
+STOCKS.forEach(function(s){var o=document.createElement('option');o.value=s.c+'|'+(s.m===1?'SH':'SZ');o.textContent=s.n+' ('+s.c+')';sel.appendChild(o)});
+
+function finURL(code,prefix){
+  return 'https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/ZYZBAjaxNew?type=0&code='+prefix+code;
+}
+
+function openFinURL(){
+  var v=sel.value.split('|');
+  window.open(finURL(v[0],v[1]),'_blank');
+}
+
+function copyExample(){
+  var v=sel.value.split('|');
+  var url=finURL(v[0],v[1]);
+  navigator.clipboard.writeText(url).then(function(){alert('已复制:\n'+url+'\n\n粘贴到浏览器打开，复制返回的JSON数据')});
+}
+
+var results=[];
+
+async function autoFetch(){
+  document.getElementById('autoStatus').innerHTML='<span class="status pend">拉取中...</span>';
+  document.getElementById('prog').style.width='0%';
+  results=[];var ok=0,total=STOCKS.length;
+  for(var i=0;i<STOCKS.length;i++){
+    var s=STOCKS[i];var prefix=s.m===1?'SH':'SZ';
+    var url=finURL(s.c,prefix);
+    try{
+      var r=await fetch(url);var j=await r.json();
+      if(j&&j.data&&j.data.length>0){
+        var fd=j.data[0];var roe=fd.ROEJQ,prfG=fd.PARENTNETPROFITTZ,gm=fd.XSMLL,dr=fd.ZCFZL;
+        var fin={roe:roe,prfG:prfG,grossM:gm,debtR:dr,reportDate:fd.REPORT_DATE,reportType:fd.REPORT_TYPE};
+        // Save to localStorage
+        var key='fin_'+s.c;localStorage.setItem(key,JSON.stringify(fin));
+        results.push({s:s,fin:fin,ok:true});ok++;
+      }else{
+        results.push({s:s,fin:null,ok:false,err:'no data'});
+      }
+    }catch(e){
+      results.push({s:s,fin:null,ok:false,err:e.message});
+    }
+    document.getElementById('prog').style.width=((i+1)/total*100)+'%';
+  }
+  document.getElementById('autoStatus').innerHTML='<span class="status '+(ok>total/2?'ok':'err')+'">完成: '+ok+'/'+total+' 只成功</span>';
+  showResults();
+}
+
+function importJSON(){
+  var raw=document.getElementById('jsonInput').value.trim();if(!raw)return;
+  var v=sel.value.split('|');
+  try{
+    var j=JSON.parse(raw);
+    if(j&&j.data&&j.data.length>0){
+      var fd=j.data[0];var fin={roe:fd.ROEJQ,prfG:fd.PARENTNETPROFITTZ,grossM:fd.XSMLL,debtR:fd.ZCFZL,reportDate:fd.REPORT_DATE,reportType:fd.REPORT_TYPE};
+      var key='fin_'+v[0];localStorage.setItem(key,JSON.stringify(fin));
+      results.push({s:{c:v[0],n:sel.options[sel.selectedIndex].textContent},fin:fin,ok:true});
+      document.getElementById('manualStatus').innerHTML='<span class="status ok">✅ 已更新 '+sel.options[sel.selectedIndex].textContent+'</span>';
+      document.getElementById('jsonInput').value='';showResults();
+    }
+  }catch(e){document.getElementById('manualStatus').innerHTML='<span class="status err">JSON解析失败: '+e.message+'</span>'}
+}
+
+function showResults(){
+  var card=document.getElementById('resultCard');card.style.display='block';
+  var table='<table><tr><th>股票</th><th>报告期</th><th>ROE</th><th>利润增速</th><th>毛利率</th><th>负债率</th></tr>';
+  results.forEach(function(r){
+    if(r.ok){var f=r.fin;table+='<tr><td>'+r.s.n+'</td><td>'+f.reportType+'</td><td>'+f.roe+'%</td><td class="'+(f.prfG>=0?'up':'down')+'">'+(f.prfG>=0?'+':'')+f.prfG+'%</td><td>'+f.grossM+'%</td><td>'+f.debtR+'%</td></tr>'}
+    else{table+='<tr><td>'+r.s.n+'</td><td colspan="5" style="color:#ef4444">失败: '+r.err+'</td></tr>'}
+  });
+  table+='</table>';
+  document.getElementById('resultTable').innerHTML=table;
+}
+</script></body></html>

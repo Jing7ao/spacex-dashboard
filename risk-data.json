@@ -1,0 +1,929 @@
+{
+  "updated": "2026-06-09T08:34:41.580Z",
+  "summary": {
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 34
+  },
+  "stocks": [
+    {
+      "n": "信维通信",
+      "c": "300136",
+      "m": 0,
+      "eco": "马斯克",
+      "tier": "T2星链",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 0,
+        "ratio": 0,
+        "reportDate": ""
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:25.636Z"
+    },
+    {
+      "n": "阳光电源",
+      "c": "300274",
+      "m": 0,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 0
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:41.185Z"
+    },
+    {
+      "n": "中际旭创",
+      "c": "300308",
+      "m": 0,
+      "eco": "英伟达",
+      "tier": "T1.5光模块",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:28.686Z"
+    },
+    {
+      "n": "天孚通信",
+      "c": "300394",
+      "m": 0,
+      "eco": "英伟达",
+      "tier": "T1.5 CPO",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:29.164Z"
+    },
+    {
+      "n": "菲利华",
+      "c": "300395",
+      "m": 0,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 0
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 0,
+        "ratio": 0,
+        "reportDate": ""
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:37.482Z"
+    },
+    {
+      "n": "蓝思科技",
+      "c": "300433",
+      "m": 0,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:32.366Z"
+    },
+    {
+      "n": "胜宏科技",
+      "c": "300476",
+      "m": 0,
+      "eco": "英伟达",
+      "tier": "T2 PCB",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:28.025Z"
+    },
+    {
+      "n": "新易盛",
+      "c": "300502",
+      "m": 0,
+      "eco": "英伟达",
+      "tier": "T1.5 CPO",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:30.567Z"
+    },
+    {
+      "n": "宁德时代",
+      "c": "300750",
+      "m": 0,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:35.002Z"
+    },
+    {
+      "n": "图南股份",
+      "c": "300855",
+      "m": 0,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 0
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 0,
+        "ratio": 0,
+        "reportDate": ""
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:37.982Z"
+    },
+    {
+      "n": "超捷股份",
+      "c": "301005",
+      "m": 0,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 0,
+        "ratio": 0,
+        "reportDate": ""
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:33.631Z"
+    },
+    {
+      "n": "生益科技",
+      "c": "600183",
+      "m": 1,
+      "eco": "英伟达",
+      "tier": "T3 CCL",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:30.285Z"
+    },
+    {
+      "n": "长电科技",
+      "c": "600584",
+      "m": 1,
+      "eco": "英伟达",
+      "tier": "T2封测",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:31.990Z"
+    },
+    {
+      "n": "工业富联",
+      "c": "601138",
+      "m": 1,
+      "eco": "英伟达",
+      "tier": "T1.5服务器",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:28.414Z"
+    },
+    {
+      "n": "拓普集团",
+      "c": "601689",
+      "m": 1,
+      "eco": "马斯克",
+      "tier": "T2特斯拉",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 0,
+        "ratio": 0,
+        "reportDate": ""
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:26.318Z"
+    },
+    {
+      "n": "旭升集团",
+      "c": "603305",
+      "m": 1,
+      "eco": "马斯克",
+      "tier": "T3特斯拉",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 0,
+        "ratio": 0,
+        "reportDate": ""
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:26.840Z"
+    },
+    {
+      "n": "豪能股份",
+      "c": "603809",
+      "m": 1,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:33.310Z"
+    },
+    {
+      "n": "兆易创新",
+      "c": "603986",
+      "m": 1,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 0
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:41.579Z"
+    },
+    {
+      "n": "绿的谐波",
+      "c": "688017",
+      "m": 1,
+      "eco": "马斯克",
+      "tier": "T3 Optimus",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 0,
+        "ratio": 0,
+        "reportDate": ""
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:27.659Z"
+    },
+    {
+      "n": "斯瑞新材",
+      "c": "688102",
+      "m": 1,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 0,
+        "ratio": 0,
+        "reportDate": ""
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:32.926Z"
+    },
+    {
+      "n": "寒武纪",
+      "c": "688256",
+      "m": 1,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:34.515Z"
+    },
+    {
+      "n": "天合光能",
+      "c": "688599",
+      "m": 1,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 0
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:40.722Z"
+    },
+    {
+      "n": "中芯国际",
+      "c": "688981",
+      "m": 1,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 0
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:40.344Z"
+    },
+    {
+      "n": "西部材料",
+      "c": "002149",
+      "m": 0,
+      "eco": "马斯克",
+      "tier": "T3火箭",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 0,
+        "ratio": 0,
+        "reportDate": ""
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:26.015Z"
+    },
+    {
+      "n": "三花智控",
+      "c": "002050",
+      "m": 0,
+      "eco": "马斯克",
+      "tier": "T2特斯拉",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 0,
+        "ratio": 0,
+        "reportDate": ""
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:26.542Z"
+    },
+    {
+      "n": "沪电股份",
+      "c": "002463",
+      "m": 0,
+      "eco": "英伟达",
+      "tier": "T2 PCB",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:30.018Z"
+    },
+    {
+      "n": "英维克",
+      "c": "002837",
+      "m": 0,
+      "eco": "英伟达",
+      "tier": "T1.5液冷",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:30.945Z"
+    },
+    {
+      "n": "麦格米特",
+      "c": "002851",
+      "m": 0,
+      "eco": "英伟达",
+      "tier": "T1.5电源",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:31.250Z"
+    },
+    {
+      "n": "科大讯飞",
+      "c": "002230",
+      "m": 0,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:34.736Z"
+    },
+    {
+      "n": "北方华创",
+      "c": "002371",
+      "m": 0,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 0,
+        "ratio": 0,
+        "reportDate": ""
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:35.289Z"
+    },
+    {
+      "n": "立讯精密",
+      "c": "002475",
+      "m": 0,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 5
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:35.644Z"
+    },
+    {
+      "n": "歌尔股份",
+      "c": "002241",
+      "m": 0,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 0
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:36.922Z"
+    },
+    {
+      "n": "深南电路",
+      "c": "002916",
+      "m": 0,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 0
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:38.590Z"
+    },
+    {
+      "n": "通富微电",
+      "c": "002156",
+      "m": 0,
+      "eco": "",
+      "tier": "",
+      "risk": {
+        "score": 0,
+        "level": "低",
+        "color": "#22c55e",
+        "alerts": []
+      },
+      "lockups": [],
+      "pledge": {
+        "topPledgeRatio": 0,
+        "topHolder": "",
+        "totalPledge": 0
+      },
+      "goodwill": {
+        "goodwill": 0,
+        "netAssets": 1,
+        "ratio": 0,
+        "reportDate": "2026-03-31 00:00:00"
+      },
+      "changes": [],
+      "checkedAt": "2026-06-09T08:34:39.298Z"
+    }
+  ]
+}

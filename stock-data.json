@@ -1,0 +1,1108 @@
+[
+  {
+    "code": "688629",
+    "name": "华丰科技",
+    "market": "科创板",
+    "ecosystem": "国产AI算力",
+    "tier": "T3",
+    "bottleneck": true,
+    "cross_eco": false,
+    "score_v26": 13,
+    "score_max": 20,
+    "score_grade": "政策显著受益",
+    "evidence_level": "E2",
+    "key_e1": "华为占营收 60.52% (年报披露)",
+    "score_detail": {
+      "P1": 2,
+      "P2b": 1,
+      "P3": 2,
+      "P4b": 1,
+      "O1": 0,
+      "O2": 2,
+      "O3": 1,
+      "T1": 2,
+      "T2": 2,
+      "T3b": "E3"
+    },
+    "metrics": {
+      "营收": "25.28亿 (+131.5%)",
+      "净利润": "3.59亿 (扭亏)",
+      "产能": "6K→30K套/月 (+400%)",
+      "华为占比": "60.52%",
+      "前五大集中度": "73.25%"
+    },
+    "e1_audit": [
+      {
+        "claim": "华为直接点名（释义章节）",
+        "level": "E1",
+        "source": "2025年报 释义",
+        "action": "✅ 已确认 (pdf-parse验证)"
+      },
+      {
+        "claim": "批量供货 8次",
+        "level": "E1",
+        "source": "2025年报 业务描述",
+        "action": "✅ 已确认"
+      },
+      {
+        "claim": "224G 1次确认",
+        "level": "E1",
+        "source": "2025年报 行业趋势",
+        "action": "✅ 已确认"
+      },
+      {
+        "claim": "前五大因保密协议以代称代替",
+        "level": "E1",
+        "source": "2025年报 前五大客户",
+        "action": "✅ 已确认 — 华为占比从券商推断"
+      },
+      {
+        "claim": "华为框架订单60亿元",
+        "level": "E2",
+        "source": "券商研报",
+        "action": "📋 查公告原文"
+      },
+      {
+        "claim": "国内唯一224G全梯度量产",
+        "level": "E2",
+        "source": "券商研报",
+        "action": "📋 年报未用'唯一'措辞"
+      },
+      {
+        "claim": "光互联不替代电互联",
+        "level": "E3",
+        "source": "券商技术判断",
+        "action": "🔴 需工程专家评估"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🔴",
+        "text": "华为依赖度高 — 前五大因保密协议代称,华为占比从券商推断"
+      },
+      {
+        "severity": "🟡",
+        "text": "年报未用'独家/唯一' — 美国生态同一模式"
+      },
+      {
+        "severity": "🟡",
+        "text": "T3=E3 无法判断 — 替代技术路线需工程专家"
+      },
+      {
+        "severity": "🟡",
+        "text": "D5 产能过剩 — 定增扩产400%，全行业涌入"
+      }
+    ],
+    "scenarios": [
+      {
+        "id": "D1",
+        "name": "政策细则延迟",
+        "dir": "🔴",
+        "logic": "昇腾采购预期落空"
+      },
+      {
+        "id": "D5",
+        "name": "产能过剩",
+        "dir": "🔴",
+        "logic": "连接器毛利率压缩"
+      },
+      {
+        "id": "D6",
+        "name": "美国管制升级",
+        "dir": "🟢",
+        "logic": "国产替代加速 华为订单增"
+      },
+      {
+        "id": "D8",
+        "name": "链长升级+基金加码",
+        "dir": "🟢",
+        "logic": "大基金注资 估值重定价"
+      }
+    ],
+    "gaps": [
+      "公告/互动平台 — 60亿框架订单原文",
+      "🔴 T3b — 找通信工程师确认224G电互联vs光互联"
+    ]
+  },
+  {
+    "code": "001270",
+    "name": "铖昌科技",
+    "market": "深主板",
+    "ecosystem": "中国商业航天",
+    "tier": "T3",
+    "bottleneck": true,
+    "cross_eco": false,
+    "score_v26": 16,
+    "score_max": 20,
+    "score_grade": "政策深度锁定",
+    "evidence_level": "E2",
+    "key_e1": "P2 链长任命 E1 (航天科技集团) · 前五大客户 94.36%",
+    "score_detail": {
+      "P1": 2,
+      "P2": 2,
+      "P3": 2,
+      "P4b": 1,
+      "O1": 2,
+      "O2": 2,
+      "O3": 1,
+      "T1": 2,
+      "T2": 2,
+      "T3b": "E3"
+    },
+    "metrics": {
+      "营收": "4.05亿 (+91.3%)",
+      "净利润": "1.17亿 (扭亏为盈)",
+      "T/R芯片收入占比": "99.78%",
+      "前五大集中度": "94.36%",
+      "星载T/R市占": ">70% 国内唯一民企"
+    },
+    "e1_audit": [
+      {
+        "claim": "P2: 航天科技集团链长正式任命",
+        "level": "E1",
+        "source": "国资委 2026.1 共链行动大会",
+        "action": "✅ 已确认"
+      },
+      {
+        "claim": "批量交付 7次 + 批量供货1次",
+        "level": "E1",
+        "source": "2025年报 PDF验证",
+        "action": "✅ 已确认"
+      },
+      {
+        "claim": "低轨卫星通信14次",
+        "level": "E1",
+        "source": "2025年报",
+        "action": "✅ 但'星网'0次,用'低轨卫星通信领域'代称"
+      },
+      {
+        "claim": "客户集中度自述风险",
+        "level": "E1",
+        "source": "2025年报",
+        "action": "✅ 前五大集中度高,以科研院所为主"
+      },
+      {
+        "claim": "星网GW首批订单12.5亿",
+        "level": "E2",
+        "source": "券商研报",
+        "action": "📋 年报无'中标'措辞"
+      },
+      {
+        "claim": "相控阵天线无替代方案",
+        "level": "E3",
+        "source": "产业共识",
+        "action": "🔴 需航天工程专家评估"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🔴",
+        "text": "客户集中度 94.36% — 前五大客户占几乎全部营收"
+      },
+      {
+        "severity": "🔴",
+        "text": "*ST 状态 — 刚扭亏申请摘帽，退市风险刚解除"
+      },
+      {
+        "severity": "🟡",
+        "text": "D2 央企招标不及预期 — 星网GW二代招标若延迟"
+      },
+      {
+        "severity": "🟡",
+        "text": "T3=E3 无法判断"
+      }
+    ],
+    "scenarios": [
+      {
+        "id": "D2",
+        "name": "央企招标不及预期",
+        "dir": "🔴🔴",
+        "logic": "星网GW二代招标延迟→营收预估下修"
+      },
+      {
+        "id": "D5",
+        "name": "产能过剩",
+        "dir": "🟡",
+        "logic": "T/R芯片降价"
+      },
+      {
+        "id": "D6",
+        "name": "美国管制升级",
+        "dir": "⚪",
+        "logic": "商业航天已自主 不受影响"
+      },
+      {
+        "id": "D8",
+        "name": "链长升级+基金加码",
+        "dir": "🟢🟢",
+        "logic": "发射计划加速"
+      }
+    ],
+    "gaps": [
+      "中标公告 — 星网GW首批12.5亿原文",
+      "中标公告 — 千帆30亿原文",
+      "年报核心竞争力 — 国内唯一民企量产原文",
+      "🔴 T3b — 找航天工程师确认相控阵天线不可替代性"
+    ]
+  },
+  {
+    "code": "688017",
+    "name": "绿的谐波",
+    "market": "科创板",
+    "ecosystem": "国产机器人",
+    "tier": "T3",
+    "bottleneck": true,
+    "cross_eco": true,
+    "cross_eco_detail": "美国: Tesla Optimus Y系列定制",
+    "score_v26": 14,
+    "score_max": 20,
+    "score_grade": "政策深度锁定",
+    "evidence_level": "E2",
+    "key_e1": "全球唯一全零部件自主供应 (E1!) · 国际头部机器人客户批量交付 (E1!) · 减速器136次/机器人152次",
+    "score_detail": {
+      "P1": 2,
+      "P2b": 1,
+      "P3": 2,
+      "P4b": 1,
+      "O1": 0,
+      "O2": 2,
+      "O3": 2,
+      "T1": 2,
+      "T2": 2,
+      "T3b": "E3"
+    },
+    "metrics": {
+      "营收": "5.7亿 (+47.3%)",
+      "净利润": "1.25亿 (+122%)",
+      "产能": "79万→100万台/年",
+      "国内市占": ">60% 全球前二",
+      "单台用量": "最多50个减速器/台"
+    },
+    "e1_audit": [
+      {
+        "claim": "国际头部机器人客户批量交付",
+        "level": "E1",
+        "source": "2025年报 p.23",
+        "action": "✅ 已确认 (pdf-parse验证)"
+      },
+      {
+        "claim": "全球唯一全零部件自主供应",
+        "level": "E1",
+        "source": "2025年报 产业链覆盖优势",
+        "action": "✅ 已确认 — 但对自身能力描述,非客户关系"
+      },
+      {
+        "claim": "减速器136次 机器人152次",
+        "level": "E1",
+        "source": "2025年报 全文",
+        "action": "✅ 核心业务确认"
+      },
+      {
+        "claim": "国内市占60%+ 全球前二",
+        "level": "E2",
+        "source": "券商研报",
+        "action": "📋 年报未直接披露市占率数字"
+      },
+      {
+        "claim": "RV在重载关节有替代可能",
+        "level": "E3",
+        "source": "产业共识",
+        "action": "🔴 需机器人工程专家评估"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "D3 技术路线切换 — RV减速器可能替代谐波在重载关节"
+      },
+      {
+        "severity": "🟡",
+        "text": "D5 产能过剩 — 扩产100万台+全行业涌入→价格战"
+      },
+      {
+        "severity": "🟡",
+        "text": "未点名任何客户 — 年报含蓄措辞与美国生态同一模式"
+      },
+      {
+        "severity": "⚪",
+        "text": "Serenity喊单效应 — 6/5涨停后短期波动风险"
+      }
+    ],
+    "scenarios": [
+      {
+        "id": "D3",
+        "name": "技术路线切换",
+        "dir": "🔴",
+        "logic": "RV替代谐波→份额流失"
+      },
+      {
+        "id": "D5",
+        "name": "产能过剩",
+        "dir": "🔴",
+        "logic": "减速器价格战"
+      },
+      {
+        "id": "D6",
+        "name": "美国管制升级",
+        "dir": "🟢",
+        "logic": "机器人国产化加速"
+      },
+      {
+        "id": "D8",
+        "name": "链长升级+基金加码",
+        "dir": "🟢",
+        "logic": "量产提速"
+      }
+    ],
+    "gaps": [
+      "年报 — 市占率60%+原文",
+      "年报 — 精度±10角秒原文",
+      "年报/互动平台 — 国产化供应链体系声明原文",
+      "🔴 T3b — 找机器人工程师确认谐波vs RV技术路线收敛方向"
+    ]
+  },
+  {
+    "code": "688631",
+    "name": "莱斯信息",
+    "market": "科创板",
+    "ecosystem": "低空经济",
+    "tier": "T2",
+    "bottleneck": true,
+    "cross_eco": false,
+    "score_v26": 13,
+    "score_max": 18,
+    "score_grade": "政策显著受益",
+    "evidence_level": "E2",
+    "key_e1": "空管121次/低空154次 (年报) · 但'星网''唯一'均为上下文误读 · O2无批量交付措辞",
+    "score_detail": {
+      "P1": 2,
+      "P2b": 1,
+      "P3": 2,
+      "P4b": 1,
+      "O1": 2,
+      "O2": 1,
+      "O3_na": "N/A项目制",
+      "T1": 2,
+      "T2": 2,
+      "T3b": "E3"
+    },
+    "metrics": {
+      "2025空管营收": "6.46亿 (+3.15%)",
+      "空管毛利率": "37.4%",
+      "2026订单预估": ">15亿 (+50%)",
+      "空管市占": "60-80%",
+      "低空市占": "45%+"
+    },
+    "risks": [
+      {
+        "severity": "🔴🔴",
+        "text": "6/29解禁 9,860万股 (60.32%) — 解禁抛压巨大"
+      },
+      {
+        "severity": "🟡",
+        "text": "2026Q1营收同比-17.3% — 低于市场预期"
+      },
+      {
+        "severity": "🟡",
+        "text": "城市交通管理业务-61% — 拖累整体业绩"
+      },
+      {
+        "severity": "🟡",
+        "text": "空管项目制 — O3产能指标不适用,可比性受限"
+      }
+    ],
+    "e1_audit": [
+      {
+        "claim": "空管121次 低空154次",
+        "level": "E1",
+        "source": "2025年报 PDF验证",
+        "action": "✅ 核心业务确认"
+      },
+      {
+        "claim": "中标2次(含公路项目)",
+        "level": "E1",
+        "source": "2025年报",
+        "action": "⚠️ 中标是公路交通非空管,空管项目待查公告"
+      },
+      {
+        "claim": "唯一=江苏省研发平台",
+        "level": "E1",
+        "source": "2025年报",
+        "action": "⚠️ '唯一'修饰的是省级研发平台,非供应商地位"
+      },
+      {
+        "claim": "星网=卫星网管系统",
+        "level": "E1",
+        "source": "2025年报 p.24",
+        "action": "⚠️ '星网'是卫星网管产品名,非中国星网星座"
+      },
+      {
+        "claim": "空管系统不可替代",
+        "level": "E3",
+        "source": "产业共识",
+        "action": "🔴 需航空工程专家评估"
+      }
+    ],
+    "scenarios": [
+      {
+        "id": "D1",
+        "name": "政策细则延迟",
+        "dir": "🔴",
+        "logic": "空管系统部署进度放缓"
+      },
+      {
+        "id": "低空",
+        "name": "eVTOL适航延迟",
+        "dir": "⚪",
+        "logic": "空管系统相对免疫"
+      },
+      {
+        "id": "低空",
+        "name": "安全事故→监管收紧",
+        "dir": "🟢",
+        "logic": "安全标准提高→更需要空管系统"
+      },
+      {
+        "id": "低空",
+        "name": "空域改革慢于预期",
+        "dir": "🔴",
+        "logic": "全链路 空管部署放缓"
+      }
+    ],
+    "gaps": [
+      "年报 — 空管市占率原文",
+      "中标公告 — 逐一核实太原/厦门/济南/上海/辽宁/澳门原文",
+      "年报 — 低空天牧平台市占率原文",
+      "🔴 T3b — 找航空工程专家确认空管系统vs星基ADS-B替代可能性"
+    ]
+  },
+  {
+    "code": "600584",
+    "name": "长电科技",
+    "market": "沪主板",
+    "ecosystem": "国产AI算力",
+    "tier": "T2",
+    "bottleneck": true,
+    "cross_eco": true,
+    "cross_eco_detail": "美国: NVIDIA H20封测 · 国内: 昇腾910C独家封装",
+    "score_v26": 12,
+    "score_max": 20,
+    "score_grade": "政策显著受益",
+    "evidence_level": "E2",
+    "key_e1": "年报 197,275字 中 NVIDIA/昇腾/独家/唯一 均为0次 — E1审计降分",
+    "score_detail": {
+      "P1": 2,
+      "P2b": 1,
+      "P3": 2,
+      "P4": 2,
+      "O1": 0,
+      "O2": 0,
+      "O3": 2,
+      "T1": 1,
+      "T2": 2,
+      "T3b": "E3"
+    },
+    "metrics": {
+      "营收": "388.71亿 (+8.09%)",
+      "净利润": "15.65亿 (-2.75%)",
+      "毛利率": "13.95%",
+      "运算电子占比": "21.3% (+42.6%)",
+      "先进封装": "38次 (年报)"
+    },
+    "e1_audit": [
+      {
+        "claim": "年报 0次 NVIDIA/昇腾",
+        "level": "E1",
+        "source": "2025年报 PDF全文搜索",
+        "action": "✅ 早上已审计确认"
+      },
+      {
+        "claim": "年报 0次 独家/唯一",
+        "level": "E1",
+        "source": "同上",
+        "action": "✅ 早上已审计确认"
+      },
+      {
+        "claim": "大客户高端芯片突破性进展",
+        "level": "E1",
+        "source": "2025年报 董事会报告",
+        "action": "✅ 唯一的措辞"
+      },
+      {
+        "claim": "大基金扶持 封测国家队",
+        "level": "E2",
+        "source": "多源一致",
+        "action": "📋 查年报/公告中国有大基金持股"
+      },
+      {
+        "claim": "昇腾910C独家封装",
+        "level": "E3→降",
+        "source": "券商研报 年报无此措辞",
+        "action": "🔴 互动平台是否有公司自述？"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🔴",
+        "text": "唯一因E1审计降分的物理开关 (14→12)"
+      },
+      {
+        "severity": "🔴",
+        "text": "年报不敢点名 — 昇腾/独家/唯一全0次"
+      },
+      {
+        "severity": "🟡",
+        "text": "通富微电是备份供应商 — T1不是独供"
+      },
+      {
+        "severity": "🟡",
+        "text": "毛利率13.95% — 虽适用行政壁垒例外,但仍偏低"
+      }
+    ],
+    "scenarios": [
+      {
+        "id": "D2",
+        "name": "央企招标不及预期",
+        "dir": "🔴",
+        "logic": "昇腾采购量低于预期"
+      },
+      {
+        "id": "D4",
+        "name": "关键技术突破失败",
+        "dir": "🔴",
+        "logic": "先进制程停滞→封装需求降"
+      },
+      {
+        "id": "D6",
+        "name": "美国管制升级",
+        "dir": "🟢🟢",
+        "logic": "双生态对冲最强 — 美制裁=国产替代加速"
+      },
+      {
+        "id": "S9",
+        "name": "(美国)PCB国安威胁",
+        "dir": "🔴",
+        "logic": "虽非PCB但封测连带受影响"
+      }
+    ],
+    "gaps": [
+      "互动平台 — 昇腾910C独家封装是否有公司自述？",
+      "年报/公告 — 国家大基金持股原文",
+      "年报 — 2026年100亿资本开支原文",
+      "🔴 T3b — 先进封装vs其他绕过EUV方案的比较"
+    ]
+  },
+  {
+    "code": "002916",
+    "name": "深南电路",
+    "market": "深主板",
+    "ecosystem": "国产AI算力",
+    "tier": "T3",
+    "bottleneck": false,
+    "cross_eco": false,
+    "cross_eco_detail": "",
+    "score_v26": 9,
+    "score_max": 20,
+    "score_grade": "政策显著受益",
+    "evidence_level": "E2",
+    "key_e1": "昇腾PCB核心 华为金牌供应商 估分10",
+    "score_detail": {
+      "P1": 2,
+      "P2": 0,
+      "P2b": 1,
+      "P3": 2,
+      "P4": 0,
+      "P4b": 0,
+      "O1": 0,
+      "O2": 2,
+      "O3": 0,
+      "T1": 1,
+      "T2": 1,
+      "T3b": "E3"
+    },
+    "metrics": {
+      "营收增速": "估+28% YoY",
+      "估分": "E2",
+      "备注": "待E1审计"
+    },
+    "e1_audit": [
+      {
+        "claim": "昇腾PCB核心 华为金牌供应商 估分10",
+        "level": "E2",
+        "source": "券商研报+公开信息",
+        "action": "待年报E1审计"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "估分 E2 — 未查年报原文"
+      }
+    ],
+    "scenarios": [],
+    "gaps": [
+      "年报: 昇腾PCB客户描述原文",
+      "年报: 前五大客户集中度"
+    ]
+  },
+  {
+    "code": "002156",
+    "name": "通富微电",
+    "market": "深主板",
+    "ecosystem": "国产AI算力",
+    "tier": "T2",
+    "bottleneck": false,
+    "cross_eco": true,
+    "cross_eco_detail": "美国:NVIDIA Chiplet · 国内:昇腾备份",
+    "score_v26": 10,
+    "score_max": 20,
+    "score_grade": "政策显著受益",
+    "evidence_level": "E2",
+    "key_e1": "昇腾备份供应商 跨生态 估分10",
+    "score_detail": {
+      "P1": 2,
+      "P2": 0,
+      "P2b": 1,
+      "P3": 2,
+      "P4": 0,
+      "P4b": 0,
+      "O1": 0,
+      "O2": 2,
+      "O3": 0,
+      "T1": 1,
+      "T2": 2,
+      "T3b": "E3"
+    },
+    "metrics": {
+      "估分": "E2",
+      "备注": "待E1审计"
+    },
+    "e1_audit": [
+      {
+        "claim": "昇腾备份供应商 跨生态 估分10",
+        "level": "E2",
+        "source": "券商研报+公开信息",
+        "action": "待年报E1审计"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "昇腾备份 — 长电为主供应商"
+      }
+    ],
+    "scenarios": [],
+    "gaps": [
+      "年报: 昇腾封装客户描述原文"
+    ]
+  },
+  {
+    "code": "600118",
+    "name": "中国卫星",
+    "market": "沪主板",
+    "ecosystem": "中国商业航天",
+    "tier": "T2",
+    "bottleneck": false,
+    "cross_eco": false,
+    "cross_eco_detail": "",
+    "score_v26": 10,
+    "score_max": 20,
+    "score_grade": "政策显著受益",
+    "evidence_level": "E2",
+    "key_e1": "星网60%卫星制造 估分10",
+    "score_detail": {
+      "P1": 2,
+      "P2": 2,
+      "P2b": 0,
+      "P3": 2,
+      "P4": 0,
+      "P4b": 0,
+      "O1": 0,
+      "O2": 2,
+      "O3": 0,
+      "T1": 1,
+      "T2": 1,
+      "T3b": "E3"
+    },
+    "metrics": {
+      "估分": "E2",
+      "备注": "待E1审计"
+    },
+    "e1_audit": [
+      {
+        "claim": "星网60%卫星制造 估分10",
+        "level": "E2",
+        "source": "券商研报+公开信息",
+        "action": "待年报E1审计"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "估分E2"
+      }
+    ],
+    "scenarios": [],
+    "gaps": [
+      "年报: 星网客户描述原文",
+      "年报: 卫星制造份额原文"
+    ]
+  },
+  {
+    "code": "601689",
+    "name": "拓普集团",
+    "market": "沪主板",
+    "ecosystem": "国产机器人",
+    "tier": "T2",
+    "bottleneck": false,
+    "cross_eco": true,
+    "cross_eco_detail": "美国:Tesla/Optimus执行器 · 国内:宇树/小米执行器",
+    "score_v26": 11,
+    "score_max": 20,
+    "score_grade": "政策显著受益",
+    "evidence_level": "E2",
+    "key_e1": "Tesla+国产双客户 跨生态 估分11",
+    "score_detail": {
+      "P1": 2,
+      "P2": 0,
+      "P2b": 1,
+      "P3": 2,
+      "P4": 0,
+      "P4b": 0,
+      "O1": 0,
+      "O2": 2,
+      "O3": 2,
+      "T1": 1,
+      "T2": 1,
+      "T3b": "E3"
+    },
+    "metrics": {
+      "Optimus份额": "独家执行器",
+      "备注": "待E1审计"
+    },
+    "e1_audit": [
+      {
+        "claim": "Tesla+国产双客户 跨生态 估分11",
+        "level": "E2",
+        "source": "券商研报+公开信息",
+        "action": "待年报E1审计"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "估分E2"
+      }
+    ],
+    "scenarios": [],
+    "gaps": [
+      "年报: Tesla/机器人客户描述原文"
+    ]
+  },
+  {
+    "code": "603662",
+    "name": "柯力传感",
+    "market": "沪主板",
+    "ecosystem": "国产机器人",
+    "tier": "T3",
+    "bottleneck": false,
+    "cross_eco": true,
+    "cross_eco_detail": "美国:Optimus六维力 · 国内:优必选/小米",
+    "score_v26": 8,
+    "score_max": 20,
+    "score_grade": "政策边缘关联",
+    "evidence_level": "E2",
+    "key_e1": "六维力传感器 50+家送样 估分9",
+    "score_detail": {
+      "P1": 2,
+      "P2": 0,
+      "P2b": 1,
+      "P3": 2,
+      "P4": 0,
+      "P4b": 0,
+      "O1": 0,
+      "O2": 1,
+      "O3": 0,
+      "T1": 1,
+      "T2": 1,
+      "T3b": "E3"
+    },
+    "metrics": {
+      "估分": "E2",
+      "备注": "待E1审计"
+    },
+    "e1_audit": [
+      {
+        "claim": "六维力传感器 50+家送样 估分9",
+        "level": "E2",
+        "source": "券商研报+公开信息",
+        "action": "待年报E1审计"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "六维力仍为小批量阶段"
+      }
+    ],
+    "scenarios": [],
+    "gaps": [
+      "年报: 六维力客户描述原文"
+    ]
+  },
+  {
+    "code": "000099",
+    "name": "中信海直",
+    "market": "深主板",
+    "ecosystem": "低空经济",
+    "tier": "T1",
+    "bottleneck": false,
+    "cross_eco": false,
+    "cross_eco_detail": "",
+    "score_v26": 7,
+    "score_max": 20,
+    "score_grade": "政策边缘关联",
+    "evidence_level": "E2",
+    "key_e1": "A股唯一低空运营商 估分8",
+    "score_detail": {
+      "P1": 2,
+      "P2": 0,
+      "P2b": 1,
+      "P3": 1,
+      "P4": 0,
+      "P4b": 0,
+      "O1": 0,
+      "O2": 1,
+      "O3": 0,
+      "T1": 1,
+      "T2": 1,
+      "T3b": "E3"
+    },
+    "metrics": {
+      "估分": "E2",
+      "备注": "待E1审计"
+    },
+    "e1_audit": [
+      {
+        "claim": "A股唯一低空运营商 估分8",
+        "level": "E2",
+        "source": "券商研报+公开信息",
+        "action": "待年报E1审计"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "估分E2 — 运营商非瓶颈"
+      }
+    ],
+    "scenarios": [],
+    "gaps": [
+      "年报: 低空业务描述原文"
+    ]
+  },
+  {
+    "code": "301018",
+    "name": "申菱环境",
+    "market": "创业板",
+    "ecosystem": "国产AI算力",
+    "tier": "T3",
+    "bottleneck": false,
+    "cross_eco": false,
+    "cross_eco_detail": "",
+    "score_v26": 8,
+    "score_max": 20,
+    "score_grade": "政策边缘关联",
+    "evidence_level": "E2",
+    "key_e1": "华为液冷第一大供应商 估分9",
+    "score_detail": {
+      "P1": 2,
+      "P2": 0,
+      "P2b": 1,
+      "P3": 2,
+      "P4": 0,
+      "P4b": 0,
+      "O1": 0,
+      "O2": 1,
+      "O3": 0,
+      "T1": 1,
+      "T2": 1,
+      "T3b": "E3"
+    },
+    "metrics": {
+      "估分": "E2",
+      "备注": "待E1审计"
+    },
+    "e1_audit": [
+      {
+        "claim": "华为液冷第一大供应商 估分9",
+        "level": "E2",
+        "source": "券商研报+公开信息",
+        "action": "待年报E1审计"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "估分E2"
+      }
+    ],
+    "scenarios": [],
+    "gaps": [
+      "年报: 华为液冷客户描述原文"
+    ]
+  },
+  {
+    "code": "002281",
+    "name": "光迅科技",
+    "market": "深主板",
+    "ecosystem": "国产AI算力",
+    "tier": "T3",
+    "bottleneck": false,
+    "cross_eco": false,
+    "cross_eco_detail": "",
+    "score_v26": 9,
+    "score_max": 20,
+    "score_grade": "政策显著受益",
+    "evidence_level": "E2",
+    "key_e1": "昇腾384超节点光模块 估分10",
+    "score_detail": {
+      "P1": 2,
+      "P2": 0,
+      "P2b": 1,
+      "P3": 2,
+      "P4": 0,
+      "P4b": 0,
+      "O1": 0,
+      "O2": 2,
+      "O3": 0,
+      "T1": 1,
+      "T2": 1,
+      "T3b": "E3"
+    },
+    "metrics": {
+      "估分": "E2",
+      "备注": "待E1审计"
+    },
+    "e1_audit": [
+      {
+        "claim": "昇腾384超节点光模块 估分10",
+        "level": "E2",
+        "source": "券商研报+公开信息",
+        "action": "待年报E1审计"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "估分E2"
+      }
+    ],
+    "scenarios": [],
+    "gaps": [
+      "年报: 昇腾光模块客户描述原文"
+    ]
+  },
+  {
+    "code": "601100",
+    "name": "恒立液压",
+    "market": "沪主板",
+    "ecosystem": "国产机器人",
+    "tier": "T3",
+    "bottleneck": false,
+    "cross_eco": false,
+    "cross_eco_detail": "",
+    "score_v26": 9,
+    "score_max": 20,
+    "score_grade": "政策显著受益",
+    "evidence_level": "E2",
+    "key_e1": "行星滚柱丝杠 估分10",
+    "score_detail": {
+      "P1": 2,
+      "P2": 0,
+      "P2b": 1,
+      "P3": 2,
+      "P4": 0,
+      "P4b": 0,
+      "O1": 0,
+      "O2": 1,
+      "O3": 0,
+      "T1": 1,
+      "T2": 2,
+      "T3b": "E3"
+    },
+    "metrics": {
+      "估分": "E2",
+      "备注": "待E1审计"
+    },
+    "e1_audit": [
+      {
+        "claim": "行星滚柱丝杠 估分10",
+        "level": "E2",
+        "source": "券商研报+公开信息",
+        "action": "待年报E1审计"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "滚柱丝杠仍在送样阶段"
+      }
+    ],
+    "scenarios": [],
+    "gaps": [
+      "年报: 滚柱丝杠客户描述原文"
+    ]
+  },
+  {
+    "code": "600862",
+    "name": "中航高科",
+    "market": "沪主板",
+    "ecosystem": "低空经济",
+    "tier": "T4",
+    "bottleneck": false,
+    "cross_eco": false,
+    "cross_eco_detail": "",
+    "score_v26": 10,
+    "score_max": 20,
+    "score_grade": "政策显著受益",
+    "evidence_level": "E2",
+    "key_e1": "预浸料80% 28家eVTOL供应商 估分10",
+    "score_detail": {
+      "P1": 2,
+      "P2": 0,
+      "P2b": 1,
+      "P3": 2,
+      "P4": 0,
+      "P4b": 0,
+      "O1": 0,
+      "O2": 2,
+      "O3": 0,
+      "T1": 2,
+      "T2": 1,
+      "T3b": "E3"
+    },
+    "metrics": {
+      "估分": "E2",
+      "备注": "待E1审计"
+    },
+    "e1_audit": [
+      {
+        "claim": "预浸料80% 28家eVTOL供应商 估分10",
+        "level": "E2",
+        "source": "券商研报+公开信息",
+        "action": "待年报E1审计"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "T1=2 物理开关候选 — 待年报验证"
+      }
+    ],
+    "scenarios": [],
+    "gaps": [
+      "年报: eVTOL预浸料市占率原文"
+    ]
+  }
+]

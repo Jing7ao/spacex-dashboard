@@ -1,0 +1,251 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>📅 催化日历</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#0f1117;color:#e2e8f0;font-size:14px;padding:16px}
+h1{font-size:1.2rem;background:linear-gradient(135deg,#f59e0b,#ef4444);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+.sub{font-size:0.65rem;color:#64748b;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:800px){.grid{grid-template-columns:1fr}}
+.card{background:#1a1d27;border:1px solid #252836;border-radius:10px;padding:14px}
+.card h3{font-size:0.8rem;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.item{padding:6px 0;border-bottom:1px solid rgba(37,40,54,.4);font-size:0.72rem;line-height:1.5}
+.item:last-child{border-bottom:none}
+.item .date{display:inline-block;padding:1px 6px;border-radius:3px;font-family:monospace;font-size:0.65rem;margin-right:6px}
+.item .tag{display:inline-block;padding:1px 5px;border-radius:3px;font-size:0.58rem;margin-right:4px;font-weight:600}
+.tag-policy{background:rgba(239,68,68,.15);color:#ef4444}
+.tag-earnings{background:rgba(34,197,94,.15);color:#22c55e}
+.tag-lockup{background:rgba(249,115,22,.15);color:#f97316}
+.tag-event{background:rgba(59,130,246,.15);color:#60a5fa}
+.tag-index{background:rgba(168,85,247,.15);color:#a855f7}
+.tag-holiday{background:rgba(100,116,139,.15);color:#94a3b8}
+.urgency-high{border-left:3px solid #ef4444;padding-left:8px}
+.urgency-mid{border-left:3px solid #f59e0b;padding-left:8px}
+.urgency-low{border-left:3px solid #22c55e;padding-left:8px}
+.month-header{font-size:0.75rem;font-weight:700;color:#94a3b8;padding:6px 0;margin-top:8px;border-bottom:1px solid #252836}
+.countdown{font-size:0.6rem;color:#f59e0b;font-family:monospace}
+.note{font-size:0.62rem;color:#64748b;margin-top:8px;line-height:1.6}
+.empty{color:#64748b;font-size:0.7rem;padding:20px;text-align:center}
+button{padding:6px 12px;border-radius:5px;border:1px solid #252836;background:#1a1d27;color:#e2e8f0;cursor:pointer;font-size:0.7rem;margin-right:6px}
+button:hover{border-color:#f59e0b}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.sc{background:#1a1d27;border:1px solid #252836;border-radius:8px;padding:10px;text-align:center}
+.sc .v{font-size:1.1rem;font-weight:800;font-family:monospace}
+.sc .lb{font-size:0.58rem;color:#64748b}
+</style></head><body>
+
+<h1>📅 A股催化日历</h1>
+<p class="sub" id="subtitle">政策窗口 · 财报季 · 解禁日 · 产业事件 · 指数调整</p>
+
+<div class="summary">
+  <div class="sc"><div class="v" id="s1">--</div><div class="lb">本月催化剂</div></div>
+  <div class="sc"><div class="v" id="s2">--</div><div class="lb">最近解禁日</div></div>
+  <div class="sc"><div class="v" id="s3">--</div><div class="lb">距下次政策窗口</div></div>
+</div>
+
+<div class="grid">
+  <div class="card"><h3>🔴 政策窗口</h3><div id="policy"></div></div>
+  <div class="card"><h3>🟢 财报季</h3><div id="earnings"></div></div>
+  <div class="card"><h3>🟠 持仓解禁日</h3><div id="lockup"></div></div>
+  <div class="card"><h3>🔵 产业事件</h3><div id="events"></div></div>
+  <div class="card"><h3>🟣 指数调整</h3><div id="index"></div></div>
+  <div class="card"><h3>⚪ 休市日历</h3><div id="holidays"></div></div>
+</div>
+
+<div class="note" style="margin-top:16px">
+  💡 使用说明：<br>
+  ① 政策窗口前1-2周布局相关主题<br>
+  ② 财报季前确认持仓业绩预期<br>
+  ③ 解禁日前评估是否减仓避险<br>
+  ④ 产业事件前布局供应链受益标的<br>
+  ⑤ 指数调整日前关注纳入/剔除标的<br>
+  ⑥ 配合 <code>node risk-check.js</code> 获取最新解禁数据
+</div>
+
+<script>
+// ====== 预设催化事件 ======
+var TODAY = new Date();
+var Y = TODAY.getFullYear();
+var M = TODAY.getMonth(); // 0-based
+
+function d(month, day){ // month 1-based, day
+  var dt = new Date(Y, month-1, day);
+  if(dt < TODAY && month < M+1) dt = new Date(Y+1, month-1, day); // 已过的推到明年
+  return dt;
+}
+
+function fmt(dt){return dt.toISOString().slice(0,10)}
+function daysUntil(dt){var diff=Math.ceil((dt-TODAY)/(86400000));return diff}
+
+// ====== 政策日历 ======
+var policies = [
+  {date:d(3,4), label:'全国两会开幕', desc:'全年政策主线定调, 关注政府工作报告中的产业关键词', tag:'policy'},
+  {date:d(3,11), label:'全国两会闭幕', desc:'总理记者会, 各部委部长通道', tag:'policy'},
+  {date:d(4,25), label:'政治局会议(4月)', desc:'分析一季度经济形势, 部署下一步工作', tag:'policy'},
+  {date:d(7,25), label:'政治局会议(7月)', desc:'半年经济总结, 下半年政策方向', tag:'policy'},
+  {date:d(10,25), label:'政治局会议(10月)', desc:'三季度经济分析', tag:'policy'},
+  {date:d(12,10), label:'中央经济工作会议', desc:'下一年经济政策总基调, 最重要的年度政策信号', tag:'policy'},
+  {date:d(12,20), label:'政治局会议(12月)', desc:'为中央经济工作会议预热', tag:'policy'},
+  // 部委级
+  {date:d(1,15), label:'工信部年度工作会议', desc:'产业政策/重点扶持方向', tag:'policy'},
+  {date:d(6,15), label:'陆家嘴论坛', desc:'证监会/央行释放政策信号', tag:'policy'},
+  {date:d(11,5), label:'进博会开幕', desc:'习近平主旨演讲, 贸易政策信号', tag:'policy'},
+];
+
+// ====== 财报季 ======
+var earnings = [
+  {date:d(1,31), label:'年报预告截止', desc:'沪深主板强制预告截止日', tag:'earnings'},
+  {date:d(4,15), label:'年报披露高峰', desc:'4月中下旬年报密集发布', tag:'earnings'},
+  {date:d(4,30), label:'年报/一季报截止', desc:'全部上市公司年报和一季报截止', tag:'earnings'},
+  {date:d(7,15), label:'半年报预告截止', desc:'强制预告截止日', tag:'earnings'},
+  {date:d(8,31), label:'半年报截止', desc:'全部上市公司半年报截止', tag:'earnings'},
+  {date:d(10,15), label:'三季报预告截止', desc:'强制预告截止日', tag:'earnings'},
+  {date:d(10,31), label:'三季报截止', desc:'全部上市公司三季报截止', tag:'earnings'},
+];
+
+// ====== 产业事件 ======
+var events = [
+  {date:d(1,7), label:'CES 拉斯维加斯', desc:'全球消费电子展, AI/芯片/汽车电子', tag:'event'},
+  {date:d(3,18), label:'NVIDIA GTC', desc:'英伟达年度发布会, 新架构/新产品/供应链机会', tag:'event'},
+  {date:d(5,20), label:'COMPUTEX 台北', desc:'全球第二大电脑展, AI服务器/光模块', tag:'event'},
+  {date:d(6,2), label:'苹果WWDC', desc:'苹果开发者大会, AI战略/供应链', tag:'event'},
+  {date:d(7,15), label:'特斯拉AI Day', desc:'Optimus/FSD进展, 机器人供应链催化', tag:'event'},
+  {date:d(9,1), label:'华为全联接大会', desc:'华为年度战略发布, 国产替代重要催化', tag:'event'},
+  {date:d(9,8), label:'苹果秋季发布会', desc:'iPhone新品, 消费电子供应链', tag:'event'},
+  {date:d(11,12), label:'珠海航展(偶数年)', desc:'航天军工产业催化', tag:'event'},
+  {date:d(12,3), label:'台积电供应链大会', desc:'先进制程/封装路线图', tag:'event'},
+];
+
+// ====== 指数调整 ======
+var indices = [
+  {date:d(2,28), label:'MSCI季度调整生效', desc:'外资被动资金调仓日', tag:'index'},
+  {date:d(5,31), label:'MSCI季度调整生效', desc:'外资被动资金调仓日', tag:'index'},
+  {date:d(8,31), label:'MSCI季度调整生效', desc:'外资被动资金调仓日', tag:'index'},
+  {date:d(11,30), label:'MSCI季度调整生效', desc:'外资被动资金调仓日', tag:'index'},
+  {date:d(6,15), label:'科创50调整生效', desc:'科创板指数成分股调整', tag:'index'},
+  {date:d(12,15), label:'科创50调整生效', desc:'科创板指数成分股调整', tag:'index'},
+  {date:d(6,15), label:'沪深300/中证500调整', desc:'重要指数成分调整', tag:'index'},
+  {date:d(12,15), label:'沪深300/中证500调整', desc:'重要指数成分调整', tag:'index'},
+];
+
+// ====== 休市日历 ======
+var holidays = [
+  {date:d(1,1), label:'元旦休市', desc:'1天', tag:'holiday'},
+  {date:new Date(Y,0,28), label:'春节休市', desc:'7天(日期每年变化)', tag:'holiday'},
+  {date:d(4,5), label:'清明节休市', desc:'1天', tag:'holiday'},
+  {date:d(5,1), label:'劳动节休市', desc:'1-3天', tag:'holiday'},
+  {date:d(6,20), label:'端午节休市', desc:'1天(日期每年变化)', tag:'holiday'},
+  {date:d(9,20), label:'中秋节休市', desc:'1天(日期每年变化)', tag:'holiday'},
+  {date:d(10,1), label:'国庆节休市', desc:'7天', tag:'holiday'},
+];
+
+// ====== 渲染 ======
+function renderList(containerId, items, emptyMsg){
+  var el = document.getElementById(containerId);
+  // 按日期排序，只显示未来60天的
+  var upcoming = items.filter(function(x){return daysUntil(x.date)>-7}).sort(function(a,b){return a.date-b.date});
+  var show = upcoming.slice(0, 15); // 最多显示15条
+  if(show.length===0){el.innerHTML='<div class="empty">'+emptyMsg+'</div>';return}
+
+  // 按月分组
+  var months = {};
+  show.forEach(function(x){
+    var key = x.date.getFullYear()+'-'+(x.date.getMonth()+1);
+    if(!months[key]) months[key] = [];
+    months[key].push(x);
+  });
+
+  var html = '';
+  var monthNames = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  Object.keys(months).forEach(function(key){
+    var parts = key.split('-');
+    html += '<div class="month-header">'+parts[0]+'年 '+monthNames[parseInt(parts[1])-1]+'</div>';
+    months[key].forEach(function(x){
+      var left = daysUntil(x.date);
+      var urgency = left<=3?'urgency-high':left<=14?'urgency-mid':'urgency-low';
+      var countdown = left<=0?'今天':left<=1?'明天':left<=30?left+'天后':'';
+      html += '<div class="item '+urgency+'">'+
+        '<span class="date">'+fmt(x.date)+'</span>'+
+        '<span class="tag tag-'+x.tag+'">'+({policy:'政策',earnings:'财报',lockup:'解禁',event:'事件',index:'指数',holiday:'休市'}[x.tag])+'</span>'+
+        (countdown?'<span class="countdown">'+countdown+'</span> ':'')+
+        '<strong>'+x.label+'</strong>'+
+        '<div style="color:#94a3b8;font-size:0.62rem">'+x.desc+'</div>'+
+        '</div>';
+    });
+  });
+  el.innerHTML = html;
+}
+
+// ====== 加载解禁数据 ======
+async function loadLockupData(){
+  var lockupItems = [];
+  try{
+    var r = await fetch('risk-data.json');
+    var riskData = await r.json();
+    if(riskData && riskData.stocks){
+      riskData.stocks.forEach(function(s){
+        if(s.lockups && s.lockups.length>0){
+          s.lockups.forEach(function(l){
+            var dt = new Date(l.date);
+            if(dt >= TODAY){
+              lockupItems.push({
+                date: dt,
+                label: s.n+' ('+s.c+') 解禁 '+l.ratio+'%',
+                desc: (l.holder?'股东:'+l.holder+' ':'')+(l.type||'')+' 解禁'+l.shares+'股',
+                tag: 'lockup',
+                stock: s.n,
+                ratio: parseFloat(l.ratio)||0,
+              });
+            }
+          });
+        }
+      });
+    }
+  }catch(e){
+    document.getElementById('lockup').innerHTML = '<div class="empty">需要先运行 node risk-check.js 生成解禁数据<br><span style="color:#64748b">'+e.message+'</span></div>';
+  }
+  return lockupItems;
+}
+
+// ====== 汇总统计 ======
+function updateSummary(lockupItems){
+  var all = [].concat(
+    policies.map(function(x){return {date:x.date,tag:x.tag}}),
+    earnings.map(function(x){return {date:x.date,tag:x.tag}}),
+    events.map(function(x){return {date:x.date,tag:x.tag}}),
+    indices.map(function(x){return {date:x.date,tag:x.tag}}),
+    lockupItems.map(function(x){return {date:x.date,tag:'lockup'}})
+  );
+  var thisMonth = all.filter(function(x){
+    return x.date.getMonth()===M && x.date.getFullYear()===Y && x.date>=TODAY;
+  });
+  document.getElementById('s1').textContent = thisMonth.length+'个';
+
+  var nextLockup = lockupItems.sort(function(a,b){return a.date-b.date})[0];
+  document.getElementById('s2').textContent = nextLockup ? fmt(nextLockup.date) : '无';
+
+  // 距离下次政策窗口
+  var nextPolicy = policies.filter(function(x){return daysUntil(x.date)>0}).sort(function(a,b){return a.date-b.date})[0];
+  document.getElementById('s3').textContent = nextPolicy ? daysUntil(nextPolicy.date)+'天' : '--';
+
+  document.getElementById('subtitle').textContent = '更新: '+TODAY.toLocaleDateString('zh-CN')+
+    ' · 未来60天 · 政策'+policies.length+'项 财报'+earnings.length+'项 事件'+events.length+'项';
+}
+
+// ====== 入口 ======
+async function init(){
+  var lockupItems = await loadLockupData();
+
+  renderList('policy', policies, '暂无近期政策窗口');
+  renderList('earnings', earnings, '暂无近期财报截止日');
+  renderList('lockup', lockupItems, '✅ 近期无持仓解禁风险');
+  renderList('events', events, '暂无近期产业事件');
+  renderList('index', indices, '暂无近期指数调整');
+  renderList('holidays', holidays, '暂无近期休市');
+
+  updateSummary(lockupItems);
+}
+
+init();
+</script></body></html>

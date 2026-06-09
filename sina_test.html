@@ -1,0 +1,51 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Sina API Test</title>
+<style>body{font-family:monospace;background:#111;color:#eee;padding:20px;font-size:14px}</style></head><body>
+<h2>Sina API Quick Test</h2>
+<div id="out">Testing...</div>
+<script>
+var out=document.getElementById('out');
+function log(m,c){out.innerHTML+='<div style="color:'+(c||'#fff')+'">'+m+'</div>'}
+
+log('Step 1: Loading Sina JSONP for 西部材料(002149)...','#ff0');
+var s=document.createElement('script');
+s.src='https://hq.sinajs.cn/list=sz002149';
+s.onload=function(){
+  log('Step 2: Script loaded OK','#0f0');
+  var key='hq_str_sz002149';
+  if(window[key]){
+    var f=window[key].split(',');
+    log('Step 3: Data parsed!','#0f0');
+    log('  Name: '+f[0],'#0f0');
+    log('  Price: '+f[3],'#0f0');
+    log('  Open: '+f[1],'#0f0');
+    log('  PrevClose: '+f[2],'#0f0');
+    log('  High: '+f[4],'#0f0');
+    log('  Low: '+f[5],'#0f0');
+    log('---','#888');
+    log('Sina API works! Dashboard should work now.','#0f0');
+  } else {
+    log('Step 3 FAILED: No data in window['+key+']','#f00');
+  }
+};
+s.onerror=function(){
+  log('Step 2 FAILED: Script load error','#f00');
+  log('Sina API may be blocked. Check firewall/network.','#f00');
+};
+document.head.appendChild(s);
+
+// Also test Eastmoney
+log('---','#888');
+log('Step 4: Testing Eastmoney direct fetch...','#ff0');
+fetch('https://push2.eastmoney.com/api/qt/stock/get?secid=0.002149&fields=f2,f3,f14')
+  .then(r=>r.json())
+  .then(j=>log('Eastmoney OK: '+JSON.stringify(j.data),'#0f0'))
+  .catch(e=>log('Eastmoney FAILED: '+e.message,'#f00'));
+
+// Test Sina K-line
+log('---','#888');
+log('Step 5: Testing Sina K-line...','#ff0');
+fetch('https://money.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_MarketData.getKLineData?symbol=sz002149&scale=240&ma=no&datalen=5')
+  .then(r=>r.json())
+  .then(j=>log('Sina K-line OK: '+j.length+' entries','#0f0'))
+  .catch(e=>log('Sina K-line FAILED: '+e.message,'#f00'));
+</script></body></html>

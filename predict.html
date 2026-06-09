@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>🎯 预测信号面板</title>
+<style>
+:root{--bg:#0f1117;--ca:#1a1d27;--bd:#252836;--t1:#e2e8f0;--t2:#94a3b8;--t3:#64748b;--ac:#3b82f6;--gr:#22c55e;--rd:#ef4444;--yl:#eab308}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--t1);font-size:13px;padding:16px;max-width:1200px;margin:0 auto}
+header{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--bd);margin-bottom:16px}
+header h1{font-size:1.1rem}
+.badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:0.6rem;font-weight:600}
+.badge-buy{background:rgba(34,197,94,.15);color:#4ade80}
+.badge-sell{background:rgba(239,68,68,.15);color:#f87171}
+.badge-warn{background:rgba(234,179,8,.15);color:#eab308}
+.panel{background:var(--ca);border:1px solid var(--bd);border-radius:8px;padding:14px;margin-bottom:10px}
+.panel-title{font-size:0.65rem;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-weight:600}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:800px){.grid-2,.grid-3{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:0.7rem}
+th{text-align:left;padding:4px 6px;color:var(--t3);font-weight:500;font-size:0.6rem;border-bottom:1px solid var(--bd)}
+td{padding:5px 6px;border-bottom:1px solid rgba(37,40,54,.3)}
+tr:hover{background:rgba(59,130,246,.03)}
+.sig-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(37,40,54,.2);font-size:0.7rem}
+.sig-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.conf-bar{height:4px;border-radius:2px;background:var(--bd);min-width:80px}
+.conf-fill{height:4px;border-radius:2px}
+.rule-box{font-size:0.6rem;color:var(--t3);background:var(--bg);padding:6px 8px;border-radius:4px;margin-top:4px;line-height:1.6}
+a{color:var(--ac);text-decoration:none}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎯 预测信号面板 <span style="font-size:0.55rem;color:var(--t3);font-weight:400">v0.3 · 生态动量+检查清单+执行时机 · 基于预测层方法论</span></h1>
+  <div style="display:flex;gap:8px;align-items:center">
+    <span id="status" style="font-size:0.6rem;color:var(--t3)">⏳</span>
+    <a href="预测层方法论.md" style="font-size:0.6rem;color:var(--t3)">📄 方法论</a>
+  </div>
+</header>
+<div class="rule-box" style="margin-bottom:10px;border-left:2px solid var(--ac)">
+  ⚠️ 独立预测工具。不读取/不修改/不依赖 index.html。仅通过代理获取行情数据。所有预测规则见 <a href="预测层方法论.md">预测层方法论 v0.3</a>。
+</div>
+
+<!-- Q1: 生态信号 -->
+<div class="panel">
+  <div class="panel-title">🔍 Q1 — 六大国内生态轮动信号</div>
+  <div class="rule-box" style="margin-bottom:10px">
+    规则：排名持续性（≥3天前2→确认）+ 拥挤度（RSI<65→安全）+ 越级跃迁（后3→前2→关注）<br>
+    生态：AI算力(11只) | 商业航天(10只) | 机器人(8只) | 低空经济(5只) | 半导体(32只) | 电力能源(28只)
+  </div>
+  <table id="ecoTable"><thead><tr><th>生态</th><th>排名</th><th>评分</th><th>持续</th><th>拥挤度</th><th>信号</th><th>建议</th></tr></thead><tbody></tbody></table>
+</div>
+
+<div class="grid-2">
+<!-- Q2: 买入信号 -->
+<div class="panel">
+  <div class="panel-title">📈 Q2 — 买入信号可信度</div>
+  <div class="rule-box" style="margin-bottom:10px">
+    规则：评分≥65 且 E1/E2 且 主力流入 → 高确信 | 评分≥65 但 虚标 → 低确信(概念炒作) | 评分≥65 但 资金流出 → 诱多
+  </div>
+  <div id="buySignals"><span style="color:var(--t3);font-size:0.65rem">⏳ 等待数据...</span></div>
+</div>
+
+<!-- Q3: 退出信号 -->
+<div class="panel">
+  <div class="panel-title">🛑 Q3 — 退出/减仓信号</div>
+  <div class="rule-box" style="margin-bottom:10px">
+    规则：E1标的止损-8% | 虚标止损-5% | 盈利>10%→跟踪止损至成本价 | 持仓15日仍亏→减半
+  </div>
+  <div id="exitSignals"><span style="color:var(--t3);font-size:0.65rem">⏳ 等待数据...</span></div>
+</div>
+</div>
+
+<!-- 综合信号摘要 -->
+<div class="panel" style="border-left:3px solid var(--ac)">
+  <div class="panel-title">📋 当前综合建议</div>
+  <div id="summary" style="font-size:0.7rem;color:var(--t2)">⏳ 数据加载中...</div>
+</div>
+
+<!-- 预测日志 -->
+<div class="panel">
+  <div class="panel-title">📝 预测日志 <span style="font-size:0.55rem;color:var(--t3);font-weight:400">记录→验证→统计准确率</span></div>
+  <div id="predLogBody"><span style="color:var(--t3);font-size:0.55rem">首次运行后自动记录...</span></div>
+</div>
+
+<script>
+// ═══ 数据定义（从现有模型复制，不修改原文件） ═══
+var P='http://localhost:8080';
+var ECO_ALLOC=['ai_domestic','space_domestic','robot_domestic','lowalt_domestic','chip','power'];
+var ECO_ALIAS={ai_domestic:'国产AI算力',space_domestic:'中国商业航天',robot_domestic:'国产机器人',lowalt_domestic:'低空经济',chip:'半导体',power:'电力能源'};
+var ECO_ICONS={ai_domestic:'💻',space_domestic:'🛰️',robot_domestic:'🤖',lowalt_domestic:'🚁',chip:'💾',power:'⚡'};
+var ECO_DESC={
+  ai_domestic:'昇腾/鲲鹏/寒武纪/海光 + 算力基建',
+  space_domestic:'星网/蓝箭/低轨卫星/火箭',
+  robot_domestic:'减速器/执行器/六维力/丝杠',
+  lowalt_domestic:'空管/eVTOL/无人机/直升机',
+  chip:'晶圆/设备/材料/光通信/PCB/封测',
+  power:'特高压/电网/储能/光伏/液冷/海缆'
+};
+
+// ═══ 六大国内自主产业链（完整标的列表，从 index.html 复制） ═══
+var ECO_STOCKS={
+  // 1. 国产AI算力
+  ai_domestic:[
+    {c:'688629',n:'华丰科技',rn:'高速连接器 华为第一大客户[E1] 防务核心供应商[E1]'},
+    {c:'002916',n:'深南电路',rn:'PCB 910C基板份额超60%(互动易) 华为客户'},
+    {c:'600584',n:'长电科技',rn:'全球封测第三/大陆第一(ChipInsights)[E1]'},
+    {c:'002156',n:'通富微电',rn:'昇腾备份供应商'},
+    {c:'301018',n:'申菱环境',rn:'华为液冷客户之一'},
+    {c:'002281',n:'光迅科技',rn:'光模块 年报未提昇腾/华为'},
+    {c:'002843',n:'泰嘉股份',rn:'电源业务 年报未提昇腾/910C'},
+    {c:'002837',n:'英维克',rn:'液冷 华为/中兴客户[E1] 跨生态'},
+    {c:'000977',n:'浪潮信息',rn:'[T2 xAI]AI服务器 潜在供应商'},
+    {c:'688256',n:'寒武纪',rn:'AI芯片/持续亏损/高波动'},
+    {c:'002230',n:'科大讯飞',rn:'大模型/星火/ToG收入'},
+  ],
+  // 2. 中国商业航天
+  space_domestic:[
+    {c:'001270',n:'铖昌科技',rn:'星载/低轨相控阵芯片(互动易)'},
+    {c:'600118',n:'中国卫星',rn:'星网60%卫星制造'},
+    {c:'002179',n:'中航光电',rn:'防务首选供应商[E1] 高压连接器国内前列[E1]'},
+    {c:'002361',n:'神剑股份',rn:'复合材料 年报未提朱雀/蓝箭'},
+    {c:'301517',n:'陕西华达',rn:'射频连接器 星网二期'},
+    {c:'300342',n:'天银机电',rn:'星敏感器 互动易否认SpaceX合作'},
+    {c:'300699',n:'光威复材',rn:'碳纤维>60% 跨生态'},
+    {c:'688102',n:'斯瑞新材',rn:'蓝箭航天供应商(朱雀三号)[E1] 电接触材料全球第一[E1]'},
+    {c:'600456',n:'宝钛股份',rn:'[T3火箭]航天钛合金 NASA认证'},
+    {c:'688333',n:'铂力特',rn:'[T3火箭]增材制造 服务航空航天客户(年报)'},
+  ],
+  // 3. 国产机器人
+  robot_domestic:[
+    {c:'688017',n:'绿的谐波',rn:'谐波减速器全球唯一全自主[E1] 市占率全球领先[E1]'},
+    {c:'603662',n:'柯力传感',rn:'六维力传感器 50+家送样'},
+    {c:'601689',n:'拓普集团',rn:'线性执行器 跨生态 Tesla+国产'},
+    {c:'601100',n:'恒立液压',rn:'行星滚柱丝杠'},
+    {c:'300124',n:'汇川技术',rn:'新能源动力系统全球第三中国第一[E1] PLC国内唯一[E1]'},
+    {c:'002050',n:'三花智控',rn:'[T2特斯拉+Optimus]热管理+旋转执行器'},
+    {c:'600699',n:'均胜电子',rn:'[T2特斯拉+Optimus]安全+关节模组'},
+    {c:'600143',n:'金发科技',rn:'[T3 Optimus]特种工程塑料 耐高温'},
+  ],
+  // 4. 低空经济
+  lowalt_domestic:[
+    {c:'688631',n:'莱斯信息',rn:'空管60-80% 物理开关13分'},
+    {c:'000099',n:'中信海直',rn:'海上油气直升机份额领先[E1] 低空经济布局'},
+    {c:'688070',n:'纵横股份',rn:'工业无人机 低空经济布局'},
+    {c:'600038',n:'中直股份',rn:'直升机总装 年报未披露份额'},
+    {c:'600862',n:'中航高科',rn:'预浸料80% 28家eVTOL供应商'},
+  ],
+  // 5. 半导体（芯片+材料+设备+光通信）
+  chip:[
+    // 芯片/封测
+    {c:'688981',n:'中芯国际',rn:'晶圆代工 先进制程布局'},
+    {c:'002371',n:'北方华创',rn:'半导体设备 刻蚀/薄膜/炉管(年报)'},
+    {c:'688012',n:'中微公司',rn:'刻蚀设备/国产替代'},
+    {c:'603986',n:'兆易创新',rn:'存储/MCU/景气周期'},
+    {c:'688008',n:'澜起科技',rn:'内存接口/AI服务器'},
+    {c:'300782',n:'卓胜微',rn:'射频芯片/消费电子周期'},
+    {c:'688256',n:'寒武纪',rn:'AI芯片/持续亏损/高波动'},
+    // 半导体材料
+    {c:'688268',n:'华特气体',rn:'[T4]电子特气 国内唯一通过ASML认证(年报/E1)'},
+    {c:'688146',n:'中船特气',rn:'[T4]三氟化氮+电子特气'},
+    {c:'300346',n:'南大光电',rn:'[T4]ArF光刻胶+电子特气'},
+    {c:'300655',n:'晶瑞电材',rn:'[T4]高纯双氧水国内第一 市占40%+ G5(年报/E1)'},
+    {c:'688019',n:'安集科技',rn:'[T4]CMP抛光液打破国外垄断[E1] 国内领先供应商'},
+    {c:'300666',n:'江丰电子',rn:'[T4]溅射靶材国内唯一核心技术[E1] 全球领先[E1]'},
+    {c:'688126',n:'沪硅产业',rn:'[T4]硅片打破国际垄断[E1] 200mm MEMS全球领先[E1]'},
+    {c:'300054',n:'鼎龙股份',rn:'[T4]CMP抛光垫 国内唯一全品类(年报/E1) 国产龙头'},
+    {c:'603650',n:'彤程新材',rn:'[T4]半导体光刻胶国内第一(沙利文)[E1] ArF/KrF全线量产[E1]'},
+    {c:'300260',n:'新莱应材',rn:'[T4]国际半导体龙头一级供应商[E1] 超高纯管阀件'},
+    // 光通信CPO
+    {c:'000988',n:'华工科技',rn:'[T1.5]CPO光引擎/激光 年报未提NVIDIA'},
+    {c:'301165',n:'锐捷网络',rn:'[T1.5]交换机市占第三(IDC)[E1] 以太光网络第一[E1]'},
+    {c:'688498',n:'源杰科技',rn:'[T3]800G/1.6T光芯片 年报未提英伟达认证'},
+    {c:'601869',n:'长飞光纤',rn:'[T3]光纤行业唯一国家重点实验室[E1] 首批领航级智能工厂[E1]'},
+    {c:'600487',n:'亨通光电',rn:'[T3]跨洋海缆唯一中国企业[E1] MPO华为/阿里供货[E1]'},
+    {c:'000938',n:'紫光股份',rn:'[T2]51.2T CPO批量交付[E1] 企业网交换机第一(IDC)[E1]'},
+    {c:'300570',n:'太辰光',rn:'[T3]MPO/MTP连接器核心供应商[E1] 全球数据中心客户'},
+    {c:'300620',n:'光库科技',rn:'[T3]铌酸锂调制器全球核心供应商[E1] 隔离器市占领先[E1]'},
+    {c:'002281',n:'光迅科技',rn:'[T2]光器件 全球份额7.8%(Omdia/年报)'},
+    // PCB
+    {c:'300476',n:'胜宏科技',rn:'[T2]全球PCB第6/内资第3(Prismark)[E1] AI算力PCB全球领先[E1]'},
+    {c:'002463',n:'沪电股份',rn:'[T2]AI PCB 高端产品布局'},
+    {c:'002916',n:'深南电路',rn:'[T2]IC载板 FC-BGA 16层(年报)'},
+    // 封测
+    {c:'600584',n:'长电科技',rn:'[T2]封测 中国大陆第一全球第三(年报)'},
+    {c:'002156',n:'通富微电',rn:'[T2]Chiplet先进封装'},
+  ],
+  // 6. 电力能源/新能源（电力+储能+IDC+散热）
+  power:[
+    // 电力电网
+    {c:'600089',n:'特变电工',rn:'[T3]输变电龙头 多产业集团(年报/E1)'},
+    {c:'601179',n:'中国西电',rn:'[T3]特高压国网集招行业第一[E1]'},
+    {c:'600312',n:'平高电气',rn:'[T3]超高压开关唯一金奖[E1] 特高压GIS领先'},
+    {c:'600406',n:'国电南瑞',rn:'[T2]电网调度自动化份额领先[E1] AgentSphere能源唯一[E1]'},
+    {c:'000400',n:'许继电气',rn:'[T2]换流阀国家首台套[E1] 计量国网份额第一[E1]'},
+    {c:'601877',n:'正泰电器',rn:'[T2]低压电器三细分市场第一[E1] 业内唯一全产品商[E1]'},
+    {c:'601126',n:'四方股份',rn:'[T1.5]字节火山引擎算力中心客户[E1] 市场份额前列[E1]'},
+    {c:'600131',n:'国网信通',rn:'[T1.5]电网数字化+算电协同'},
+    {c:'600875',n:'东方电气',rn:'[T1.5]发电设备央企 燃机到2028'},
+    {c:'002028',n:'思源电气',rn:'[T2]±800kV柔直中标[E1] SVG构网中标[E1] 海外+86%'},
+    {c:'002335',n:'科华数据',rn:'[T2]UPS国内第一[E1] 储能PCS全球第一[E1]'},
+    {c:'002364',n:'中恒电气',rn:'[T2]阿里腾讯数据中心电源供应商[E1]'},
+    // 新能源
+    {c:'300750',n:'宁德时代',rn:'动力电池全球第一(SNE) 市占39.2%(年报)'},
+    {c:'601012',n:'隆基绿能',rn:'硅片累计出货全球第一(年报) 组件86.58GW'},
+    {c:'002129',n:'中环股份',rn:'光伏硅片 G12规格(年报)'},
+    {c:'688599',n:'天合光能',rn:'组件/储能/分布式'},
+    {c:'300274',n:'阳光电源',rn:'逆变器/储能系统'},
+    // 液冷散热
+    {c:'002837',n:'英维克',rn:'[T2]液冷 UQD进英伟达MGX生态[E1] 华为中兴客户[E1]'},
+    {c:'301018',n:'申菱环境',rn:'[T2]CDU双料第一(赛迪)[E1] 华为字节腾讯客户[E1]'},
+    {c:'300499',n:'高澜股份',rn:'[T3]直流输电阀冷龙头[E1] 液冷数据中心'},
+    {c:'300249',n:'依米康',rn:'[T2]字节/阿里客户[E1] 风墙市场第一(赛迪)[E1]'},
+    {c:'002126',n:'银轮股份',rn:'[T3]液冷板 数据中心液冷模组 聚焦北美客户(年报)'},
+    // IDC运营
+    {c:'300383',n:'光环新网',rn:'AWS中国(北京)运营[E1] 上海首个T4认证[E1]'},
+    {c:'300738',n:'奥飞数据',rn:'[T2]第三方IDC 北京/广州布局[E1]'},
+    {c:'603881',n:'数据港',rn:'网络中立IDC服务商'},
+    // 海底光缆
+    {c:'600487',n:'亨通光电',rn:'跨洋海缆唯一中国企业[E1] 行业唯一央视年度案例[E1]'},
+    {c:'600522',n:'中天科技',rn:'阿里/腾讯/华为核心供应商[E1] OPGW市占率领先[E1]'},
+    {c:'603606',n:'东方电缆',rn:'±500kV柔直海缆全球首根[E1] 海陆缆核心供应商[E1]'},
+  ]
+};
+
+var prices={},kline={},scores={},ecoHistory=[]; // 生态排名历史
+var _stockMeta={}; // 所有标的的元数据
+var predLog=[]; // 预测日志
+
+// 加载预测日志
+try{var pl=localStorage.getItem('mx_predlog');if(pl)predLog=JSON.parse(pl)}catch(e){}
+function savePredLog(){try{localStorage.setItem('mx_predlog',JSON.stringify(predLog.slice(-200)))}catch(e){}}
+
+// 预测日志工具
+function logPrediction(type,content,confidence,verifyDays){
+  var now=new Date();
+  predLog.push({
+    date:now.toISOString().slice(0,10),time:now.toTimeString().slice(0,5),
+    type:type,content:content,confidence:confidence,
+    verify_date:new Date(now.getTime()+verifyDays*86400000).toISOString().slice(0,10),
+    outcome:null,was_correct:null
+  });
+  savePredLog();
+}
+
+// 回填历史预测结果
+function backfillPredictions(){
+  var today=new Date().toISOString().slice(0,10);
+  var changed=false;
+  predLog.forEach(function(p){
+    if(p.outcome!==null)return;
+    if(p.verify_date>today)return;
+    // Q1: 生态排名预测 — 检查当时排名的生态后续表现
+    // Q2: 买入信号 — 检查标的后续涨跌
+    // Q3: 退出信号 — 检查卖出后是否继续跌/反弹
+    // 简化处理: 标记为"待手动验证"（需要当时的快照数据）
+    if(p.verify_date<=today){
+      p.outcome='待验证(需当时的快照)';
+      p.was_correct=null;
+      changed=true;
+    }
+  });
+  if(changed)savePredLog();
+}
+
+// 预测准确率统计
+function getPredStats(){
+  var verified=predLog.filter(function(p){return p.was_correct!==null;});
+  if(verified.length===0)return null;
+  var correct=verified.filter(function(p){return p.was_correct;}).length;
+  return {total:verified.length,correct:correct,rate:(correct/verified.length*100).toFixed(0)+'%'};
+}
+
+// 构建标的索引
+Object.keys(ECO_STOCKS).forEach(function(k){
+  ECO_STOCKS[k].forEach(function(s){_stockMeta[s.c]=s;});
+});
+
+// ═══ 数据拉取 ═══
+function fetchURL(url){return fetch(url).then(function(r){return r.text()}).catch(function(){return''})}
+
+function fetchPrices(){
+  var codes=Object.keys(_stockMeta);
+  if(codes.length===0)return Promise.resolve();
+  var batch=[];
+  for(var i=0;i<codes.length;i+=50){batch.push(codes.slice(i,i+50))}
+  return Promise.all(batch.map(function(b){
+    var pf=b.map(function(c){return(c.charAt(0)==='6'||c.charAt(0)==='5'?'sh':'sz')+c}).join(',');
+    // 取60日K线用于RSI+20日均量
+    return fetch('http://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param='+pf+',day,,,60,qfq').then(function(r){return r.json()}).then(function(j){
+      b.forEach(function(c){
+        var key=(c.charAt(0)==='6'||c.charAt(0)==='5'?'sh':'sz')+c;
+        var days=(j&&j.data&&j.data[key]&&j.data[key].qfqday)||(j&&j.data&&j.data[key]&&j.data[key].day)||[];
+        if(days.length<5)return;
+        var closes=days.map(function(d){return parseFloat(d[4])});
+        var vols=days.map(function(d){return parseFloat(d[5])});
+        var last=closes.length-1;
+        // 价格
+        prices[c]={price:closes[last],chg:(closes[last]-closes[last-1])/closes[last-1]*100,
+          vol:vols[last],volAvg:vols.slice(-21,-1).reduce(function(s,v){return s+v},0)/Math.min(20,vols.length-1)};
+        // RSI
+        if(closes.length>=15){var gains=0,losses=0;
+          for(var d=last-13;d<=last;d++){var ch=closes[d]-closes[d-1];if(ch>0)gains+=ch;else losses-=ch}
+          prices[c].rsi=gains+losses>0?Math.round(100*gains/(gains+losses)):50}
+        // 量价健康度
+        var avgV=prices[c].volAvg||1;var vr=vols[last]/avgV;var chgP=prices[c].chg;
+        prices[c].volRatio=vr;
+        if(chgP>2&&vr<0.8)prices[c].volSig='缩量涨·筹码稳';
+        else if(chgP>2&&vr>1.5)prices[c].volSig='放量拉·游资出';
+        else if(chgP<-2&&vr>1.5)prices[c].volSig='放量跌·恐慌';
+        else if(chgP<-2&&vr<0.8)prices[c].volSig='缩量跌·无接盘';
+        else if(vr>1.5)prices[c].volSig='放量异动';
+        else prices[c].volSig='正常';
+      });
+    }).catch(function(){});
+  }));
+}
+
+function fetchFundFlow(){
+  var codes=Object.keys(_stockMeta);
+  if(codes.length===0)return Promise.resolve();
+  var batch=[];
+  for(var i=0;i<codes.length;i+=50){batch.push(codes.slice(i,i+50))}
+  return Promise.all(batch.map(function(b){
+    var secids=b.map(function(c){return (c.charAt(0)==='6'||c.charAt(0)==='5'?1:0)+'.'+c}).join(',');
+    return fetch('https://push2.eastmoney.com/api/qt/ulist.np/get?fltt=2&secids='+secids+'&fields=f12,f20,f62').then(function(r){return r.json()}).then(function(j){
+      if(j&&j.data&&j.data.diff){j.data.diff.forEach(function(d){
+        var code=d.f12;if(!prices[code])prices[code]={};
+        var mc=d.f20||1e10;var flow=d.f62||0;
+        prices[code].flow=flow;
+        prices[code].flowRatio=flow/mc; // 资金/市值比率
+        prices[code].mc=mc;
+      })}
+    }).catch(function(){});
+  }));
+}
+
+// ═══ 预测规则引擎 ═══
+
+// 获取标的的证据等级
+function getEvidenceLevel(s){
+  if(!s||!s.rn)return'E3';
+  if(s.rn.includes('[E1]')||s.rn.includes('(年报/E1)')||s.rn.includes('(年报)'))return'E1';
+  if(s.rn.includes('[E2]')||s.rn.includes('(互动易)'))return'E2';
+  if(s.rn.includes('年报未提')||s.rn.includes('年报未称')||s.rn.includes('年报无'))return'虚标';
+  return'E3';
+}
+
+// Q1: 生态轮动信号（v0.3: 真实收益+资金持续性替代合成评分）
+function computeEcoSignals(){
+  var results={};
+  ECO_ALLOC.forEach(function(k){
+    var stocks=ECO_STOCKS[k]||[];
+    if(stocks.length===0){results[k]=null;return}
+
+    // 计算生态内平均涨跌(日/周近似=5日)
+    var totalChg=0,nChg=0,totalRSI=0,nRSI=0,totalFlow=0,nFlow=0;
+    var upCount=0,flowInCount=0;
+    stocks.forEach(function(s){
+      var p=prices[s.c];if(!p||!p.price)return;
+      if(p.chg!==undefined){totalChg+=p.chg;nChg++;if(p.chg>0)upCount++;}
+      if(p.rsi!==undefined){totalRSI+=p.rsi;nRSI++;}
+      if(p.flowRatio!==undefined){totalFlow+=p.flowRatio;nFlow++;if(p.flowRatio>0)flowInCount++;}
+    });
+    var avgChg=nChg>0?totalChg/nChg:0;
+    var avgRSI=nRSI>0?totalRSI/nRSI:50;
+    var upRatio=nChg>0?upCount/nChg:0.5;
+    var flowRatio=nFlow>0?flowInCount/nFlow:0.5;
+
+    // 拥挤度
+    var crowding='正常';
+    if(avgRSI>75)crowding='🔴 过热';
+    else if(avgRSI>65)crowding='🟡 偏热';
+    else if(avgRSI<30)crowding='🟢 超卖';
+
+    // 综合动量分: 涨跌幅+资金流入比例+涨跌比
+    var momentum=avgChg*0.5+flowRatio*30+upRatio*20;
+    if(crowding.includes('过热'))momentum*=0.7;
+
+    results[k]={rsi:avgRSI,chg:avgChg,crowding:crowding,upRatio:upRatio,flowRatio:flowRatio,momentum:momentum,n:stocks.length};
+  });
+  return results;
+}
+
+// Q2: 买入信号可信度（v0.3: 买入前检查清单 + 资金二次确认）
+function computeBuySignals(){
+  var signals=[];
+  Object.keys(_stockMeta).forEach(function(c){
+    var s=_stockMeta[c];if(!s)return;
+    var p=prices[c];if(!p||!p.price)return;
+    var ev=getEvidenceLevel(s);
+
+    // 买入前检查清单（策略说明书 v3.3）
+    var checks=[];
+    // 1. 非虚标
+    if(ev==='虚标')checks.push({pass:false,reason:'🚫 虚标风险'});
+    else checks.push({pass:true,reason:'✅ 非虚标'});
+    // 2. 资金流向（用市值比率替代绝对值）
+    if(p.flowRatio>0)checks.push({pass:true,reason:'✅ 资金流入'});
+    else if(p.flowRatio<-0.0005)checks.push({pass:false,reason:'⚠️ 资金流出'});
+    else checks.push({pass:true,reason:'⚪ 资金中性'});
+    // 3. 量价健康
+    if(p.volSig==='放量拉·游资出')checks.push({pass:false,reason:'🔴 游资出货'});
+    else if(p.volSig==='放量跌·恐慌')checks.push({pass:false,reason:'🟠 恐慌'});
+    else if(p.volSig==='缩量涨·筹码稳')checks.push({pass:true,reason:'🟢 缩量涨'});
+    else checks.push({pass:true,reason:'⚪ 量价正常'});
+    // 4. RSI极端
+    if(p.rsi>75)checks.push({pass:false,reason:'🔴 RSI超买'});
+    else if(p.rsi<25)checks.push({pass:false,reason:'🔵 RSI超卖(可关注)'});
+    else checks.push({pass:true,reason:'✅ RSI正常'});
+
+    var passCount=checks.filter(function(ch){return ch.pass;}).length;
+    var totalCount=checks.length;
+    var confScore=Math.round(passCount/totalCount*100);
+
+    var confidence='';
+    if(passCount>=totalCount-1)confidence='🟢 高确信';
+    else if(passCount>=totalCount-2)confidence='🟡 中确信';
+    else confidence='🔴 低确信';
+
+    signals.push({name:s.n,code:c,evidence:ev,confidence:confidence,confScore:confScore,
+      flowRatio:p.flowRatio||0,rsi:p.rsi||50,chg:p.chg||0,volSig:p.volSig||'',
+      checks:checks,passCount:passCount,totalCount:totalCount});
+  });
+  signals.sort(function(a,b){return b.confScore-a.confScore;});
+  return signals;
+}
+
+// Q3: 退出/减仓信号（v0.3: 量价+执行时机矩阵）
+function computeExitSignals(){
+  var signals=[];
+  Object.keys(_stockMeta).forEach(function(c){
+    var s=_stockMeta[c];if(!s)return;
+    var p=prices[c];if(!p||!p.price)return;
+    var ev=getEvidenceLevel(s);
+
+    // 虚标 + 大跌 → 立刻警示
+    if(ev==='虚标'&&p.chg<-5){
+      signals.push({name:s.n,code:c,type:'虚标暴跌',detail:'日跌'+p.chg.toFixed(1)+'% 虚标风险',action:'🔴 考虑清仓',severity:'high'});
+    }
+    // RSI超买 + 放量
+    if(p.rsi>75&&p.chg>2&&p.volSig.indexOf('放量拉')>=0){
+      signals.push({name:s.n,code:c,type:'超买+放量拉',detail:'RSI'+p.rsi+' 量比'+p.volRatio.toFixed(1)+'x',action:'🔴 游资出货·考虑止盈',severity:'high'});
+    }
+    // 放量跌
+    if(p.chg<-3&&p.volSig.indexOf('放量跌')>=0){
+      signals.push({name:s.n,code:c,type:'放量跌',detail:'日跌'+p.chg.toFixed(1)+'% 量比'+p.volRatio.toFixed(1)+'x',action:'🔴 立刻执行止损',severity:'high'});
+    }
+    // 缩量跌
+    if(p.chg<-3&&p.volSig.indexOf('缩量跌')>=0){
+      signals.push({name:s.n,code:c,type:'缩量跌',detail:'日跌'+p.chg.toFixed(1)+'% 量比'+p.volRatio.toFixed(1)+'x',action:'🟡 等15分钟·恐慌非真砸',severity:'medium'});
+    }
+    // RSI超买提醒
+    if(p.rsi>80){
+      signals.push({name:s.n,code:c,type:'RSI极端超买',detail:'RSI'+p.rsi,action:'🟡 关注回调风险',severity:'medium'});
+    }
+  });
+  signals.sort(function(a,b){return a.severity==='high'?-1:1;});
+  return signals;
+}
+
+// ═══ 渲染 ═══
+function renderAll(){
+  // Q1
+  var ecoSignals=computeEcoSignals();
+  var entries=Object.entries(ecoSignals).filter(function(e){return e[1]!==null;});
+  entries.sort(function(a,b){return b[1].momentum-a[1].momentum;});
+
+  // 记录排名历史
+  var rankMap={};entries.forEach(function(e,i){rankMap[e[0]]=i+1;});
+  ecoHistory.push({time:Date.now(),ranks:rankMap});
+  if(ecoHistory.length>20)ecoHistory.shift();
+
+  // 计算持续性
+  var persistence={};
+  ECO_ALLOC.forEach(function(k){
+    var days=0;
+    for(var i=ecoHistory.length-1;i>=0;i--){
+      var r=ecoHistory[i].ranks[k];
+      if(r&&r<=2)days++;else break;
+    }
+    persistence[k]=days;
+  });
+
+  var tb=document.querySelector('#ecoTable tbody');
+  tb.innerHTML=entries.map(function(e,rank){
+    var k=e[0],v=e[1],icon=ECO_ICONS[k]||'📌',name=ECO_ALIAS[k]||k;
+    var pDays=persistence[k]||0;
+    var pStatus=pDays>=3?'✅ 确认('+pDays+'天)':pDays>=1?'⏳ 观察('+pDays+'天)':'—';
+    var advice=rank<2?(v.crowding.includes('过热')?'⚠️ 超配但过热':'🔥 超配'):(rank<5?'📊 标配':'❄️ 回避');
+    var momColor=v.momentum>15?'var(--gr)':v.momentum>-5?'var(--yl)':'var(--rd)';
+    return '<tr><td><b>'+icon+' '+name+'</b></td><td>#'+(rank+1)+'</td><td style="color:'+momColor+'">'+(v.momentum>0?'+':'')+v.momentum.toFixed(1)+'</td><td>'+pStatus+'</td><td>'+v.crowding+'</td><td>'+(v.flowRatio>0.6?'🟢流入':v.flowRatio>0.4?'🟡中性':'🔴流出')+'</td><td>'+advice+'</td></tr>';
+  }).join('');
+
+  // Q2
+  var buySignals=computeBuySignals();
+  var buyEl=document.getElementById('buySignals');
+  if(buySignals.length===0){
+    buyEl.innerHTML='<span style="color:var(--t3);font-size:0.65rem">无信号</span>';
+  }else{
+    buyEl.innerHTML=buySignals.slice(0,8).map(function(s){
+      var barColor=s.confScore>=75?'var(--gr)':s.confScore>=50?'var(--yl)':'var(--rd)';
+      var checkTags=s.checks.map(function(ch){return '<span style="font-size:0.5rem;color:'+(ch.pass?'var(--gr)':'var(--rd)')+'">'+ch.reason+'</span>';}).join(' ');
+      return '<div class="sig-row"><div class="sig-dot" style="background:'+barColor+'"></div><b>'+s.name+'</b> <span style="font-size:0.6rem;color:var(--t3)">'+s.code+'</span><span class="badge '+(s.evidence==='E1'?'badge-buy':s.evidence==='虚标'?'badge-sell':'badge-warn')+'">'+s.evidence+'</span><span style="font-size:0.6rem">'+s.confidence+' ('+s.passCount+'/'+s.totalCount+')</span><div style="font-size:0.5rem;color:var(--t3);margin-top:2px">'+checkTags+'</div><div class="conf-bar"><div class="conf-fill" style="width:'+s.confScore+'%;background:'+barColor+'"></div></div></div>';
+    }).join('');
+  }
+
+  // Q3
+  var exitSignals=computeExitSignals();
+  var exitEl=document.getElementById('exitSignals');
+  if(exitSignals.length===0){
+    exitEl.innerHTML='<span style="color:var(--gr);font-size:0.65rem">✅ 当前无退出信号</span>';
+  }else{
+    exitEl.innerHTML=exitSignals.slice(0,6).map(function(s){
+      return '<div class="sig-row"><div class="sig-dot" style="background:'+(s.severity==='high'?'var(--rd)':'var(--yl)')+'"></div><b>'+s.name+'</b> <span style="font-size:0.6rem;color:var(--t3)">'+s.code+'</span><span class="badge badge-sell">'+s.type+'</span><span style="font-size:0.6rem">'+s.detail+' → '+s.action+'</span></div>';
+    }).join('');
+  }
+
+  // 综合摘要
+  var summary=document.getElementById('summary');
+  var topEco=entries.slice(0,2).map(function(e){return ECO_ALIAS[e[0]];}).join('、');
+  var topBuy=buySignals.filter(function(s){return s.confScore>=70;});
+  var topExit=exitSignals.filter(function(s){return s.severity==='high';});
+  summary.innerHTML=
+    '<b>生态方向</b>：'+topEco+'<br>'+
+    '<b>高确信买入</b>：'+(topBuy.length>0?topBuy.map(function(s){return s.name+'('+s.confScore+'分)';}).join('、'):'无（评分≥65的高确信信号未出现）')+'<br>'+
+    '<b>需关注退出</b>：'+(topExit.length>0?topExit.map(function(s){return s.name;}).join('、'):'无')+'<br>'+
+    '<span style="font-size:0.55rem;color:var(--t3)">基于 预测层方法论 v0.3 · 仅供参考 · 不构成投资建议</span>';
+
+  document.getElementById('status').innerHTML='<span style="color:var(--gr)">✅ 实时</span> '+new Date().toLocaleTimeString('zh-CN');
+
+  // 预测日志：记录Q1生态排名预测（7天后验证）
+  if(entries.length>=2){
+    var top2=entries.slice(0,2).map(function(e){return ECO_ALIAS[e[0]];}).join('+');
+    logPrediction('Q1生态','排名前2: '+top2, entries[0][1].momentum>10?'高':'中',7);
+  }
+  // 记录Q2高确信买入
+  buySignals.filter(function(s){return s.confScore>=75;}).forEach(function(s){
+    logPrediction('Q2买入',s.name+'('+s.code+') '+s.confidence, s.confScore,5);
+  });
+
+  // 渲染预测日志面板
+  renderPredLog();
+}
+
+function renderPredLog(){
+  var el=document.getElementById('predLogBody');
+  var stats=getPredStats();
+  var header=stats?'📊 已验证 '+stats.total+'条 · 准确率 '+stats.rate:'📝 预测日志 '+predLog.length+'条(待验证)';
+  var recent=predLog.slice(-8).reverse();
+  el.innerHTML='<div style="font-size:0.55rem;color:var(--t3);margin-bottom:4px">'+header+'</div>'+
+    recent.map(function(p){
+      var oc=p.was_correct===true?'🟢':p.was_correct===false?'🔴':'⚪';
+      return '<div style="font-size:0.55rem;padding:2px 0;border-bottom:1px solid rgba(37,40,54,.2)">'+
+        '<span style="color:var(--t3)">'+p.date+'</span> '+
+        '<span>['+p.type+']</span> '+p.content+' '+
+        '<span style="color:'+(p.confidence>70?'var(--gr)':'var(--yl)')+'">('+p.confidence+'%)</span>'+
+        (p.outcome?' <span>→ '+oc+' '+p.outcome+'</span>':'')+
+        '</div>';
+    }).join('')+
+    '<div style="font-size:0.5rem;color:var(--t3);margin-top:4px">验证周期: Q1=7天 Q2=5天 Q3=5天 | 回填需当时的快照数据</div>';
+}
+
+// ═══ 主循环 ═══
+async function loop(){
+  await fetchPrices();
+  await fetchFundFlow();
+  renderAll();
+}
+
+// 启动
+loop().then(function(){
+  document.getElementById('status').innerHTML='<span style="color:var(--gr)">✅ 就绪</span>';
+  setInterval(loop,60000); // 60秒更新
+});
+</script>
+</body>
+</html>

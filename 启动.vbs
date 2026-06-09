@@ -1,0 +1,1 @@
+CreateObject("WScript.Shell").Run "cmd /c cd /d " & CreateObject("WScript.Shell").CurrentDirectory & " && start /min node proxy.js && timeout /t 2 >nul && start http://localhost:8080/index.html", 0, False

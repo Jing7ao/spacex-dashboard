@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>🔗 马斯克 & 英伟达 · 全层级供应链图谱（美国生态）</title>
+<style>
+:root{--bg:#0f1117;--ca:#1a1d27;--bd:#252836;--t1:#e2e8f0;--t2:#94a3b8;--t3:#64748b;--ac:#3b82f6;--gr:#22c55e;--yl:#eab308;--rd:#ef4444}
+.light{--bg:#f8fafc;--ca:#fff;--bd:#e2e8f0;--t1:#0f172a;--t2:#475569;--t3:#94a3b8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--t1);font-size:14px;padding:20px}
+h1{font-size:1.3rem;margin-bottom:8px;background:linear-gradient(135deg,#3b82f6,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+h2{font-size:1rem;margin:20px 0 10px;color:var(--t2);border-bottom:1px solid var(--bd);padding-bottom:6px}
+.tier{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.tier-label{width:90px;flex-shrink:0;text-align:right;font-size:0.68rem;color:var(--t3);padding-top:10px}
+.tier-content{flex:1;display:flex;flex-wrap:wrap;gap:6px}
+.node{background:var(--ca);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;min-width:150px;max-width:220px;font-size:0.75rem;transition:border-color .2s}
+.node:hover{border-color:var(--ac)}
+.node .name{font-weight:600}
+.node .code{font-size:0.6rem;color:var(--t3)}
+.node .role{font-size:0.65rem;color:var(--t2);margin-top:4px}
+.node .tag{display:inline-block;padding:1px 4px;border-radius:3px;font-size:0.58rem;margin-top:3px;font-weight:600}
+.tag-t1{background:rgba(59,130,246,.15);color:#60a5fa}
+.tag-t2{background:rgba(168,85,247,.15);color:#a78bfa}
+.tag-t3{background:rgba(34,197,94,.12);color:#4ade80}
+.tag-t4{background:rgba(234,179,8,.12);color:#facc15}
+.arrow{display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--bd);padding:4px 0}
+.note{font-size:0.65rem;color:var(--t3);margin-top:16px;line-height:1.6}
+.c{color:var(--gr)}.w{color:var(--yl)}.r{color:var(--rd)}
+.toggle-btn{position:fixed;top:12px;right:20px;font-size:0.7rem;border:1px solid var(--bd);padding:4px 10px;border-radius:12px;cursor:pointer;background:var(--ca);color:var(--t1);z-index:10}
+</style>
+</style>
+</head>
+<body>
+<button class="toggle-btn" onclick="document.body.classList.toggle('light')">☀️</button>
+<h1>🔗 马斯克 & 英伟达 — 全层级供应链图谱</h1>
+<p style="font-size:0.7rem;color:var(--t3);margin-bottom:20px">从 T4 原材料到 T1 终端产品，四层全链条。点击代码可跳转新浪财经查看详情。</p>
+
+<!-- ═══ SPACEX 火箭 ═══ -->
+<h2>🚀 SpaceX 猎鹰/星舰火箭</h2>
+<div style="display:flex"><div class="tier-label">T4 原料</div><div class="tier-content">
+  <div class="node"><div class="name">钛矿/铌矿</div><div class="code">上游矿产</div><div class="role">钛合金/铌合金原料</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">铬/锆/铜矿</div><div class="code">上游矿产</div><div class="role">铬锆铜合金原料</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">高硅氧砂</div><div class="code">上游矿产</div><div class="role">高硅氧纤维原料</div><span class="tag tag-t4">T4</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T3 材料</div><div class="tier-content">
+  <div class="node"><div class="name">宝钛股份</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh600456/nc.shtml" target="_blank" style="color:#3b82f6">600456</a></div><div class="role">航天级钛合金(通过NASA认证)</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">西部材料</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz002149/nc.shtml" target="_blank" style="color:#3b82f6">002149</a></div><div class="role">铌合金/钛合金 独家供应发动机</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">斯瑞新材</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh688102/nc.shtml" target="_blank" style="color:#3b82f6">688102</a></div><div class="role">铬锆铜 推力室内壁</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">再升科技</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh603601/nc.shtml" target="_blank" style="color:#3b82f6">603601</a></div><div class="role">高硅氧纤维 全球仅三家</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">上大股份</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz301522/nc.shtml" target="_blank" style="color:#3b82f6">301522</a></div><div class="role">高温合金直供SpaceX</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">铂力特</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh688333/nc.shtml" target="_blank" style="color:#3b82f6">688333</a></div><div class="role">金属3D打印发动机件</div><span class="tag tag-t3">T3</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T2 部件</div><div class="tier-content">
+  <div class="node"><div class="name">派克新材</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh605123/nc.shtml" target="_blank" style="color:#3b82f6">605123</a></div><div class="role">发动机精密锻件 NASA+SpaceX双认证</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">应流股份</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh603308/nc.shtml" target="_blank" style="color:#3b82f6">603308</a></div><div class="role">猛禽发动机涡轮泵铸件</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">超捷股份</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz301005/nc.shtml" target="_blank" style="color:#3b82f6">301005</a></div><div class="role">钛合金紧固件(墨西哥工厂)</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">图南股份</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz300855/nc.shtml" target="_blank" style="color:#3b82f6">300855</a></div><div class="role">高温合金精铸 国内垄断</div><span class="tag tag-t2">T2</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T1 终端</div><div class="tier-content">
+  <div class="node" style="border-color:#f97316"><div class="name">SpaceX</div><div class="code">SPCX (6/12上市)</div><div class="role">猎鹰/星舰/星链</div></div>
+</div></div>
+
+<!-- ═══ STARLINK ═══ -->
+<h2>🛰️ 星链 Starlink 地面终端</h2>
+<div style="display:flex"><div class="tier-label">T3 材料</div><div class="tier-content">
+  <div class="node"><div class="name">菲利华</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz300395/nc.shtml" target="_blank" style="color:#3b82f6">300395</a></div><div class="role">Q布 全球唯二量产</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">赛伍技术</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh603212/nc.shtml" target="_blank" style="color:#3b82f6">603212</a></div><div class="role">PI膜 卫星太阳翼封装</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">天力复合</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz920576/nc.shtml" target="_blank" style="color:#3b82f6">920576</a></div><div class="role">钛-不锈钢过渡接头</div><span class="tag tag-t3">T3</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T2 部件</div><div class="tier-content">
+  <div class="node"><div class="name">信维通信</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz300136/nc.shtml" target="_blank" style="color:#3b82f6">300136</a></div><div class="role">连接器+天线 全球独家供应</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">通宇通讯</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz002792/nc.shtml" target="_blank" style="color:#3b82f6">002792</a></div><div class="role">MacroWiFi天线模组</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">沪电股份</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz002463/nc.shtml" target="_blank" style="color:#3b82f6">002463</a></div><div class="role">高频PCB 地面终端</div><span class="tag tag-t2">T2</span></div>
+</div></div>
+
+<!-- ═══ TESLA ═══ -->
+<h2>🚗 Tesla 电动车</h2>
+<div style="display:flex"><div class="tier-label">T4 原料</div><div class="tier-content">
+  <div class="node"><div class="name">天齐锂业</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz002466/nc.shtml" target="_blank" style="color:#3b82f6">002466</a></div><div class="role">锂矿/碳酸锂</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">华友钴业</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh603799/nc.shtml" target="_blank" style="color:#3b82f6">603799</a></div><div class="role">钴/三元前驱体</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">中科三环</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz000970/nc.shtml" target="_blank" style="color:#3b82f6">000970</a></div><div class="role">钕铁硼永磁 驱动电机</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">金力永磁</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz300748/nc.shtml" target="_blank" style="color:#3b82f6">300748</a></div><div class="role">稀土永磁 新能源车</div><span class="tag tag-t4">T4</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T3 材料/件</div><div class="tier-content">
+  <div class="node"><div class="name">旭升集团</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh603305/nc.shtml" target="_blank" style="color:#3b82f6">603305</a></div><div class="role">铝合金压铸件 一级供应商</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">文灿股份</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh603348/nc.shtml" target="_blank" style="color:#3b82f6">603348</a></div><div class="role">一体化压铸 车身结构</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">三花智控</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz002050/nc.shtml" target="_blank" style="color:#3b82f6">002050</a></div><div class="role">热管理阀体/膨胀阀</div><span class="tag tag-t3">T3</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T2 系统</div><div class="tier-content">
+  <div class="node"><div class="name">拓普集团</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh601689/nc.shtml" target="_blank" style="color:#3b82f6">601689</a></div><div class="role">底盘+NVH 特斯拉占35%</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">均胜电子</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh600699/nc.shtml" target="_blank" style="color:#3b82f6">600699</a></div><div class="role">安全系统 订单近百亿</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">德赛西威</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz002920/nc.shtml" target="_blank" style="color:#3b82f6">002920</a></div><div class="role">FSD域控制器</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">联创电子</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz002036/nc.shtml" target="_blank" style="color:#3b82f6">002036</a></div><div class="role">FSD摄像头 独家</div><span class="tag tag-t2">T2</span></div>
+</div></div>
+
+<!-- ═══ OPTIMUS ═══ -->
+<h2>🤖 Tesla Optimus 机器人</h2>
+<div style="display:flex"><div class="tier-label">T3 部件</div><div class="tier-content">
+  <div class="node"><div class="name">绿的谐波</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh688017/nc.shtml" target="_blank" style="color:#3b82f6">688017</a></div><div class="role">谐波减速器 已过审</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">柯力传感</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh603662/nc.shtml" target="_blank" style="color:#3b82f6">603662</a></div><div class="role">六维力传感器</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">金发科技</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh600143/nc.shtml" target="_blank" style="color:#3b82f6">600143</a></div><div class="role">特种工程塑料 耐高温</div><span class="tag tag-t3">T3</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T2 模组</div><div class="tier-content">
+  <div class="node"><div class="name">拓普集团</div><div class="code">601689</div><div class="role">线性执行器+灵巧手 100万台规划</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">三花智控</div><div class="code">002050</div><div class="role">旋转执行器(单机14组)</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">均胜电子</div><div class="code">600699</div><div class="role">域控+传感器+关节模组</div><span class="tag tag-t2">T2</span></div>
+</div></div>
+
+<!-- ═══ NVIDIA ═══ -->
+<h2>🔷 NVIDIA GB300/Rubin GPU</h2>
+<div style="display:flex"><div class="tier-label">T4 化工/矿</div><div class="tier-content">
+  <div class="node"><div class="name">东材科技</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh601208/nc.shtml" target="_blank" style="color:#3b82f6">601208</a></div><div class="role">M9碳氢树脂 全球独家</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">联瑞新材</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh688300/nc.shtml" target="_blank" style="color:#3b82f6">688300</a></div><div class="role">球形硅微粉 独家供应</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">隆扬电子</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz301389/nc.shtml" target="_blank" style="color:#3b82f6">301389</a></div><div class="role">HVLP5++铜箔 全球唯一</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">圣泉集团</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh605589/nc.shtml" target="_blank" style="color:#3b82f6">605589</a></div><div class="role">PPO树脂 国内70%份额</div><span class="tag tag-t4">T4</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T3 核心材料</div><div class="tier-content">
+  <div class="node"><div class="name">生益科技</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh600183/nc.shtml" target="_blank" style="color:#3b82f6">600183</a></div><div class="role">CCL覆铜板 大陆唯一M9认证</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">菲利华</div><div class="code">300395</div><div class="role">Q布 全球唯二 Rubin背板55%</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">宏和科技</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh603256/nc.shtml" target="_blank" style="color:#3b82f6">603256</a></div><div class="role">4μm极薄电子布 全球龙头</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">华海诚科</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh688535/nc.shtml" target="_blank" style="color:#3b82f6">688535</a></div><div class="role">环氧塑封料 EMC龙头</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">三环集团</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz300408/nc.shtml" target="_blank" style="color:#3b82f6">300408</a></div><div class="role">陶瓷基板 GPU市占40%</div><span class="tag tag-t3">T3</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T2 关键部件</div><div class="tier-content">
+  <div class="node"><div class="name">胜宏科技</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz300476/nc.shtml" target="_blank" style="color:#3b82f6">300476</a></div><div class="role">GPU PCB全球第一 市占50%</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">沪电股份</div><div class="code">002463</div><div class="role">AI PCB 北美80% 78层M9背板</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">深南电路</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz002916/nc.shtml" target="_blank" style="color:#3b82f6">002916</a></div><div class="role">IC载板 FC-BGA 16层</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">长电科技</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh600584/nc.shtml" target="_blank" style="color:#3b82f6">600584</a></div><div class="role">封测 大陆唯一H20认证</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">英诺赛科</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh688153/nc.shtml" target="_blank" style="color:#3b82f6">688153</a></div><div class="role">GaN芯片 唯一中国供应商</div><span class="tag tag-t2">T2</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T1.5 系统</div><div class="tier-content">
+  <div class="node"><div class="name">工业富联</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh601138/nc.shtml" target="_blank" style="color:#3b82f6">601138</a></div><div class="role">AI服务器代工 全球40%</div><span class="tag tag-t1">T1.5</span></div>
+  <div class="node"><div class="name">中际旭创</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz300308/nc.shtml" target="_blank" style="color:#3b82f6">300308</a></div><div class="role">800G/1.6T光模块龙头</div><span class="tag tag-t1">T1.5</span></div>
+  <div class="node"><div class="name">天孚通信</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz300394/nc.shtml" target="_blank" style="color:#3b82f6">300394</a></div><div class="role">CPO光引擎 75亿在手订单</div><span class="tag tag-t1">T1.5</span></div>
+  <div class="node"><div class="name">英维克</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz002837/nc.shtml" target="_blank" style="color:#3b82f6">002837</a></div><div class="role">液冷 英伟达Tier1</div><span class="tag tag-t1">T1.5</span></div>
+  <div class="node"><div class="name">麦格米特</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz002851/nc.shtml" target="_blank" style="color:#3b82f6">002851</a></div><div class="role">33kW电源 唯一认证</div><span class="tag tag-t1">T1.5</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T1 终端</div><div class="tier-content">
+  <div class="node" style="border-color:#f97316;border-width:2px"><div class="name">NVIDIA</div><div class="code">NVDA</div><div class="role">GB300 / Vera Rubin / Blackwell</div></div>
+</div></div>
+
+<!-- ═══ 电力能源 ═══ -->
+<h2>⚡ AI 算力 × 电力能源（数据中心供配电全链）</h2>
+
+<div style="display:flex"><div class="tier-label">T4 原料</div><div class="tier-content">
+  <div class="node"><div class="name">望变电气</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh603191/nc.shtml" target="_blank" style="color:#3b82f6">603191</a></div><div class="role">取向硅钢 全国唯一全产业链</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">江西铜业</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh600362/nc.shtml" target="_blank" style="color:#3b82f6">600362</a></div><div class="role">铜材 电缆主原料</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">斯达半导</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh603290/nc.shtml" target="_blank" style="color:#3b82f6">603290</a></div><div class="role">IGBT模块 国产龙头</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">中国铝业</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh601600/nc.shtml" target="_blank" style="color:#3b82f6">601600</a></div><div class="role">铝材 输电线路</div><span class="tag tag-t4">T4</span></div>
+  <div class="node"><div class="name">华明装备</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz002270/nc.shtml" target="_blank" style="color:#3b82f6">002270</a></div><div class="role">变压器分接开关 市占垄断</div><span class="tag tag-t4">T4</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T3 核心部件</div><div class="tier-content">
+  <div class="node"><div class="name">远东股份</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh600869/nc.shtml" target="_blank" style="color:#3b82f6">600869</a></div><div class="role">线缆A股第一 核级电缆+铜缆</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">东方电缆</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh603606/nc.shtml" target="_blank" style="color:#3b82f6">603606</a></div><div class="role">海缆龙头 500kV超高压</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">特变电工</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh600089/nc.shtml" target="_blank" style="color:#3b82f6">600089</a></div><div class="role">全球变压器龙头 市占12%</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">中国西电</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh601179/nc.shtml" target="_blank" style="color:#3b82f6">601179</a></div><div class="role">1100kV GIS全球领先</div><span class="tag tag-t3">T3</span></div>
+  <div class="node"><div class="name">平高电气</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh600312/nc.shtml" target="_blank" style="color:#3b82f6">600312</a></div><div class="role">特高压GIS市占40%+核电变压器</div><span class="tag tag-t3">T3</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T2 设备系统</div><div class="tier-content">
+  <div class="node"><div class="name">金盘科技</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh688676/nc.shtml" target="_blank" style="color:#3b82f6">688676</a></div><div class="role">数据中心干式变压器 字节850MW</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">国电南瑞</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh600406/nc.shtml" target="_blank" style="color:#3b82f6">600406</a></div><div class="role">电网自动化75% 换流阀51%</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">许继电气</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz000400/nc.shtml" target="_blank" style="color:#3b82f6">000400</a></div><div class="role">柔直输电 换流阀40%</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">科华数据</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz002335/nc.shtml" target="_blank" style="color:#3b82f6">002335</a></div><div class="role">UPS国内第一 市占14.9%</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">中恒电气</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz002364/nc.shtml" target="_blank" style="color:#3b82f6">002364</a></div><div class="role">HVDC国内第一 阿里腾讯供应商</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">思源电气</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz002028/nc.shtml" target="_blank" style="color:#3b82f6">002028</a></div><div class="role">开关+SVG+海外变压器89%增速</div><span class="tag tag-t2">T2</span></div>
+  <div class="node"><div class="name">科泰电源</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sz300153/nc.shtml" target="_blank" style="color:#3b82f6">300153</a></div><div class="role">柴发备用电源 字节供应商</div><span class="tag tag-t2">T2</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T1.5 集成</div><div class="tier-content">
+  <div class="node"><div class="name">国网信通</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh600131/nc.shtml" target="_blank" style="color:#3b82f6">600131</a></div><div class="role">电网数字化平台 算电协同</div><span class="tag tag-t1">T1.5</span></div>
+  <div class="node"><div class="name">东方电气</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh600875/nc.shtml" target="_blank" style="color:#3b82f6">600875</a></div><div class="role">发电设备央企 燃机订单至2028</div><span class="tag tag-t1">T1.5</span></div>
+  <div class="node"><div class="name">四方股份</div><div class="code"><a href="https://finance.sina.com.cn/realstock/company/sh601126/nc.shtml" target="_blank" style="color:#3b82f6">601126</a></div><div class="role">配网自愈+AI故障预测95%</div><span class="tag tag-t1">T1.5</span></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T1 终端</div><div class="tier-content">
+  <div class="node" style="border-color:#f97316;border-width:2px"><div class="name">AI 数据中心</div><div class="code">算力基础设施</div><div class="role">全球用电2030年占比7% 中国「算电协同」</div></div>
+  <div class="node" style="border-color:#f97316;border-width:2px"><div class="name">国家电网 / 南方电网</div><div class="code">电网运营商</div><div class="role">十五五投资4万亿 特高压5000亿+</div></div>
+</div></div>
+
+<div class="note">
+  <strong>图例：</strong> <span class="tag tag-t4">T4</span> 原材料/矿产 ·
+  <span class="tag tag-t3">T3</span> 材料/基础件 ·
+  <span class="tag tag-t2">T2</span> 关键部件/子系统 ·
+  <span class="tag tag-t1">T1</span> 系统集成/终端 ·
+  <br><br>
+  <strong>数据来源：</strong>券商研报(东吴/华创/国泰)、SEC S-1文件、公司公告、互动平台回复。供应关系部分为市场推测，以公司公告为准。
+  <br>
+  <strong>最后更新：</strong>2026年6月2日
+  <br><br>
+  <a href="index.html" style="color:#3b82f6">← 返回监控面板</a>
+</div>
+
+<!-- ═══ 全球 AI 数据中心基础设施建设 ═══ -->
+<h2>🏗️ 美国 AI 数据中心建设 → 中国设备供应链</h2>
+<p style="font-size:0.7rem;color:var(--t3);margin-bottom:10px">微软/谷歌/亚马逊/Meta 2026年资本开支超7000亿美元 → 建数据中心 → 采购电力/冷却/光纤 → 中国制造商受益</p>
+<div style="display:flex"><div class="tier-label">T0 需求方</div><div class="tier-content">
+  <div class="node" style="border-color:#f97316"><div class="name">微软 Azure</div><div class="role">年投$800亿+ 最大云服务商之一</div></div>
+  <div class="node" style="border-color:#f97316"><div class="name">谷歌 Cloud</div><div class="role">TPU v7自研 100%液冷 $180亿预算</div></div>
+  <div class="node" style="border-color:#f97316"><div class="name">亚马逊 AWS</div><div class="role">全球份额32% Trainium2芯片</div></div>
+  <div class="node" style="border-color:#f97316"><div class="name">Meta</div><div class="role">开源LLaMA MTIA自研芯片</div></div>
+  <div class="node" style="border-color:#f97316"><div class="name">字节/阿里/腾讯</div><div class="role">中国数据中心同样爆发</div></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">T1 设备需求</div><div class="tier-content">
+  <div class="node"><div class="name">中压变压器</div><div class="role">10-35kV 主供电</div></div>
+  <div class="node"><div class="name">UPS不间断电源</div><div class="role">断电保护</div></div>
+  <div class="node"><div class="name">柴油发电机组</div><div class="role">长时间备援</div></div>
+  <div class="node"><div class="name">液冷CDU</div><div class="role">GPU散热 PUE<1.15</div></div>
+  <div class="node"><div class="name">HVDC供配电</div><div class="role">800V直流 取代UPS</div></div>
+  <div class="node"><div class="name">CPO光交换机</div><div class="role">光纤取代铜缆</div></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">中国供应商</div><div class="tier-content">
+  <div class="node" style="border-color:#22c55e"><div class="name">金盘科技 688676</div><div class="role">干变 字节850MW 墨西哥工厂</div></div>
+  <div class="node" style="border-color:#22c55e"><div class="name">科华数据 002335</div><div class="role">UPS国内第一 市占14.9%</div></div>
+  <div class="node" style="border-color:#22c55e"><div class="name">科泰电源 300153</div><div class="role">柴发 字节供应商</div></div>
+  <div class="node" style="border-color:#22c55e"><div class="name">英维克 002837</div><div class="role">液冷全栈 英伟达核心</div></div>
+  <div class="node" style="border-color:#22c55e"><div class="name">中恒电气 002364</div><div class="role">HVDC第一 阿里腾讯</div></div>
+  <div class="node" style="border-color:#22c55e"><div class="name">思源电气 002028</div><div class="role">开关+SVG 北美订单+89%</div></div>
+  <div class="node" style="border-color:#22c55e"><div class="name">申菱环境 301018</div><div class="role">液冷CDU 海外+649%</div></div>
+  <div class="node" style="border-color:#22c55e"><div class="name">华工科技 000988</div><div class="role">CPO光引擎 NVIDIA独家</div></div>
+</div></div>
+<div class="arrow">▼</div>
+<div style="display:flex"><div class="tier-label">逻辑链</div><div class="tier-content">
+  <div style="font-size:0.7rem;color:var(--t2);padding:8px">
+    🇺🇸 科技巨头宣布建数据中心 → 📋 招标采购电力/冷却/光纤设备 → 🏭 中国制造商投标/墨西哥建厂 → 🚢 出口北美 → 💰 A股业绩兑现<br>
+    <b>关键催化剂：</b>2026变压器出口+36%(646亿) | 液冷北美交付 | 墨西哥工厂投产 | 谷歌液冷$180亿预算
+  </div>
+</div></div>
+
+<!-- ═══ BOM价值量拆解 ═══ -->
+<h2>💰 BOM 价值量拆解（A股可寻址市场）</h2>
+<p style="font-size:0.7rem;color:var(--t3);margin-bottom:10px">从「谁在供应链里」升级为「谁分到的蛋糕最大」。单位：美元/件，估算值。</p>
+
+<div style="display:flex;gap:20px;flex-wrap:wrap">
+<div style="flex:1;min-width:300px;background:var(--ca);border:1px solid var(--bd);border-radius:10px;padding:14px">
+<h3 style="font-size:0.85rem;color:var(--t2);margin-bottom:10px">NVIDIA GB300 GPU 单卡 BOM ≈ $35,000</h3>
+<div style="font-size:0.7rem;line-height:1.8">
+  🟦 HBM内存 ~60% ($21,000) → 三星/SK海力士主导<br>
+  🟨 封装 ~12% ($4,200) → 长电科技 / 通富微电<br>
+  🟩 PCB板 ~8% ($2,800) → 胜宏科技 / 沪电股份<br>
+  🟧 散热模组 ~5% ($1,750) → 英维克 / 高澜股份<br>
+  🟧 电源模块 ~5% ($1,750) → 麦格米特<br>
+  ⬜ 其他 ~10% ($3,500) → 被动元件/连接器<br>
+  <b>🇨🇳 A股可寻址: ~$5,000-6,000/卡</b>（非HBM部分）
+</div></div>
+
+<div style="flex:1;min-width:300px;background:var(--ca);border:1px solid var(--bd);border-radius:10px;padding:14px">
+<h3 style="font-size:0.85rem;color:var(--t2);margin-bottom:10px">Starlink V4 终端 BOM ≈ $600</h3>
+<div style="font-size:0.7rem;line-height:1.8">
+  🟦 相控阵天线 ~35% ($210) → 信维通信 / 通宇通讯<br>
+  🟨 芯片组 ~25% ($150) → 海外主导<br>
+  🟩 PCB+基板 ~15% ($90) → 菲利华(Q布) / 生益科技(CCL) / 胜宏科技<br>
+  🟧 电源 ~10% ($60) → 国内可选标的较多<br>
+  ⬜ 结构件 ~15% ($90) → 压铸/注塑供应商<br>
+  <b>🇨🇳 A股可寻址: ~$300-400/台</b>
+</div></div>
+</div>
+
+<div style="margin-top:20px;font-size:0.65rem;color:var(--t3);line-height:1.6;background:var(--ca);border:1px solid var(--bd);border-radius:10px;padding:12px">
+<strong>📊 数据来源与不确定性：</strong>BOM估算综合多份技术拆解报告和产业链调研。GPU BOM ±20%，Starlink终端 BOM ±30%。实际供应商份额随招标结果变化。<br>
+<strong>关键变量：</strong>① NVIDIA是否引入更多中国供应商（地缘风险）② Starlink终端出货量增速 ③ 供应商产能扩张节奏
+</div>
+
+</body>
+</html>

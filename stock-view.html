@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>单票视图 · 供应链映射 v2.7</title>
+<style>
+:root{--bg:#0f1117;--ca:#1a1d27;--bd:#252836;--t1:#e2e8f0;--t2:#94a3b8;--t3:#64748b;--ac:#ef4444;--gr:#22c55e;--yl:#eab308}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--t1);font-size:13px;padding:24px;max-width:900px;margin:0 auto}
+select{padding:6px 10px;background:var(--ca);color:var(--t1);border:1px solid var(--bd);border-radius:6px;font-size:0.75rem;min-width:240px}
+.header h1{font-size:1.4rem;display:flex;align-items:center;gap:10px}
+.header .code{font-size:0.8rem;color:var(--t3);font-weight:400}
+.badge{display:inline-block;padding:3px 8px;border-radius:4px;font-size:0.65rem;font-weight:600}
+.badge-bn{background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.3)}
+.badge-eco{background:rgba(249,115,22,.12);color:#fb923c}
+.badge-cross{background:rgba(168,85,247,.12);color:#a78bfa}
+.badge-e1{background:rgba(34,197,94,.15);color:#4ade80}
+.badge-e2{background:rgba(59,130,246,.12);color:#60a5fa}
+.badge-e3{background:rgba(148,163,184,.1);color:#94a3b8}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.panel{background:var(--ca);border:1px solid var(--bd);border-radius:10px;padding:16px}
+.panel.warn{border-color:rgba(234,179,8,.3);background:rgba(234,179,8,.04)}
+.panel-title{font-size:0.7rem;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-weight:600}
+.score-bar{display:flex;align-items:center;gap:8px;margin:4px 0}
+.score-label{width:36px;font-size:0.65rem;color:var(--t3);text-align:right}
+.score-fill{height:8px;border-radius:4px;min-width:4px}
+.score-val{font-size:0.7rem;font-weight:600;width:28px;text-align:center}
+.metric{text-align:center}
+.metric .val{font-size:1.3rem;font-weight:700}
+.metric .lbl{font-size:0.6rem;color:var(--t3);margin-top:2px}
+table{width:100%;border-collapse:collapse;font-size:0.68rem}
+th{text-align:left;padding:4px 6px;color:var(--t3);font-weight:500;font-size:0.62rem;border-bottom:1px solid var(--bd)}
+td{padding:5px 6px;border-bottom:1px solid rgba(37,40,54,.4);vertical-align:top}
+.risk-item,.gap-row{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid rgba(37,40,54,.4);font-size:0.7rem}
+.risk-item:last-child,.gap-row:last-child{border-bottom:none}
+.note{font-size:0.62rem;color:var(--t3);margin-top:16px;line-height:1.6}
+a{color:var(--ac);text-decoration:none}
+#picker{margin-bottom:20px;display:flex;gap:10px;align-items:center}
+#picker label{font-size:0.7rem;color:var(--t3)}
+#content{display:none}
+#empty{color:var(--t3);font-size:0.8rem;text-align:center;padding:60px}
+</style>
+</head>
+<body>
+
+<div id="picker">
+  <label>📊 选择标的：</label>
+  <select id="stockSelect" onchange="loadStock(this.value)">
+    <option value="">— 选择一只标的 —</option>
+  </select>
+  <span style="font-size:0.62rem;color:var(--t3)">物理开关 x5 · 方法论文档 §18.6</span>
+</div>
+
+<div id="empty">👆 选择一只标的查看完整数据视图<br><span style="font-size:0.65rem;color:var(--t3)">数据来源：stock-data.json · 方法论 v2.7</span></div>
+<div id="content"></div>
+
+<script>
+let DATA = [];
+
+fetch('stock-data.json').then(r => r.json()).then(d => {
+  DATA = d;
+  const sel = document.getElementById('stockSelect');
+  d.forEach(s => {
+    const o = document.createElement('option');
+    o.value = s.code;
+    o.textContent = `${s.code} ${s.name} · ${s.ecosystem} · §18.6=${s.score_v26}分`;
+    sel.appendChild(o);
+  });
+  // auto-load from URL param
+  const p = new URLSearchParams(location.search).get('code');
+  if (p) { sel.value = p; loadStock(p); }
+});
+
+function bar(w, c) {
+  return `<div class="score-fill" style="width:${Math.max(4,w*40)}px;background:${c||'var(--gr)'}"></div>`;
+}
+
+function loadStock(code) {
+  if (!code) return;
+  const s = DATA.find(d => d.code === code);
+  if (!s) return;
+  document.getElementById('empty').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+
+  const p = s.score_detail;
+  const psum = (p.P1||0)+(p.P2||0)+(p.P2b||0)+(p.P3||0)+(p.P4||0)+(p.P4b||0);
+  const osum = (p.O1||0)+(p.O2||0)+(p.O3||0);
+  const tsum = (p.T1||0)+(p.T2||0)+(typeof p.T3b==='string'?0:(p.T3||0));
+  const eco_color = s.ecosystem.includes('AI')?'#fb923c':s.ecosystem.includes('航天')?'#60a5fa':s.ecosystem.includes('机器人')?'#a78bfa':'#4ade80';
+
+  const html = `
+<div class="header" style="margin-bottom:20px">
+<h1>${s.name} <span class="code">${s.code} · ${s.market}</span></h1>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+  ${s.bottleneck?'<span class="badge badge-bn">🔴 物理开关</span>':''}
+  <span class="badge badge-eco" style="border-color:${eco_color};color:${eco_color}">${s.ecosystem}</span>
+  ${s.cross_eco?`<span class="badge badge-cross">跨生态: ${s.cross_eco_detail||''}</span>`:'<span class="badge badge-cross" style="opacity:.5">纯国内标的</span>'}
+  <span class="badge badge-${s.evidence_level.toLowerCase()}">${s.evidence_level} 初评</span>
+</div>
+</div>
+
+<div class="grid-3">
+  <div class="panel"><div class="panel-title">§18.6 总评分</div><div class="metric"><div class="val" style="color:${s.score_v26>=14?'var(--gr)':'var(--yl)'}">${s.score_v26}</div><div class="lbl">/ ${s.score_max} · ${s.score_grade}</div></div></div>
+  <div class="panel"><div class="panel-title">最强 E1 证据</div><div class="metric"><div style="font-size:0.75rem;margin-top:4px">${s.key_e1}</div></div></div>
+  ${Object.entries(s.metrics).slice(0,1).map(([k,v])=>`<div class="panel"><div class="panel-title">${k}</div><div class="metric"><div class="val">${v}</div></div></div>`).join('')}
+</div>
+
+<div class="grid-3" style="margin-bottom:12px">
+${Object.entries(s.metrics).slice(1,4).map(([k,v])=>`<div class="panel"><div class="panel-title">${k}</div><div class="metric"><div class="val" style="font-size:1rem">${v}</div></div></div>`).join('')}
+</div>
+
+<div class="grid">
+  <div class="panel">
+    <div class="panel-title">维度一: 政策锁定度 (P) — ${psum}/${s.score_max>=18?8:8}分</div>
+    ${p.P1!==undefined?`<div class="score-bar"><span class="score-label">P1</span>${bar(p.P1)}<span class="score-val">+${p.P1}</span><span style="font-size:0.65rem;color:var(--t2)">十五五点名 (E1)</span></div>`:''}
+    ${p.P2!==undefined?`<div class="score-bar"><span class="score-label">P2</span>${bar(p.P2,'var(--gr)')}<span class="score-val">+${p.P2}</span><span style="font-size:0.65rem;color:var(--t2)">正式链长任命 (E1)</span></div>`:''}
+    ${p.P2b!==undefined?`<div class="score-bar"><span class="score-label">P2b</span>${bar(p.P2b,'var(--yl)')}<span class="score-val">+${p.P2b}</span><span style="font-size:0.65rem;color:var(--t2)">非正式链长覆盖 (E2)</span></div>`:''}
+    ${p.P3!==undefined?`<div class="score-bar"><span class="score-label">P3</span>${bar(p.P3)}<span class="score-val">+${p.P3}</span><span style="font-size:0.65rem;color:var(--t2)">国产化率数字目标 (E1)</span></div>`:''}
+    ${p.P4!==undefined?`<div class="score-bar"><span class="score-label">P4</span>${bar(p.P4)}<span class="score-val">+${p.P4}</span><span style="font-size:0.65rem;color:var(--t2)">国家大基金出资 (E2)</span></div>`:''}
+    ${p.P4b!==undefined?`<div class="score-bar"><span class="score-label">P4b</span>${bar(p.P4b,'var(--yl)')}<span class="score-val">+${p.P4b}</span><span style="font-size:0.65rem;color:var(--t2)">产业资本持股 (E2)</span></div>`:''}
+  </div>
+  <div class="panel">
+    <div class="panel-title">维度二: 订单转化率 (O) — ${osum}/6分</div>
+    ${p.O1!==undefined?`<div class="score-bar"><span class="score-label">O1</span>${bar(p.O1,p.O1?undefined:'transparent')}<span class="score-val">${p.O1?'+'+p.O1:'0'}</span><span style="font-size:0.65rem;color:var(--t2)">央企采购中标</span></div>`:''}
+    ${p.O2!==undefined?`<div class="score-bar"><span class="score-label">O2</span>${bar(p.O2,p.O2?undefined:'transparent')}<span class="score-val">${p.O2?'+'+p.O2:'0'}</span><span style="font-size:0.65rem;color:var(--t2)">量产交付措辞</span></div>`:''}
+    ${p.O3!==undefined?`<div class="score-bar"><span class="score-label">O3</span>${bar(p.O3,p.O3?undefined:'transparent')}<span class="score-val">${p.O3?'+'+p.O3:'0'}</span><span style="font-size:0.65rem;color:var(--t2)">产能投产</span></div>`:''}
+    ${p.O3_na!==undefined?`<div class="score-bar"><span class="score-label">O3</span><div class="score-fill na" style="width:4px;background:var(--bd)"></div><span class="score-val" style="color:var(--t3)">N/A</span><span style="font-size:0.65rem;color:var(--t3)">${p.O3_na}</span></div>`:''}
+  </div>
+  <div class="panel">
+    <div class="panel-title">维度三: 技术锁定度 (T) — ${tsum}/6分</div>
+    ${p.T1!==undefined?`<div class="score-bar"><span class="score-label">T1</span>${bar(p.T1)}<span class="score-val">+${p.T1}</span><span style="font-size:0.65rem;color:var(--t2)">国内≤2家能做 (E2)</span></div>`:''}
+    ${p.T2!==undefined?`<div class="score-bar"><span class="score-label">T2</span>${bar(p.T2)}<span class="score-val">+${p.T2}</span><span style="font-size:0.65rem;color:var(--t2)">技术差距≤1代 (E2)</span></div>`:''}
+    ${typeof p.T3b==='string'?`<div class="score-bar"><span class="score-label">T3b</span><div class="score-fill" style="width:4px;background:var(--rd)"></div><span class="score-val" style="color:var(--rd)">E3</span><span style="font-size:0.65rem;color:var(--t3)">⚠️ 需工程专家判断</span></div>`:''}
+    ${p.T3!==undefined?`<div class="score-bar"><span class="score-label">T3</span>${bar(p.T3)}<span class="score-val">+${p.T3}</span><span style="font-size:0.65rem;color:var(--t2)">无替代路线</span></div>`:''}
+  </div>
+  <div class="panel warn">
+    <div class="panel-title">⚠️ 关键风险</div>
+    ${s.risks.map(r=>`<div class="risk-item"><span style="font-size:0.8rem">${r.severity}</span><div>${r.text}</div></div>`).join('')}
+  </div>
+</div>
+
+<div class="grid">
+  <div class="panel">
+    <div class="panel-title">🔍 年报 E1 证据审计</div>
+    <table>
+    <tr><th>关键论断</th><th>级别</th><th>来源</th><th>动作</th></tr>
+    ${s.e1_audit.map(e=>`<tr><td>${e.claim}</td><td><span class="badge badge-${e.level.toLowerCase()}">${e.level}</span></td><td>${e.source}</td><td>${e.action}</td></tr>`).join('')}
+    </table>
+  </div>
+  <div class="panel">
+    <div class="panel-title">📊 情景暴露</div>
+    <table>
+    <tr><th>情景</th><th>方向</th><th>影响逻辑</th></tr>
+    ${s.scenarios.map(sc=>`<tr><td>${sc.id} ${sc.name}</td><td>${sc.dir}</td><td>${sc.logic}</td></tr>`).join('')}
+    </table>
+  </div>
+</div>
+
+<div class="panel warn">
+  <div class="panel-title">📋 待补 E1 证据清单</div>
+  ${s.gaps.map(g=>`<div class="gap-row"><span style="font-size:0.7rem">⬜</span> ${g}</div>`).join('')}
+</div>
+
+<div class="note">
+📁 <b>相关文档</b>：<a href="供应链映射方法论.md">方法论 v3.1</a> · <a href="domestic-supply-chain.html">国内生态图谱</a> · <a href="supply-chain.html">美国生态图谱</a> · <a href="瓶颈初筛与验证结果_v3.1.md">证据审计</a><br>
+🕐 生成：2026-06-06 · 单票视图 v1 · 数据源：<a href="stock-data.json">stock-data.json</a><br>
+⚠️ 本页为 E2 初评，所有评分待年报原文验证升级至 E1。不构成投资建议。
+</div>`;
+  document.getElementById('content').innerHTML = html;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>💰 资金配置建议</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#0f1117;color:#e2e8f0;font-size:14px;padding:16px}
+h1{font-size:1.2rem;background:linear-gradient(135deg,#3b82f6,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{background:#1a1d27;border:1px solid #252836;border-radius:10px;padding:14px}
+.card .r{font-size:1.3rem;font-weight:800;color:#3b82f6}
+.card .n{font-weight:700}.card .c{font-size:0.6rem;color:#64748b}
+.card .p{font-family:monospace;font-weight:600;font-size:1rem}
+.up{color:#22c55e}.down{color:#ef4444}
+.row{display:flex;justify-content:space-between;font-size:0.7rem;padding:1px 0}
+.row .l{color:#64748b}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.sc{background:#1a1d27;border:1px solid #252836;border-radius:10px;padding:12px;text-align:center}
+.sc .v{font-size:1.3rem;font-weight:800;font-family:monospace}.sc .lb{font-size:0.6rem;color:#64748b}
+.plan{padding:10px 14px;background:#1a1d27;border-radius:10px;font-size:0.75rem;line-height:1.7}
+.note{font-size:0.62rem;color:#64748b;margin-top:12px}
+input{background:#1a1d27;color:#e2e8f0;border:1px solid #252836;border-radius:6px;padding:5px 8px;font-size:0.8rem;width:80px}
+button{background:#1a1d27;border:1px solid #252836;color:#e2e8f0;border-radius:6px;padding:5px 12px;cursor:pointer;font-size:0.7rem}
+button:hover{border-color:#3b82f6}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.summary{grid-template-columns:1fr 1fr}}
+
+.tabs{display:flex;gap:0;margin-bottom:14px;border-bottom:2px solid #252836}
+.tab{padding:8px 20px;cursor:pointer;font-size:0.8rem;color:#64748b;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s}
+.tab.active{color:#f59e0b;border-bottom-color:#f59e0b}
+.tab:hover{color:#e2e8f0}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+.empty{color:#64748b;font-size:0.7rem;padding:20px;text-align:center}
+.month-header{font-size:0.75rem;font-weight:700;color:#94a3b8;padding:6px 0;margin-top:8px;border-bottom:1px solid #252836}
+.item{padding:6px 0;border-bottom:1px solid rgba(37,40,54,.4);font-size:0.72rem;line-height:1.5}
+.item:last-child{border-bottom:none}
+.item .date{display:inline-block;padding:1px 6px;border-radius:3px;font-family:monospace;font-size:0.65rem;margin-right:6px}
+.item .tag{display:inline-block;padding:1px 5px;border-radius:3px;font-size:0.58rem;margin-right:4px;font-weight:600}
+.tag-policy{background:rgba(239,68,68,.15);color:#ef4444}
+.tag-earnings{background:rgba(34,197,94,.15);color:#22c55e}
+.tag-lockup{background:rgba(249,115,22,.15);color:#f97316}
+.tag-event{background:rgba(59,130,246,.15);color:#60a5fa}
+.tag-index{background:rgba(168,85,247,.15);color:#a855f7}
+.tag-holiday{background:rgba(100,116,139,.15);color:#94a3b8}
+.urgency-high{border-left:3px solid #ef4444;padding-left:8px}
+.urgency-mid{border-left:3px solid #f59e0b;padding-left:8px}
+.urgency-low{border-left:3px solid #22c55e;padding-left:8px}
+.countdown{font-size:0.6rem;color:#f59e0b;font-family:monospace}
+</style></head><body>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('allocate')">💰 资金配置</div>
+  <div class="tab" onclick="switchTab('calendar')">📅 催化日历</div>
+</div>
+<div class="tab-content active" id="tab-allocate">
+<h1>💰 马斯克 + 英伟达生态 · 资金配置</h1>
+<div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap">
+  <label style="font-size:0.7rem;color:#64748b">资金 ¥</label>
+  <input type="number" id="budget" value="2000" onchange="run()">
+  <button onclick="run()">🔄 刷新</button>
+  <span style="font-size:0.6rem;color:#64748b" id="lup">--</span>
+</div>
+<div class="summary">
+  <div class="sc"><div class="v" id="s1">--</div><div class="lb">符合条件</div></div>
+  <div class="sc"><div class="v" id="s2">--</div><div class="lb">建议配置</div></div>
+  <div class="sc"><div class="v" id="s3">--</div><div class="lb">仓位占比</div></div>
+</div>
+<div class="grid" id="grid"><div style="padding:20px;color:#64748b">加载中...</div></div>
+<div class="plan" id="plan" style="margin-top:10px"></div>
+<div class="plan" id="news" style="margin-top:10px;font-size:0.7rem"></div>
+<div class="note">
+  筛选: 评分≥65 · 可买≥1手 · 非极高风险 · ETF未破MA60<br>
+  分配: ETF优先50% · 评分最高30% · 剩余等权 · 单标的不超30%
+</div>
+<script>
+var P='http://localhost:8080';
+// 供应链卡点评分(scpS): 瓶颈10 > 核心8 > 重要5 > 一般2 > 概念0
+var STOCKS=[
+  {c:'300136',m:0,n:'信维通信',rk:'high',pew:97,eco:'马斯克',tier:'T2星链',scpS:5,scpN:'SpaceX独家供应商/星链天线'},
+  {c:'002149',m:0,n:'西部材料',rk:'high',pew:344,eco:'马斯克',tier:'T3火箭',scpS:2,scpN:'钛合金材料/火箭外壳'},
+  {c:'601689',m:1,n:'拓普集团',rk:'mid',pew:35,eco:'马斯克',tier:'T2特斯拉',scpS:8,scpN:'Tesla底盘+Optimus执行器'},
+  {c:'002050',m:0,n:'三花智控',rk:'mid',pew:40,eco:'马斯克',tier:'T2特斯拉',scpS:8,scpN:'Tesla热管理/机器人热控'},
+  {c:'603305',m:1,n:'旭升集团',rk:'mid',pew:30,eco:'马斯克',tier:'T3特斯拉',scpS:5,scpN:'Tesla一级压铸件'},
+  {c:'688017',m:1,n:'绿的谐波',rk:'mid',pew:80,eco:'马斯克',tier:'T3 Optimus',scpS:10,scpN:'谐波减速器国产龙头/60%市占/人形机器人核心卡点'},
+  {c:'300476',m:0,n:'胜宏科技',rk:'mid',pew:35,eco:'英伟达',tier:'T2 PCB',scpS:8,scpN:'GPU PCB全球第一/英伟达主力供应商'},
+  {c:'601138',m:1,n:'工业富联',rk:'mid',pew:20,eco:'英伟达',tier:'T1.5服务器',scpS:8,scpN:'AI服务器40%份额/GB300'},
+  {c:'300308',m:0,n:'中际旭创',rk:'mid',pew:40,eco:'英伟达',tier:'T1.5光模块',scpS:10,scpN:'800G光模块龙头/英伟达核心供应商'},
+  {c:'300394',m:0,n:'天孚通信',rk:'mid',pew:55,eco:'英伟达',tier:'T1.5 CPO',scpS:10,scpN:'CPO光引擎/FAU组件/英伟达CPO核心卡点'},
+  {c:'002463',m:0,n:'沪电股份',rk:'mid',pew:35,eco:'英伟达',tier:'T2 PCB',scpS:5,scpN:'AI PCB/北美80%份额'},
+  {c:'600183',m:1,n:'生益科技',rk:'mid',pew:30,eco:'英伟达',tier:'T3 CCL',scpS:5,scpN:'CCL覆铜板/PCB上游材料'},
+  {c:'300502',m:0,n:'新易盛',rk:'mid',pew:40,eco:'英伟达',tier:'T1.5 CPO',scpS:8,scpN:'GB300 CPO/光模块第二梯队'},
+  {c:'002837',m:0,n:'英维克',rk:'mid',pew:45,eco:'英伟达',tier:'T1.5液冷',scpS:5,scpN:'AI液冷/数据中心散热'},
+  {c:'002851',m:0,n:'麦格米特',rk:'mid',pew:35,eco:'英伟达',tier:'T1.5电源',scpS:5,scpN:'AI服务器电源/英伟达供应链'},
+  {c:'600584',m:1,n:'长电科技',rk:'mid',pew:35,eco:'英伟达',tier:'T2封测',scpS:8,scpN:'先进封装Chiplet/英伟达封测'},
+];
+var prices={},kline={},riskData={},budget=2000;
+async function loadRisk(){
+  try{var r=await fetch('risk-data.json');riskData=await r.json();}
+  catch(e){console.log('风险数据加载失败(先运行 node risk-check.js): '+e.message)}
+}
+function fn(n,d){d=d||2;return Number(n).toFixed(d)}
+function fp(n){return (n>0?'+':'')+fn(n)+'%'}
+function fm(n){n=Number(n);return Math.abs(n)>=1e8?fn(n/1e8)+'亿':Math.abs(n)>=1e4?fn(n/1e4)+'万':fn(n)}
+
+async function run(){
+  budget=parseInt(document.getElementById('budget').value)||2000;
+  document.getElementById('grid').innerHTML='<div style="padding:20px;color:#64748b">拉取行情...</div>';
+  loadRisk(); // 异步加载风险数据,不阻塞行情
+
+  // 1. 行情(1次请求)
+  var tx=STOCKS.map(function(s){return (s.m===1?'sh':'sz')+s.c}).join(',');
+  try{
+    var r=await fetch('http://qt.gtimg.cn/q='+tx);
+    var t=await r.text();
+    STOCKS.forEach(function(s){
+      var pf=s.m===1?'sh':'sz';var re=new RegExp('v_'+pf+s.c+'="([^"]*)"');var m=t.match(re);
+      if(m){var f=m[1].split('~');if(f.length>=5){var pr=parseFloat(f[3]),pv=parseFloat(f[4]);prices[s.c]={p:pr,ch:pv?((pr-pv)/pv*100):0,pc:pv}}}
+    });
+  }catch(e){document.getElementById('grid').innerHTML='<div style="padding:20px;color:#ef4444">行情加载失败: '+e.message+'</div>';return}
+
+  // 2. 资金流+K线并行
+  document.getElementById('grid').innerHTML='<div style="padding:20px;color:#64748b">拉取资金+K线...</div>';
+  var tasks2=[];
+  STOCKS.forEach(function(s){
+    tasks2.push((function(stock){return new Promise(function(resolve){
+      var url=P+'/api/emf/qt/stock/get?secid='+stock.m+'.'+stock.c+'&fields=f62&_='+Date.now();
+      var tid=setTimeout(function(){resolve()},8000);
+      fetch(url).then(function(r){return r.json()}).then(function(j){
+        clearTimeout(tid);if(j&&j.data){if(!prices[stock.c])prices[stock.c]={};prices[stock.c].ff=j.data.f62||0}resolve();
+      }).catch(function(){clearTimeout(tid);resolve()});
+    })})(s));
+  });
+  for(var bi=0;bi<tasks2.length;bi+=5)await Promise.all(tasks2.slice(bi,Math.min(bi+5,tasks2.length)));
+
+  // 3. K线并行
+  var tasks=[];STOCKS.forEach(function(s){
+    if(kline[s.c]&&kline[s.c].length>=60)return;
+    var pf=s.m===1?'sh':'sz';
+    tasks.push((function(stock,pfx){return new Promise(function(resolve){
+      var url=P+'/api/txk?param='+pfx+stock.c+',day,,,120,qfq';
+      var tid=setTimeout(function(){resolve()},10000);
+      fetch(url).then(function(r){return r.json()}).then(function(j){
+        clearTimeout(tid);
+        if(j&&j.data&&j.data[pfx+stock.c]&&j.data[pfx+stock.c].qfqday){
+          var raw=j.data[pfx+stock.c].qfqday;kline[stock.c]=[];
+          for(var di=0;di<raw.length;di++){var d=raw[di];kline[stock.c].push({d:d[0],o:parseFloat(d[1]),c:parseFloat(d[2]),h:parseFloat(d[3]),l:parseFloat(d[4]),v:parseFloat(d[5])})}
+        }
+        resolve();
+      }).catch(function(){clearTimeout(tid);resolve()});
+    })})(s,pf));
+  });
+  for(var bi=0;bi<tasks.length;bi+=5)await Promise.all(tasks.slice(bi,Math.min(bi+5,tasks.length)));
+
+  // 3. 评分排序（显示全部，标注原因）
+  var ranked=[];var skipped=[];
+  STOCKS.forEach(function(s){
+    var d=prices[s.c];
+    if(!d||!d.p){skipped.push({s:s,reason:'无行情数据'});return}
+    var lots=Math.floor(budget/(d.p*100));
+    if(lots<1){skipped.push({s:s,reason:'买不起(需¥'+fn(d.p*100,0)+')',p:d.p});return}
+    var kl=kline[s.c];
+    if(!kl||kl.length<60){skipped.push({s:s,reason:'K线不足('+(kl?kl.length:0)+'天/需60天)',p:d.p});return}
+    var cl=kl.map(function(k){return k.c}),vl=kl.map(function(k){return k.v});
+    var cp=cl[cl.length-1],pp=cl[cl.length-2]||cp;
+    var m5=ma(cl,5),m20=ma(cl,20),m60=ma(cl,60);
+    var rsi=calcRSI(cl);var rsS=rsi<=20?100:rsi<=30?80:rsi<=40?65:rsi<=50?55:rsi<=60?45:rsi<=70?30:rsi<=80?15:0;
+    var maS=cp>m5&&m5>m20?100:cp>m5?75:cp>m20?60:40;
+    var av=vl.slice(-20).reduce(function(s,v){return s+v},0)/20;var vr=vl[vl.length-1]/av;var pc=((cp-pp)/pp)*100;
+    var vlS=vr>2&&pc>0?100:vr>1.5&&pc>0?70:vr>2&&pc<0?0:vr>1.5&&pc<0?30:50;
+    var mb=ma(cl,20);var vv=0;for(var i=cl.length-20;i<cl.length;i++)vv+=Math.pow(cl[i]-mb,2);var sd=Math.sqrt(vv/20);var bu=mb+2*sd,bl=mb-2*sd;var bp=(cp-bl)/(bu-bl||1);
+    var bbS=bp<.15?80:bp<.3?65:bp>.85?20:bp>.7?35:50;
+    var ff=prices[s.c]&&prices[s.c].ff;var fundS=50;if(ff!==undefined){if(ff>1e8)fundS=100;else if(ff>5e7)fundS=80;else if(ff>0)fundS=65;else if(ff>-5e7)fundS=35;else if(ff>-1e8)fundS=20;else fundS=0}
+    // 新评分: 技术40% + 供应链25% + 资金10% + 基本面10% + 催化预留15%
+    var scpScore=(s.scpS||0)*10; // 供应链卡点评分(0-100)
+    var comp=Math.round(rsS*0.20+maS*0.15+vlS*0.15+bbS*0.10+scpScore*0.25+fundS*0.15);
+    // PE惩罚(高PE科创板正常,只惩罚极端值)
+    if(s.pew>300||s.pew===0)comp-=10;else if(s.pew>200)comp-=5;
+    // 风险数据扣分(来自risk-check.js检测结果)
+    var riskStocks=riskData.stocks||[];
+    var rs=riskStocks.find(function(x){return x.c===s.c});
+    if(rs&&rs.risk){
+      var riskPenalty=Math.round(rs.risk.score*0.25); // 风险分映射为扣分(0-25)
+      comp-=riskPenalty;
+    }
+    // 供应链概念股惩罚
+    if(!s.scpS||s.scpS<=2)comp-=10; // 纯概念/一般供应商扣10分
+    if(s.rk==='critical'){comp-=15;if(comp>40)comp=40}else if(s.rk==='high')comp-=5;
+    if(cp<m60)comp=Math.round(comp*0.85); // 破MA60扣15%(原25%,降权因基本面已占40%)
+    comp=Math.max(0,Math.min(100,comp));
+    ranked.push({s:s,p:d.p,ch:d.ch,sc:comp,rsi:rsi,lots:lots,m20:m20});
+  });
+  ranked.sort(function(a,b){return b.sc-a.sc});
+
+  // 4. 渲染
+  var qualified=ranked.filter(function(r){return r.sc>=65});
+  var unqualified=ranked.filter(function(r){return r.sc<65});
+  var html='';
+  // 先显示符合条件的
+  qualified.forEach(function(r,i){
+    var pp=i===0?50:i===1?30:Math.max(5,Math.floor(70/ranked.length));
+    var al=Math.max(1,Math.floor(budget*pp/100/(r.p*100)));var aa=al*r.p*100;
+    html+='<div class="card" style="'+(i===0?'border-color:#22c55e':'')+'">'+
+      '<div style="display:flex;justify-content:space-between"><div><span class="r">#'+(i+1)+'</span> <span class="n">'+r.s.n+'</span><span class="c"> '+r.s.c+'</span></div>'+
+      '<span style="font-size:0.6rem;padding:2px 5px;border-radius:3px;background:rgba(59,130,246,.1);color:#60a5fa">'+r.s.eco+' · '+r.s.tier+'</span></div>'+
+      '<div style="margin:6px 0"><span class="p">¥'+fn(r.p)+'</span> <span class="'+(r.ch>=0?'up':'down')+'" style="font-size:0.75rem">'+fp(r.ch)+'%</span> <span style="font-size:0.65rem;color:#64748b">评分'+r.sc+' RSI'+r.rsi+'</span></div>'+
+      '<div class="row"><span class="l">建议配置</span><span style="font-weight:700;color:#22c55e">'+al+'手 ('+pp+'%) ≈ ¥'+fn(aa,0)+'</span></div>'+
+      '<div class="row"><span class="l">入场参考</span><span>¥'+fn(r.p)+' | MA20 ¥'+fn(r.m20)+'</span></div></div>';
+  });
+  // 未达标的折叠显示
+  if(unqualified.length>0){
+    html+='<div style="grid-column:1/-1;margin-top:8px"><details><summary style="cursor:pointer;color:#64748b;font-size:0.7rem">未达标 ('+unqualified.length+'只)</summary>';
+    unqualified.forEach(function(r){
+      html+='<div style="font-size:0.65rem;color:#94a3b8;padding:2px 0">'+r.s.n+' 评分'+r.sc+' RSI'+r.rsi+' ¥'+fn(r.p)+'</div>';
+    });
+    html+='</details></div>';
+  }
+  // 被跳过的(无数据/买不起)
+  if(skipped.length>0){
+    html+='<div style="grid-column:1/-1"><details><summary style="cursor:pointer;color:#64748b;font-size:0.7rem">暂不可评估 ('+skipped.length+'只)</summary>';
+    skipped.forEach(function(r){html+='<div style="font-size:0.65rem;color:#ef4444;padding:2px 0">'+r.s.n+' - '+r.reason+'</div>'});
+    html+='</details></div>';
+  }
+  document.getElementById('grid').innerHTML=html||'<div style="padding:20px;color:#64748b;text-align:center">无数据</div>';
+
+  // 5. 计划
+  var plan='';
+  if(qualified.length>0){
+    qualified.slice(0,5).forEach(function(r,i){
+      var pp=i===0?50:i===1?30:15;var al=Math.max(1,Math.floor(budget*pp/100/(r.p*100)));
+      plan+='<div style="padding:6px 0;border-bottom:1px solid rgba(37,40,54,.5)"><strong>第'+(i+1)+'步</strong> 买入 '+r.s.n+' <strong>'+al+'手</strong> ≈ ¥'+fn(al*r.p*100,0)+' @ ¥'+fn(r.p)+'</div>';
+    });
+    plan+='<div style="margin-top:6px;color:#64748b;font-size:0.7rem">剩余资金保留用于加仓</div>';
+  }else if(unqualified.length>0){plan='<span style="color:#eab308">⚠ 所有标的评分<65，不符合买入标准。等待评分回升。</span>'}
+  else{plan='<span style="color:#64748b">K线数据加载中，请等待主面板积累足够数据(需60天K线)</span>'}
+  document.getElementById('plan').innerHTML='<strong>📋 执行计划</strong><br>'+plan;
+
+  document.getElementById('s1').textContent=qualified.length+'只';
+  var ta=qualified.reduce(function(s,r){return s+Math.max(1,Math.floor(budget*(qualified.indexOf(r)===0?50:qualified.indexOf(r)===1?30:15)/100/(r.p*100)))*r.p*100},0);
+  document.getElementById('s2').textContent=qualified.length>0?'¥'+fn(Math.min(ta,budget),0):'¥0';
+  document.getElementById('s3').textContent=qualified.length>0?Math.min(100,Math.round(ta/budget*100))+'%':'0%';
+  // 6. 新闻
+  try{
+    var nr=await fetch(P+'/api/news/GetCMSSearchResult?type=8195&pageindex=1&pagesize=5&keyword='+encodeURIComponent('英伟达')+'&name=zixun&_='+Date.now());
+    var nj=await nr.json();var ni=[];
+    if(nj.Data)for(var ndi=0;ndi<nj.Data.length;ndi++)ni.push('<a href="'+nj.Data[ndi].Url+'" target="_blank" style="color:#e2e8f0;text-decoration:none">'+nj.Data[ndi].Title+'</a>');
+    document.getElementById('news').innerHTML='<strong>📰 最新资讯</strong><br>'+ni.join('<br>');
+  }catch(e){}
+
+  document.getElementById('lup').textContent='更新 '+new Date().toLocaleTimeString('zh-CN');
+}
+
+function calcRSI(cl,p){p=p||14;if(cl.length<p+1)return 50;var g=0,l=0;for(var i=cl.length-p;i<cl.length;i++){var d=cl[i]-cl[i-1];if(d>0)g+=d;else l-=d}if(l===0)return 100;return 100-(100/(1+g/l))}
+function ma(d,p){if(d.length<p)return d[d.length-1];var s=0;for(var i=d.length-p;i<d.length;i++)s+=d[i];return s/p}
+
+// 页面加载
+var kh=localStorage.getItem('mx_k');if(kh)try{kline=JSON.parse(kh)}catch(e){}
+run();
+setInterval(run,30000);
+
+// ====== Tab Switching ======
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  document.querySelector('.tab[onclick*="'+name+'"]').classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+  if(name==='calendar') loadCalendar();
+}
+
+// ====== Catal Calendar Logic ======
+var calendarLoaded = false;
+async function loadCalendar(){
+  if(calendarLoaded) return;
+  calendarLoaded = true;
+
+  var TODAY = new Date();
+  var Y = TODAY.getFullYear();
+  var M = TODAY.getMonth();
+
+  function d(month, day){
+    var dt = new Date(Y, month-1, day);
+    if(dt < TODAY && month < M+1) dt = new Date(Y+1, month-1, day);
+    return dt;
+  }
+  function fmt(dt){return dt.toISOString().slice(0,10)}
+  function daysUntil(dt){return Math.ceil((dt-TODAY)/86400000)}
+
+  var policies = [
+    {date:d(3,4), label:'两会开幕', desc:'全年政策主线定调', tag:'policy'},
+    {date:d(4,25), label:'政治局会议(4月)', desc:'一季度经济形势分析', tag:'policy'},
+    {date:d(7,25), label:'政治局会议(7月)', desc:'半年经济总结', tag:'policy'},
+    {date:d(12,10), label:'中央经济工作会议', desc:'下一年经济总基调', tag:'policy'},
+    {date:d(6,15), label:'陆家嘴论坛', desc:'证监会/央行政策信号', tag:'policy'},
+  ];
+
+  var earnings = [
+    {date:d(1,31), label:'年报预告截止', desc:'强制预告截止日', tag:'earnings'},
+    {date:d(4,30), label:'年报/一季报截止', desc:'全部年报一季报截止', tag:'earnings'},
+    {date:d(8,31), label:'半年报截止', desc:'全部半年报截止', tag:'earnings'},
+    {date:d(10,31), label:'三季报截止', desc:'全部三季报截止', tag:'earnings'},
+  ];
+
+  var events = [
+    {date:d(1,7), label:'CES 拉斯维加斯', desc:'AI/芯片/汽车电子', tag:'event'},
+    {date:d(3,18), label:'NVIDIA GTC', desc:'英伟达年度发布会/新架构', tag:'event'},
+    {date:d(5,20), label:'COMPUTEX 台北', desc:'AI服务器/光模块', tag:'event'},
+    {date:d(7,15), label:'特斯拉AI Day', desc:'Optimus/FSD进展', tag:'event'},
+    {date:d(9,1), label:'华为全联接大会', desc:'国产替代重要催化', tag:'event'},
+    {date:d(12,3), label:'台积电供应链大会', desc:'先进制程/封装路线图', tag:'event'},
+  ];
+
+  var indices = [
+    {date:d(5,31), label:'MSCI季度调整', desc:'外资被动资金调仓', tag:'index'},
+    {date:d(6,15), label:'科创50/沪深300调整', desc:'重要指数成分调整', tag:'index'},
+    {date:d(11,30), label:'MSCI季度调整', desc:'外资被动资金调仓', tag:'index'},
+  ];
+
+  var holidays = [
+    {date:d(1,1), label:'元旦休市', desc:'1天', tag:'holiday'},
+    {date:d(5,1), label:'劳动节休市', desc:'1-3天', tag:'holiday'},
+    {date:d(10,1), label:'国庆节休市', desc:'7天', tag:'holiday'},
+  ];
+
+  // Load lockup data from /api/risk
+  var lockupItems = [];
+  try{
+    var rr = await fetch(P+'/api/risk');
+    var riskData = await rr.json();
+    if(riskData && riskData.stocks){
+      riskData.stocks.forEach(function(s){
+        if(s.lockups) s.lockups.forEach(function(l){
+          var dt = new Date(l.date);
+          if(dt >= TODAY){
+            lockupItems.push({
+              date: dt, label: s.n+' 解禁 '+l.ratio+'%',
+              desc: (l.holder||'')+' 解禁'+l.shares+'股', tag:'lockup'
+            });
+          }
+        });
+      });
+    }
+  }catch(e){}
+
+  function renderList(id, items, empty){
+    var el = document.getElementById(id);
+    var upcoming = items.filter(function(x){return daysUntil(x.date)>-7}).sort(function(a,b){return a.date-b.date}).slice(0,10);
+    if(!upcoming.length){el.innerHTML='<div class="empty">'+empty+'</div>';return}
+    var months={};
+    upcoming.forEach(function(x){
+      var k=x.date.getFullYear()+'-'+(x.date.getMonth()+1);
+      if(!months[k])months[k]=[];months[k].push(x);
+    });
+    var mn=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+    var h='';
+    Object.keys(months).forEach(function(k){
+      var p=k.split('-');h+='<div class="month-header">'+p[0]+'年 '+mn[parseInt(p[1])-1]+'</div>';
+      months[k].forEach(function(x){
+        var left=daysUntil(x.date);
+        var u=left<=3?'urgency-high':left<=14?'urgency-mid':'urgency-low';
+        var cd=left<=0?'今天':left<=1?'明天':left<=30?left+'天后':'';
+        h+='<div class="item '+u+'"><span class="date">'+fmt(x.date)+'</span><span class="tag tag-'+x.tag+'">'+({policy:'政策',earnings:'财报',lockup:'解禁',event:'事件',index:'指数',holiday:'休市'}[x.tag])+'</span>'+(cd?'<span class="countdown">'+cd+'</span> ':'')+'<strong>'+x.label+'</strong><div style="color:#94a3b8;font-size:0.62rem">'+x.desc+'</div></div>';
+      });
+    });
+    el.innerHTML=h;
+  }
+
+  renderList('policy',policies,'暂无近期政策窗口');
+  renderList('earnings',earnings,'暂无近期财报截止日');
+  renderList('lockup',lockupItems,'✅ 近期无持仓解禁风险');
+  renderList('events',events,'暂无近期产业事件');
+  renderList('index',indices,'暂无近期指数调整');
+  renderList('holidays',holidays,'暂无近期休市');
+
+  // Summary
+  var all=[].concat(policies,earnings,events,indices,lockupItems);
+  var thisMonth=all.filter(function(x){return x.date.getMonth()===M&&x.date.getFullYear()===Y&&x.date>=TODAY});
+  document.getElementById('cs1').textContent=thisMonth.length+'个';
+  var nl=lockupItems.sort(function(a,b){return a.date-b.date})[0];
+  document.getElementById('cs2').textContent=nl?fmt(nl.date):'无';
+  var np=policies.filter(function(x){return daysUntil(x.date)>0}).sort(function(a,b){return a.date-b.date})[0];
+  document.getElementById('cs3').textContent=np?daysUntil(np.date)+'天':'--';
+  document.getElementById('calsub').textContent='更新: '+TODAY.toLocaleDateString('zh-CN')+' · 政策/财报/解禁/事件/指数/休市';
+}
+
+// Auto-load calendar data when page loads (background)
+setTimeout(loadCalendar, 3000);
+
+</script>
+</div><!-- end tab-allocate -->
+<div class="tab-content" id="tab-calendar">
+<h1>📅 A股催化日历</h1>
+<p class="sub" id="calsub" style="font-size:0.65rem;color:#64748b;margin-bottom:12px">加载中...</p>
+<div class="summary" style="margin-bottom:12px">
+  <div class="sc"><div class="v" id="cs1">--</div><div class="lb">本月催化剂</div></div>
+  <div class="sc"><div class="v" id="cs2">--</div><div class="lb">最近解禁日</div></div>
+  <div class="sc"><div class="v" id="cs3">--</div><div class="lb">距下次政策窗口</div></div>
+</div>
+<div class="grid">
+  <div class="card"><h3>🔴 政策窗口</h3><div id="policy"></div></div>
+  <div class="card"><h3>🟢 财报季</h3><div id="earnings"></div></div>
+  <div class="card"><h3>🟠 持仓解禁日</h3><div id="lockup"></div></div>
+  <div class="card"><h3>🔵 产业事件</h3><div id="events"></div></div>
+  <div class="card"><h3>🟣 指数调整</h3><div id="index"></div></div>
+  <div class="card"><h3>⚪ 休市日历</h3><div id="holidays"></div></div>
+</div>
+<div class="note" style="margin-top:12px">💡 政策窗口前1-2周布局 | 财报季前确认业绩 | 解禁日前评估减仓 | 风险数据自动从 /api/risk 加载</div>
+</div><!-- end tab-calendar -->
+</body></html>
