@@ -173,7 +173,7 @@ function fetchAndShowPrices() {
     var html = '<table><tr><th>标的</th><th>现价</th><th>涨跌幅</th><th>今开</th><th>昨收</th></tr>';
     codes.forEach(function(c) {
       var d = data[c];
-      if (!d || !d.price) { html += '<tr><td>'+c+'</td><td colspan="4" style="color:var(--t3)">休市</td></tr>'; return; }
+      if (!d || !d.price) { html += '<tr><td>'+c+'</td><td colspan="4" style="color:var(--t3)">数据获取失败(非交易时段或网络问题)</td></tr>'; return; }
       var cls = parseFloat(d.change) >= 0 ? 'color:var(--rd)' : 'color:var(--gr)';
       html += '<tr><td><b>'+d.name+'</b><br><span style="font-size:0.6rem;color:var(--t3)">'+c+'</span></td>';
       html += '<td><b>'+d.price+'</b></td>';

@@ -508,8 +508,9 @@ function load(){
 }
 
 // ═══ 数据获取（激进模式: 全试一遍） ═══════════════
+var apiErrors={}; // 统计API失败
 async function tryFetch(url,opts={}){
-  try{const r=await fetch(url,{cache:'no-cache',...opts});if(!r.ok)return null;return r}catch(e){return null}
+  try{const r=await fetch(url,{cache:'no-cache',...opts});if(!r.ok){var h=new URL(url).hostname;apiErrors[h]=(apiErrors[h]||0)+1;return null}return r}catch(e){var h2='';try{h2=new URL(url).hostname}catch(x){}if(h2)apiErrors[h2]=(apiErrors[h2]||0)+1;return null}
 }
 
 async function doFetch(){
@@ -1934,6 +1935,8 @@ async function loop(){
   var t1=performance.now();
   computeScores();checkAlerts();save();renderAll();renderEcoPanel();
   fc++;$('#stxt').textContent='OK #'+fc+' ('+(t1-t0).toFixed(0)+'ms)';$('#lup').textContent=new Date().toLocaleTimeString('zh-CN');
+  var ae=Object.keys(apiErrors).filter(function(k){return apiErrors[k]>0});
+  if(ae.length>0){$('#stxt').textContent+=' ⚠️'+ae.map(function(k){return k.split('.')[0]+':'+apiErrors[k]}).join(',')}
 }
 window._bnE1=['688017'];window._bnE3=['600456','002149','301522','605123','603308','300136','300395','600584'];window._bnList=(window._bnE1||[]).concat(window._bnE3||[]);load();scoreLoop();renderTabs();renderSources();renderPos();renderAdvice();renderNews();
 // 恢复 push token
