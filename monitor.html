@@ -458,6 +458,14 @@ const INDUSTRIES={
   ],etfs:[]},
 
   custom:{name:'⭐ 自选',watchlist:[],etfs:[]},
+  // === 8生态合并视图（从上面22类聚合） ===
+  nvidia_full:{name:'🔷 英伟达全链',watchlist:nvidia.watchlist.concat(optical.watchlist,semimat.watchlist,cooling.watchlist),etfs:nvidia.etfs.concat(optical.etfs,semimat.etfs,cooling.etfs)},
+  compute:{name:'🏗️ 算力基础设施',watchlist:power.watchlist.concat(datacenter.watchlist,idc.watchlist,subcable.watchlist),etfs:power.etfs.concat(datacenter.etfs,idc.etfs,subcable.etfs)},
+  chip_optical:{name:'🔗 半导体与光通信',watchlist:chip.watchlist.concat(optical.watchlist),etfs:chip.etfs.concat(optical.etfs)},
+  robot_all:{name:'🤖 机器人',watchlist:robot_domestic.watchlist,etfs:robot_domestic.etfs},
+  space_all:{name:'🚀 商业航天',watchlist:space.watchlist.concat(space_domestic.watchlist),etfs:space.etfs.concat(space_domestic.etfs)},
+  energy_all:{name:'🔋 新能源与储能',watchlist:newenergy.watchlist.concat(storage.watchlist),etfs:newenergy.etfs.concat(storage.etfs)},
+  custom_all:{name:'⭐ 更多',watchlist:ai.watchlist.concat(ai_domestic.watchlist,cxmt.watchlist,lowalt_domestic.watchlist,consumer.watchlist,env.watchlist,custom.watchlist),etfs:ai.etfs.concat(ai_domestic.etfs,cxmt.etfs,lowalt_domestic.etfs,consumer.etfs,env.etfs,custom.etfs)},
 };
 
 // ═══ 参数配置（所有阈值集中管理，便于回测校准）═══
@@ -574,7 +582,7 @@ async function doFetch(){
   // 新闻 + 资金流向 (VPN已通, 走代理)
   // 新闻: 新浪财经(已确认可通)
   news=[];
-  var kw=ind.name.slice(2);if(kw==='马斯克生态')kw='SpaceX';if(kw==='英伟达生态')kw='英伟达';
+  var kw=ind.name.slice(2);if(kw.includes('马斯克'))kw='SpaceX';if(kw.includes('英伟达'))kw='英伟达';if(kw.includes('算力'))kw='数据中心';if(kw.includes('半导体'))kw='芯片';if(kw.includes('航天'))kw='商业航天';if(kw.includes('机器'))kw='机器人';if(kw.includes('新能源'))kw='光伏储能';
   r=await tryFetch('https://feed.mix.sina.com.cn/api/roll/get?pageid=153&lid=2509&k='+encodeURIComponent(kw)+'&num=6&page=1');
   if(r){try{var nj=await r.json();if(nj.result&&nj.result.data){var items=nj.result.data;for(var ndi=0;ndi<items.length;ndi++){var nd=items[ndi];if(nd.title)news.push({t:nd.title,url:nd.url||'',s:'新浪财经'})}}}catch(e){}}
   if(news.length===0){news.push({t:'📊 东方财富-板块行情',url:'https://quote.eastmoney.com/',s:'链接'});news.push({t:'📡 巨潮资讯',url:'http://www.cninfo.com.cn/',s:'链接'})}
@@ -793,7 +801,7 @@ function renderTabs(){
   // 动态生成持仓标签
   if(pos.length>0){INDUSTRIES.holdings=INDUSTRIES.holdings||{name:'📦 我的持仓',watchlist:[],etfs:[]};INDUSTRIES.holdings.watchlist=[];pos.forEach(function(p){var found=false;for(var ik in INDUSTRIES){var ind2=INDUSTRIES[ik];var fd=ind2.watchlist.find(function(x){return x.c===p.c});if(!fd)fd=ind2.etfs.find(function(x){return x.c===p.c});if(fd){INDUSTRIES.holdings.watchlist.push(fd);found=true;break}}if(!found){var m2=p.c.charAt(0)==='6'||p.c.charAt(0)==='5'?1:0;INDUSTRIES.holdings.watchlist.push({c:p.c,m:m2,n:p.name||p.c,rk:'mid',pew:0,rn:'持仓股'})}})}
 
-  var order=['holdings','musk','nvidia','cxmt','ai_domestic','space_domestic','robot_domestic','lowalt_domestic','cooling','semimat','optical','storage','power','datacenter','subcable','idc','env','space','ai','newenergy','chip','consumer','custom'];
+  var order=['holdings','musk','nvidia_full','compute','chip_optical','robot_all','space_all','energy_all','custom_all'];
   if(CP().length===0)order.shift();
   $('#tabs').innerHTML=order.map(function(k){var v=INDUSTRIES[k];return v?'<div class="tab'+(k===cur?' active':'')+'" onclick="switchInd(\''+k+'\')">'+v.name+'</div>':''}).join('');
 }
@@ -1403,7 +1411,7 @@ function applyNLPResult(nlpResult,nlpBase){
 }
 
 async function fetchNews(){
-  var ind=INDUSTRIES[cur];var kw=ind.name.slice(2);if(kw==='马斯克生态')kw='SpaceX';if(kw==='英伟达生态')kw='英伟达';
+  var ind=INDUSTRIES[cur];var kw=ind.name.slice(2);if(kw.includes('马斯克'))kw='SpaceX';if(kw.includes('英伟达'))kw='英伟达';if(kw.includes('算力'))kw='数据中心';if(kw.includes('半导体'))kw='芯片';if(kw.includes('航天'))kw='商业航天';if(kw.includes('机器'))kw='机器人';if(kw.includes('新能源'))kw='光伏储能';
   var items=[];
   try{var r=await fetch(P+'/api/snews?pageid=153&lid=2509&k='+encodeURIComponent(kw)+'&num=5&page=1');var j=await r.json();if(j.result&&j.result.data){var list=j.result.data.slice(0,5);for(var di=0;di<list.length;di++){var d=list[di];items.push({t:d.title,url:d.url,nlp:{sentiment:'neutral',score:0.5}})}}}catch(e){}
   if(items.length===0)items=[{t:'🚀 SpaceX IPO定价$135/股 估值1.77万亿美元',url:'https://finance.sina.com.cn/',nlp:{sentiment:'positive',score:0.8}},{t:'🔷 英伟达CPO交换机量产 光模块需求爆发',url:'https://finance.sina.com.cn/',nlp:{sentiment:'positive',score:0.9}},{t:'⚡ AI算力引爆电力需求 美科技巨头资本开支+60%',url:'https://finance.sina.com.cn/',nlp:{sentiment:'positive',score:0.85}}];
