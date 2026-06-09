@@ -169,8 +169,7 @@ if __name__ == "__main__":
 
     all_results = {}
     for i, (category, pdf) in enumerate(all_pdfs):
-        if i > 0:
-            time.sleep(2)  # 限流保护
+        time.sleep(8)  # 限流保护 429
         name = os.path.basename(pdf).replace("：2025年年度报告.pdf","").replace(".pdf","")
         name = name.replace("四川东材科技集团股份有限公司","东材科技").replace("圣泉集团：","").replace("圣泉集团2025年年度报告摘要","圣泉集团(摘要)")
         findings = audit_pdf(pdf, f"[{category}] {name}")
