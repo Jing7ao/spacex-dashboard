@@ -1,0 +1,202 @@
+{
+  "nvidia": {
+    "name": "英伟达",
+    "n": 13,
+    "obs": 143,
+    "top_factors": [
+      [
+        "rsi",
+        -0.179,
+        "RSI",
+        true
+      ],
+      [
+        "amt_stab",
+        0.167,
+        "成交额稳定",
+        false
+      ],
+      [
+        "gap",
+        -0.148,
+        "跳空",
+        true
+      ]
+    ]
+  },
+  "musk": {
+    "name": "马斯克",
+    "n": 15,
+    "obs": 165,
+    "top_factors": [
+      [
+        "mom5",
+        0.151,
+        "5日动量",
+        false
+      ],
+      [
+        "amt_stab",
+        0.127,
+        "成交额稳定",
+        false
+      ],
+      [
+        "rev5",
+        -0.124,
+        "5日反转",
+        true
+      ]
+    ]
+  },
+  "ai_domestic": {
+    "name": "AI算力",
+    "n": 11,
+    "obs": 120,
+    "top_factors": [
+      [
+        "mom5",
+        0.157,
+        "5日动量",
+        false
+      ],
+      [
+        "rsi",
+        -0.136,
+        "RSI",
+        true
+      ],
+      [
+        "amt_stab",
+        0.127,
+        "成交额稳定",
+        false
+      ]
+    ]
+  },
+  "optical": {
+    "name": "光通信",
+    "n": 9,
+    "obs": 99,
+    "top_factors": [
+      [
+        "ma",
+        -0.408,
+        "均线",
+        true
+      ],
+      [
+        "mom5",
+        -0.278,
+        "5日动量",
+        true
+      ],
+      [
+        "gap",
+        -0.231,
+        "跳空",
+        true
+      ]
+    ]
+  },
+  "robot_domestic": {
+    "name": "机器人",
+    "n": 7,
+    "obs": 77,
+    "top_factors": [
+      [
+        "amt_stab",
+        0.214,
+        "成交额稳定",
+        false
+      ],
+      [
+        "rsi",
+        -0.212,
+        "RSI",
+        true
+      ],
+      [
+        "ma",
+        0.147,
+        "均线",
+        false
+      ]
+    ]
+  },
+  "semimat": {
+    "name": "半导体材料",
+    "n": 12,
+    "obs": 132,
+    "top_factors": [
+      [
+        "vwap",
+        -0.221,
+        "VWAP偏离",
+        true
+      ],
+      [
+        "rev5",
+        -0.197,
+        "5日反转",
+        true
+      ],
+      [
+        "shadow",
+        -0.135,
+        "影线",
+        true
+      ]
+    ]
+  },
+  "cooling": {
+    "name": "液冷",
+    "n": 6,
+    "obs": 66,
+    "top_factors": [
+      [
+        "gap",
+        0.367,
+        "跳空",
+        false
+      ],
+      [
+        "vwap",
+        0.307,
+        "VWAP偏离",
+        false
+      ],
+      [
+        "rev5",
+        0.244,
+        "5日反转",
+        false
+      ]
+    ]
+  },
+  "power": {
+    "name": "电力",
+    "n": 13,
+    "obs": 143,
+    "top_factors": [
+      [
+        "vwap",
+        0.246,
+        "VWAP偏离",
+        false
+      ],
+      [
+        "rsi",
+        0.202,
+        "RSI",
+        false
+      ],
+      [
+        "vp_div",
+        0.185,
+        "量价背离",
+        false
+      ]
+    ]
+  }
+}

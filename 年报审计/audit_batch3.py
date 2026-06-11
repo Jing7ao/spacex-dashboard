@@ -3,7 +3,7 @@ import os, glob, time, json, urllib.request, fitz, re
 
 BASE = "https://api.siliconflow.cn/v1"
 MODEL = "deepseek-ai/DeepSeek-V3"
-KEY = "sk-gmqqbzhpqashlbxxrspnbzhelfysasnsvzkfkutjjszxykrd"
+KEY = "REPLACE_WITH_YOUR_KEY"
 PROMPT = "Analyze this annual report. Find ALL named customers and supply chain evidence. E1=names specific customer. E2=implies. E3=vague/unsupported. Check claims like '独家供应/唯一/全球唯' against actual report text. Return ONLY JSON array."
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))

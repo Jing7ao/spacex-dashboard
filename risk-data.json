@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-09T15:52:01.122Z",
+  "updated": "2026-06-11T15:55:47.991Z",
   "summary": {
     "critical": 0,
     "high": 0,
@@ -23,7 +23,7 @@
       "pledge": {
         "topPledgeRatio": 0,
         "topHolder": "",
-        "totalPledge": 0
+        "totalPledge": 5
       },
       "goodwill": {
         "goodwill": 0,
@@ -32,7 +32,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:37.150Z"
+      "checkedAt": "2026-06-11T15:55:24.106Z"
     },
     {
       "n": "阳光电源",
@@ -59,7 +59,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:52:00.562Z"
+      "checkedAt": "2026-06-11T15:55:47.589Z"
     },
     {
       "n": "中际旭创",
@@ -77,7 +77,7 @@
       "pledge": {
         "topPledgeRatio": 0,
         "topHolder": "",
-        "totalPledge": 0
+        "totalPledge": 5
       },
       "goodwill": {
         "goodwill": 0,
@@ -86,7 +86,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:42.398Z"
+      "checkedAt": "2026-06-11T15:55:28.338Z"
     },
     {
       "n": "天孚通信",
@@ -104,7 +104,7 @@
       "pledge": {
         "topPledgeRatio": 0,
         "topHolder": "",
-        "totalPledge": 0
+        "totalPledge": 5
       },
       "goodwill": {
         "goodwill": 0,
@@ -113,7 +113,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:43.244Z"
+      "checkedAt": "2026-06-11T15:55:28.793Z"
     },
     {
       "n": "菲利华",
@@ -140,7 +140,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:55.622Z"
+      "checkedAt": "2026-06-11T15:55:43.109Z"
     },
     {
       "n": "蓝思科技",
@@ -167,7 +167,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:48.810Z"
+      "checkedAt": "2026-06-11T15:55:35.129Z"
     },
     {
       "n": "胜宏科技",
@@ -185,7 +185,7 @@
       "pledge": {
         "topPledgeRatio": 0,
         "topHolder": "",
-        "totalPledge": 0
+        "totalPledge": 5
       },
       "goodwill": {
         "goodwill": 0,
@@ -194,7 +194,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:41.296Z"
+      "checkedAt": "2026-06-11T15:55:27.588Z"
     },
     {
       "n": "新易盛",
@@ -221,7 +221,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:45.788Z"
+      "checkedAt": "2026-06-11T15:55:31.331Z"
     },
     {
       "n": "宁德时代",
@@ -248,7 +248,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:52.933Z"
+      "checkedAt": "2026-06-11T15:55:39.655Z"
     },
     {
       "n": "图南股份",
@@ -275,7 +275,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:56.439Z"
+      "checkedAt": "2026-06-11T15:55:43.743Z"
     },
     {
       "n": "超捷股份",
@@ -302,7 +302,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:50.738Z"
+      "checkedAt": "2026-06-11T15:55:36.878Z"
     },
     {
       "n": "生益科技",
@@ -329,7 +329,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:45.160Z"
+      "checkedAt": "2026-06-11T15:55:30.631Z"
     },
     {
       "n": "长电科技",
@@ -356,7 +356,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:48.196Z"
+      "checkedAt": "2026-06-11T15:55:34.039Z"
     },
     {
       "n": "工业富联",
@@ -374,7 +374,7 @@
       "pledge": {
         "topPledgeRatio": 0,
         "topHolder": "",
-        "totalPledge": 0
+        "totalPledge": 5
       },
       "goodwill": {
         "goodwill": 0,
@@ -383,7 +383,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:41.924Z"
+      "checkedAt": "2026-06-11T15:55:28.069Z"
     },
     {
       "n": "拓普集团",
@@ -401,7 +401,7 @@
       "pledge": {
         "topPledgeRatio": 0,
         "topHolder": "",
-        "totalPledge": 0
+        "totalPledge": 5
       },
       "goodwill": {
         "goodwill": 0,
@@ -410,7 +410,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:38.358Z"
+      "checkedAt": "2026-06-11T15:55:24.983Z"
     },
     {
       "n": "旭升集团",
@@ -428,16 +428,16 @@
       "pledge": {
         "topPledgeRatio": 0,
         "topHolder": "",
-        "totalPledge": 0
+        "totalPledge": 5
       },
       "goodwill": {
         "goodwill": 0,
-        "netAssets": 0,
+        "netAssets": 1,
         "ratio": 0,
-        "reportDate": ""
+        "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:39.463Z"
+      "checkedAt": "2026-06-11T15:55:25.919Z"
     },
     {
       "n": "豪能股份",
@@ -464,7 +464,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:49.999Z"
+      "checkedAt": "2026-06-11T15:55:36.245Z"
     },
     {
       "n": "兆易创新",
@@ -491,7 +491,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:52:01.121Z"
+      "checkedAt": "2026-06-11T15:55:47.990Z"
     },
     {
       "n": "绿的谐波",
@@ -509,7 +509,7 @@
       "pledge": {
         "topPledgeRatio": 0,
         "topHolder": "",
-        "totalPledge": 0
+        "totalPledge": 5
       },
       "goodwill": {
         "goodwill": 0,
@@ -518,7 +518,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:40.682Z"
+      "checkedAt": "2026-06-11T15:55:26.873Z"
     },
     {
       "n": "斯瑞新材",
@@ -545,7 +545,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:49.438Z"
+      "checkedAt": "2026-06-11T15:55:35.706Z"
     },
     {
       "n": "寒武纪",
@@ -572,7 +572,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:51.783Z"
+      "checkedAt": "2026-06-11T15:55:37.928Z"
     },
     {
       "n": "天合光能",
@@ -599,7 +599,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:59.910Z"
+      "checkedAt": "2026-06-11T15:55:46.849Z"
     },
     {
       "n": "中芯国际",
@@ -626,7 +626,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:59.114Z"
+      "checkedAt": "2026-06-11T15:55:46.079Z"
     },
     {
       "n": "西部材料",
@@ -644,7 +644,7 @@
       "pledge": {
         "topPledgeRatio": 0,
         "topHolder": "",
-        "totalPledge": 0
+        "totalPledge": 5
       },
       "goodwill": {
         "goodwill": 0,
@@ -653,7 +653,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:37.733Z"
+      "checkedAt": "2026-06-11T15:55:24.717Z"
     },
     {
       "n": "三花智控",
@@ -671,7 +671,7 @@
       "pledge": {
         "topPledgeRatio": 0,
         "topHolder": "",
-        "totalPledge": 0
+        "totalPledge": 5
       },
       "goodwill": {
         "goodwill": 0,
@@ -680,7 +680,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:38.940Z"
+      "checkedAt": "2026-06-11T15:55:25.453Z"
     },
     {
       "n": "沪电股份",
@@ -707,7 +707,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:44.368Z"
+      "checkedAt": "2026-06-11T15:55:29.903Z"
     },
     {
       "n": "英维克",
@@ -734,7 +734,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:46.655Z"
+      "checkedAt": "2026-06-11T15:55:31.957Z"
     },
     {
       "n": "麦格米特",
@@ -761,7 +761,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:47.141Z"
+      "checkedAt": "2026-06-11T15:55:32.533Z"
     },
     {
       "n": "科大讯飞",
@@ -788,7 +788,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:52.426Z"
+      "checkedAt": "2026-06-11T15:55:39.152Z"
     },
     {
       "n": "北方华创",
@@ -815,7 +815,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:53.476Z"
+      "checkedAt": "2026-06-11T15:55:40.609Z"
     },
     {
       "n": "立讯精密",
@@ -842,7 +842,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:53.977Z"
+      "checkedAt": "2026-06-11T15:55:41.286Z"
     },
     {
       "n": "歌尔股份",
@@ -869,7 +869,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:55.164Z"
+      "checkedAt": "2026-06-11T15:55:42.677Z"
     },
     {
       "n": "深南电路",
@@ -896,7 +896,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:57.372Z"
+      "checkedAt": "2026-06-11T15:55:44.309Z"
     },
     {
       "n": "通富微电",
@@ -923,7 +923,7 @@
         "reportDate": "2026-03-31 00:00:00"
       },
       "changes": [],
-      "checkedAt": "2026-06-09T15:51:57.988Z"
+      "checkedAt": "2026-06-11T15:55:44.869Z"
     }
   ]
 }

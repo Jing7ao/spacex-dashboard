@@ -1,51 +1,19 @@
 {
-  "updated": "2026-06-09 13:53:21",
-  "count": 5,
+  "updated": "2026-06-11 23:55:16",
+  "count": 1,
   "news": [
     {
-      "title": "金价大跌消费者却不敢买了？消费前做好这一步能避开不少坑",
-      "url": "https://finance.sina.com.cn/consume/xiaofei/2026-06-09/doc-iniauknz5278985.shtml",
-      "time": "1780984161",
+      "title": "Visa与OpenAI达成战略合作，AI代理将可代为购物付款",
+      "url": "https://finance.sina.com.cn/stock/usstock/c/2026-06-11/doc-inicaeni3887667.shtml",
+      "time": "1781192927",
       "source": "sina",
       "stocks": [],
-      "ecos": [],
-      "impact": "neutral"
-    },
-    {
-      "title": "多家黄金珠宝品牌金饰价格再现下调",
-      "url": "https://finance.sina.com.cn/roll/2026-06-09/doc-iniauvav5102217.shtml",
-      "time": "1780983660",
-      "source": "sina",
-      "stocks": [],
-      "ecos": [],
-      "impact": "neutral"
-    },
-    {
-      "title": "意力国际午后大涨近24% 4月初至今股价累计涨幅已超300%",
-      "url": "https://finance.sina.com.cn/stock/hkstock/marketalerts/2026-06-09/doc-iniauvas6447995.shtml",
-      "time": "1780983640",
-      "source": "sina",
-      "stocks": [],
-      "ecos": [],
-      "impact": "neutral"
-    },
-    {
-      "title": "数智护航・微光同行 | 2026第八届数字普惠金融大会即将在北京启幕",
-      "url": "https://finance.sina.com.cn/hy/hyjz/2026-06-09/doc-iniauvav5099218.shtml",
-      "time": "1780983625",
-      "source": "sina",
-      "stocks": [],
-      "ecos": [],
-      "impact": "neutral"
-    },
-    {
-      "title": "中国建材午后大涨超12% 机构看好新材料和海外引领公司新成长",
-      "url": "https://finance.sina.com.cn/stock/hkstock/marketalerts/2026-06-09/doc-iniauvas6446552.shtml",
-      "time": "1780983453",
-      "source": "sina",
-      "stocks": [],
-      "ecos": [],
-      "impact": "neutral"
+      "ecos": [
+        "光模块",
+        "液冷",
+        "AI算力"
+      ],
+      "impact": "positive"
     }
   ]
 }

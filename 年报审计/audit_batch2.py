@@ -3,7 +3,7 @@ import os, glob, time, json, urllib.request, fitz, re
 
 BASE = "https://api.siliconflow.cn/v1"
 MODEL = "deepseek-ai/DeepSeek-V3"
-KEY = "sk-gmqqbzhpqashlbxxrspnbzhelfysasnsvzkfkutjjszxykrd"
+KEY = "REPLACE_WITH_YOUR_KEY"
 
 PROMPT = (
     "Analyze this Chinese annual report section. Extract ALL supply chain relationship evidence.\n"

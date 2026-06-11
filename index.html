@@ -105,6 +105,20 @@ var STOCKS=[
   {c:'002837',m:0,n:'英维克',rk:'mid',pew:45,eco:'英伟达',tier:'T1.5液冷',scpS:8,scpN:'NVIDIA MGX生态伙伴/UQD&MQD官方认证/液冷Tier1'},
   {c:'002851',m:0,n:'麦格米特',rk:'mid',pew:35,eco:'英伟达',tier:'T1.5电源',scpS:8,scpN:'[E1]NVIDIA指定合作伙伴/Blackwell&Vera Rubin电源'},
   {c:'600584',m:1,n:'长电科技',rk:'mid',pew:35,eco:'英伟达',tier:'T2封测',scpS:8,scpN:'先进封装Chiplet/英伟达封测'},
+  // === 其他生态代表股 ===
+  {c:'688981',m:1,n:'中芯国际',rk:'mid',pew:50,eco:'半导体',tier:'T2晶圆',scpS:5,scpN:'晶圆代工/先进制程布局'},
+  {c:'300274',m:0,n:'阳光电源',rk:'mid',pew:30,eco:'新能源',tier:'T1.5逆变器',scpS:5,scpN:'逆变器/储能系统全球龙头'},
+  {c:'603606',m:1,n:'东方电缆',rk:'mid',pew:30,eco:'电力能源',tier:'T3海缆',scpS:5,scpN:'±500kV柔直海缆全球首根'},
+  {c:'002475',m:0,n:'立讯精密',rk:'mid',pew:25,eco:'消费电子',tier:'T1.5精密制造',scpS:5,scpN:'精密智造全球第四/中国大陆榜首'},
+  {c:'688629',m:1,n:'华丰科技',rk:'high',pew:150,eco:'国产AI',tier:'T2连接器',scpS:5,scpN:'高速连接器/华为第一大客户[E1]'},
+  {c:'000099',m:0,n:'中信海直',rk:'mid',pew:50,eco:'低空经济',tier:'T2运营',scpS:2,scpN:'海上油气直升机份额领先[E1]'},
+  {c:'002340',m:0,n:'格林美',rk:'mid',pew:25,eco:'循环经济',tier:'T2回收',scpS:2,scpN:'全球唯一核壳前驱体量产[E1]'},
+  // === T5 上游材料(钨/特气/钼/石英) ===
+  {c:'688146',m:1,n:'中船特气',rk:'mid',pew:60,eco:'英伟达',tier:'T5特气',scpS:5,scpN:'六氟化钨国产龙头/年涨232%/出口管制受益'},
+  {c:'600378',m:1,n:'昊华科技',rk:'mid',pew:45,eco:'英伟达',tier:'T5特气',scpS:5,scpN:'六氟化钨量产/半导体级特气/2连板涨停'},
+  {c:'601958',m:1,n:'金钼股份',rk:'mid',pew:25,eco:'英伟达',tier:'T5靶材',scpS:5,scpN:'钼溅射靶材/3D NAND堆叠受益/全球主产'},
+  {c:'603993',m:1,n:'洛阳钼业',rk:'mid',pew:20,eco:'英伟达',tier:'T5靶材',scpS:5,scpN:'钼矿全球龙头/存储芯片升级驱动'},
+  {c:'603688',m:1,n:'石英股份',rk:'mid',pew:40,eco:'英伟达',tier:'T5石英',scpS:5,scpN:'高纯石英砂/晶圆坩埚/国产替代逻辑'},
 ];
 var prices={},kline={},riskData={},budget=2000;
 async function loadRisk(){

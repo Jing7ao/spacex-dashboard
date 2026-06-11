@@ -1,38 +1,57 @@
-# fetch_margin.py — 融资融券（push2批量+单股降级，f139=余额 f140=净买）
-import sys, io, json, os, time, urllib.request
+# fetch_margin.py — 融资融券数据（AKShare，API已恢复！）
+import sys, io, json, os, time, akshare as ak
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 DIR = os.path.dirname(os.path.abspath(__file__))
 
-CODES = ["300136","002149","601689","002050","603305","688017","300476","601138","300308","300394","002463","600183","300502","002837","002851","600584","688102","603601","605123","603308","300395","688333","002281","600487","600522","603606","002916","002156","300346","688268","600456","301522","300855","688629","300408","688300","688012","002371","300567","688981","600118","601100","600089","002281","000988","002036"]
+CODES = ["688017","688102","300476","300136","300308","300394","300502","002281","002149","601689","002050","603305","300395","688333","600456","603601","002036","300346","688268","688012","002371","002463","600487","600522","002916","002837","002851","600584","688629","688981","601138","002156","300750","601012","300274","600089","688126","300666","688019","300054","603650","300260","600183","688300","601208","603662","600118","601100","300660","002378"]
 
+date_y = time.strftime('%Y%m%d')
 results = {}
-# Batch fetch: ulist.np with margin fields
-batch_size = 30
-for i in range(0, len(CODES), batch_size):
-    batch = CODES[i:i+batch_size]
-    secids = ",".join(f"{(1 if c.startswith(('6','5')) else 0)}.{c}" for c in batch)
-    url = f"https://push2.eastmoney.com/api/qt/ulist.np/get?fltt=2&secids={secids}&fields=f12,f14,f139,f140"
-    req = urllib.request.Request(url, headers={"User-Agent":"Mozilla/5.0"})
-    try:
-        with urllib.request.urlopen(req, timeout=10) as r:
-            data = json.loads(r.read())
-            for item in data.get("data", {}).get("diff", []):
-                code = item.get("f12","")
-                bal = item.get("f139", 0) or 0
-                net = item.get("f140", 0) or 0
-                if bal > 0:
-                    results[code] = {"name": item.get("f14",""), "margin_bal": bal, "margin_net": net}
-    except Exception as e:
-        print(f"  batch error: {e}")
-    time.sleep(0.3)
 
-for code in results:
+# SSE (6xxxxx, 5xxxxx)
+try:
+    df_sse = ak.stock_margin_detail_sse(date=date_y)
+    sse_stocks = df_sse[df_sse.iloc[:,1].astype(str).str.match(r'^[56]\d{5}$')]
+    for _, row in sse_stocks.iterrows():
+        code = str(row.iloc[1])
+        buy = int(row.iloc[3]) if row.iloc[3] else 0
+        repay = int(row.iloc[4]) if row.iloc[4] else 0
+        bal = int(row.iloc[5]) if row.iloc[5] else 0
+        if code in CODES and bal > 0:
+            results[code] = {"name": str(row.iloc[2]), "margin_buy": buy, "margin_repay": repay, "margin_bal": bal}
+    print(f"SSE: {len([c for c in CODES if c in results])} 只")
+except Exception as e:
+    print(f"SSE error: {e}")
+
+# SZSE (0xxxxx, 3xxxxx)
+try:
+    df_sz = ak.stock_margin_detail_szse(date=time.strftime('%Y-%m-%d'))
+    for _, row in df_sz.iterrows():
+        try:
+            code = str(int(row.iloc[1])).zfill(6)
+        except:
+            continue
+        try: buy = int(row.iloc[3])
+        except: buy = 0
+        try: repay = int(row.iloc[4])
+        except: repay = 0
+        try: bal = int(row.iloc[5])
+        except: bal = 0
+        if code in CODES and bal > 0:
+            results[code] = {"name": str(row.iloc[2]), "margin_buy": buy, "margin_repay": repay, "margin_bal": bal}
+    print(f"SZSE: {len([c for c in CODES if c in results and not c.startswith(('6','5'))])} 只")
+except Exception as e:
+    print(f"SZSE error: {e}")
+
+print(f"\n📊 融资融券 · {time.strftime('%Y-%m-%d')} · {len(results)} 只")
+net_buys = 0
+for code in sorted(results.keys()):
     d = results[code]
-    net = d["margin_net"]
-    print(f"  {code} {d['name']:<8} 余额{d['margin_bal']/1e8:.2f}亿 净{'买' if net>0 else '卖'} {abs(net)/1e8:.2f}亿")
-
-net_buys = sum(1 for d in results.values() if d["margin_net"] > 0)
-print(f"\n📊 融资净买入: {net_buys} 只 | 净卖出: {len(results)-net_buys} 只 | 共 {len(results)} 只有效")
+    net = d["margin_buy"] - d["margin_repay"]
+    if net > 0: net_buys += 1
+    arrow = "↑" if net > 0 else "↓"
+    print(f"  {code} {d['name']:<8} 买入{d['margin_buy']/1e8:.1f}亿 偿还{d['margin_repay']/1e8:.1f}亿 余额{d['margin_bal']/1e8:.1f}亿 {arrow}")
+print(f"\n融资净买入: {net_buys}/{len(results)} 只")
 
 with open(os.path.join(DIR, "margin_data.json"), "w", encoding="utf-8") as f:
     json.dump({"updated": time.strftime("%Y-%m-%d %H:%M:%S"), "data": results}, f, ensure_ascii=False, indent=2)

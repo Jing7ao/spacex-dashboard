@@ -495,7 +495,7 @@ function renderAll(){
   tb.innerHTML=entries.map(function(e,rank){
     var k=e[0],v=e[1],icon=ECO_ICONS[k]||'📌',name=ECO_ALIAS[k]||k;
     var pDays=persistence[k]||0;
-    var pStatus=pDays>=3?'✅ 确认('+pDays+'天)':pDays>=1?'⏳ 观察('+pDays+'天)':'—';
+    var pStatus=pDays>=2?'✅ 确认('+pDays+'天)':pDays>=1?'⏳ 观察('+pDays+'天)':'—';
     var advice=rank<2?(v.crowding.includes('过热')?'⚠️ 超配但过热':'🔥 超配'):(rank<5?'📊 标配':'❄️ 回避');
     var momColor=v.momentum>15?'var(--gr)':v.momentum>-5?'var(--yl)':'var(--rd)';
     return '<tr><td><b>'+icon+' '+name+'</b></td><td>#'+(rank+1)+'</td><td style="color:'+momColor+'">'+(v.momentum>0?'+':'')+v.momentum.toFixed(1)+'</td><td>'+pStatus+'</td><td>'+v.crowding+'</td><td>'+(v.flowRatio>0.6?'🟢流入':v.flowRatio>0.4?'🟡中性':'🔴流出')+'</td><td>'+advice+'</td></tr>';

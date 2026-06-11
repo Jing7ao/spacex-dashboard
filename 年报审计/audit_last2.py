@@ -2,7 +2,7 @@ import os, time, json, urllib.request, fitz, re
 
 BASE = "https://api.siliconflow.cn/v1"
 MODEL = "deepseek-ai/DeepSeek-V3"
-KEY = "sk-gmqqbzhpqashlbxxrspnbzhelfysasnsvzkfkutjjszxykrd"
+KEY = "REPLACE_WITH_YOUR_KEY"
 PROMPT = "Analyze this annual report. Find all customer/supply chain evidence. E1=names specific customer. E2=implies. E3=vague. Check if claims like '独家供应/全球唯一' are supported. Return ONLY JSON array."
 
 import glob as gb
