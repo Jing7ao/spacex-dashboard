@@ -3785,6 +3785,32 @@ var EVENTS_DISPLAY={
       "d20": null,
       "d60": null
     }
+	  },
+	  {
+	    "id": "evt_226",
+	    "stock_code": "SPCX",
+	    "stock_name": "SpaceX(全商业航天链)",
+	    "event_date": "2026-06-12",
+	    "event_type": "ipo",
+	    "event_desc": "SpaceX登陆纳斯达克(SPCX),史上最大IPO($750亿,$1.77万亿)。开盘$174(+29%)",
+	    "source_ref": "彭博/路透/CNBC/证券时报 2026.6.12",
+	    "source_type": "IPO",
+	    "evidence_level": "E1",
+	    "d0_return": 29,
+	    "d5_excess": null,
+	    "d20_excess": null,
+	    "d60_excess": null,
+	    "notes": "史上最大IPO。美股太空股抽血暴跌(Virgin-25%/RocketLab-9%),A股13只涨停(ETF+5.3%)。两个市场相反逻辑:美股资金流向SPCX,A股估值锚定拉涨。长期利好:SpaceX将提交SEC年报,供应链透明度提升。E3票需观察D+5是否回吐。",
+	    "concurrent_market": "A股商业航天13只涨停,美股太空股全线暴跌",
+	    "affected_stocks_d0": {
+	      "美股太空": {"change": "全线暴跌","note":"Virgin-25%,RocketLab-9%"},
+	      "A股商业航天": {"change":"13涨停","note":"航天ETF+5.3%"},
+	      "300136_信维通信":{"close":99.28,"change":"+3.0%","note":"E3降级,跟涨未涨停"},
+	      "002149_西部材料":{"close":61.89,"change":"+8.7%","note":"E3降级,核潜艇逻辑独立"},
+	      "600456_宝钛股份":{"close":29.80,"change":"+4.2%","note":"年报未提SpaceX"},
+	      "605123_派克新材":{"close":98.50,"change":"+4.2%","note":"NASA+SpaceX双认证"}
+	    }
+
   ],
   "needMore": false
 };
