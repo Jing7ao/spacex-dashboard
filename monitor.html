@@ -473,9 +473,9 @@ const INDUSTRIES={
 // ═══ 参数配置（所有阈值集中管理，便于回测校准）═══
 var PARAMS={
   // 评分权重
-  wRSI_base:0.25,wMA_base:0.25,wVol_base:0.20,wBB_base:0.15,wFund_base:0.15,
-  wRSI_trend:0.15,wMA_trend:0.35,wBB_trend:0.10,         // 趋势市调权
-  wRSI_range:0.30,wMA_range:0.20,wBB_range:0.20,         // 震荡市调权
+  wTrend_base:0.35,wRSI_base:0.15,wMA_base:0.20,wVol_base:0.15,wBB_base:0.10,wFund_base:0.05,
+  wTrend_trend:0.40,wRSI_trend:0.10,wMA_trend:0.30,wBB_trend:0.05,
+  wTrend_range:0.20,wRSI_range:0.30,wMA_range:0.20,wBB_range:0.15,
   wRSI_vol:0.20,wMA_vol:0.20,wVol_vol:0.10,wFund_vol:0.30, // 异常市调权
   wFin:0.08, // 财务维度固定权重
   // 技术指标参数
@@ -499,6 +499,7 @@ var PARAMS={
 };
 // ═══ 状态 ═════════════════════════════════════════
 let cur='musk',prices={},kline={},scores={},pos=[],budget=2000,simPos=[],simBudget=100000,simMode=false,devicePixelRatio=window.devicePixelRatio||1;
+const ECO_STYLE={nvidia:'📈顺势',musk:'⚖️混合',ai_domestic:'⚖️混合',optical:'🔄反转',robot_domestic:'📈顺势',semimat:'🔄反转',cooling:'📈顺势',power:'📈顺势'};
 let alerts=[],news=[],srcs={},klChart=null,klCode='',klPeriod='day',volHealth={};
 let fc=0,runs=0,tradeHist=[],peakVal=0,ddLevel=0,smoothScores={},icMult={};
 
@@ -649,44 +650,18 @@ function computeScores(){
     const mb=calcMA(cl,20);var vv=0;for(var vi2=cl.length-20;vi2<cl.length;vi2++)vv+=Math.pow(cl[vi2]-mb,2);
     const sd=Math.sqrt(vv/20);const bu=mb+2*sd,bl=mb-2*sd;const bp=(cp-bl)/(bu-bl);
     const bbS=bp<.15?80:bp<.3?65:bp>.85?20:bp>.7?35:50;
+    // 趋势强度 (全局IC=-0.370, 6/6月一致: 强趋势→反转)
+    var m20v_=calcMA(cl,20),m60v_=calcMA(cl,Math.min(60,cl.length));
+    var trendStr_=m60v_>0?Math.abs(m20v_-m60v_)/m60v_:0;
+    const trenS=trendStr_>0.08?20:trendStr_>0.05?35:trendStr_>0.03?45:trendStr_>0.02?65:80;
     // 资金流
     var fundS=50;var ff=prices[s.c]&&prices[s.c]._ff;
     if(ff&&ff.main!==undefined){var mc=prices[s.c].mc||1e10;var flowPct=ff.main/mc;if(flowPct>0.001)fundS=100;else if(flowPct>0.0005)fundS=80;else if(flowPct>0)fundS=65;else if(flowPct>-0.0005)fundS=35;else if(flowPct>-0.001)fundS=20;else fundS=0}
     if(ff&&ff.persist&&ff.persist.indexOf('持续')>=0&&fundS<65)fundS=65;
     if(ff){var fh=prices[s.c]._flowHist;if(fh&&fh.length>=2&&fh[fh.length-2]!==fh[fh.length-1]&&fundS>35)fundS=35;}
-    // 分生态因子: 每生态只用Top-2/3因子
-    var ecoCfg=window._ecoFactors&&window._ecoFactors[cur];var comp=50;
-    if(ecoCfg&&ecoCfg.top_factors&&ecoCfg.top_factors.length>=2){
-      var tf=ecoCfg.top_factors;var totalW=0;comp=0;
-      for(var tfi=0;tfi<Math.min(3,tf.length);tfi++){
-        var fkey=tf[tfi][0],fic=Math.abs(tf[tfi][1]),reverse=tf[tfi][1]<0;
-        if(fic<0.05)continue;
-        var fs=50;
-        if(fkey==='rsi'||fkey==='rsi_rev')fs=rsS;
-        else if(fkey==='ma')fs=maS;
-        else if(fkey==='vol'||fkey==='vol_rev')fs=vlS;
-        else if(fkey==='mom5')fs=(pc>5?80:pc>2?65:pc<-5?20:pc<-2?35:50);
-        else if(fkey==='rev5')fs=(pc<-5?80:pc<-2?65:pc>5?20:pc>2?35:50);
-        else if(fkey==='amt_stab')fs=Math.round(amtStab*100);
-        else if(fkey==='gap'){var gapSum=0;for(var gi=Math.max(0,kl.length-4);gi<kl.length;gi++){var prevC=gi>0?kl[gi-1].c:kl[gi].c;gapSum+=(kl[gi].o-prevC)/prevC*100}fs=gapSum>3?80:gapSum>1?60:gapSum<-3?20:40;}
-        else if(fkey==='vwap'){var vn=0,vd=0;for(var vii=Math.max(0,kl.length-20);vii<kl.length;vii++){vn+=kl[vii].v*kl[vii].c;vd+=kl[vii].v}var vwap=vd>0?vn/vd:cp;var vwapDev=(vwap-cp)/cp*100;fs=vwapDev>2?80:vwapDev>0?60:vwapDev<-2?20:40}
-        else if(fkey==='shadow'){var lk=kl[kl.length-1];var body2=Math.abs(lk.c-lk.o);var upSh=lk.h-Math.max(lk.c,lk.o);var loSh=Math.min(lk.c,lk.o)-lk.l;var tr2=lk.h-lk.l;var shR=tr2>0?(upSh+loSh)/tr2:0;fs=shR>0.6&&pc<0?80:shR>0.4?60:shR<0.2?40:50}
-        else if(fkey==='vp_div'){var nn=Math.min(10,kl.length);var dhs=[],dvs=[];for(var di=kl.length-nn;di<kl.length;di++){dhs.push(kl[di].h);dvs.push(kl[di].v)}var n2=dhs.length;var ax2=dhs.reduce(function(s,x){return s+x},0)/n2;var ay2=dvs.reduce(function(s,y){return s+y},0)/n2;var cov2=0,sx2=0,sy2=0;for(var dj=0;dj<n2;dj++){cov2+=(dhs[dj]-ax2)*(dvs[dj]-ay2);sx2+=Math.pow(dhs[dj]-ax2,2);sy2+=Math.pow(dvs[dj]-ay2,2)}var vpCorr=sx2>0&&sy2>0?cov2/Math.sqrt(sx2*sy2):0;fs=vpCorr<-0.3?80:vpCorr<0?60:vpCorr>0.3?40:50}
-        else if(fkey==='clv'){var clvSum2=0,clvN=0;for(var ci=Math.max(1,kl.length-5);ci<kl.length;ci++){var hilo=kl[ci].h-kl[ci].l;if(hilo>0){clvSum2+=((kl[ci].c-kl[ci].l)-(kl[ci].h-kl[ci].c))/hilo;clvN++}}var clvDelta=clvN>0?clvSum2/clvN:0;fs=clvDelta>0.3?80:clvDelta>0?60:clvDelta<-0.3?20:40}
-        else if(fkey==='turn_chg'){var vma5=0,vma20=0;for(var ti=kl.length-5;ti<kl.length;ti++)vma5+=kl[ti].v;vma5/=5;for(var tj=kl.length-20;tj<kl.length;tj++)vma20+=kl[tj].v;vma20/=20;var turnChg=vma20>0?(vma5-vma20)/vma20:0;fs=turnChg>0.5?80:turnChg>0.2?60:turnChg<-0.3?20:turnChg<-0.1?40:50}
-        else if(fkey==='amplitude'){var lk2=kl[kl.length-1];var amp2=(lk2.h-lk2.l)/pp*100;fs=amp2<3&&pc>0?80:amp2<5&&pc>0?60:amp2>8?40:50}
-        else if(fkey==='pv_corr'){var n4=Math.min(5,kl.length-1);var rets=[],vcs=[];for(var rj=kl.length-n4;rj<kl.length;rj++){if(rj>0&&kl[rj-1].c>0){rets.push((kl[rj].c-kl[rj-1].c)/kl[rj-1].c);vcs.push(kl[rj-1].v>0?(kl[rj].v-kl[rj-1].v)/kl[rj-1].v:0)}}var n5=rets.length;if(n5>=3){var ar3=rets.reduce(function(s,x){return s+x},0)/n5;var av3=vcs.reduce(function(s,x){return s+x},0)/n5;var cov4=0,sr3=0,sv3=0;for(var rk=0;rk<n5;rk++){cov4+=(rets[rk]-ar3)*(vcs[rk]-av3);sr3+=Math.pow(rets[rk]-ar3,2);sv3+=Math.pow(vcs[rk]-av3,2)}var pvCorrVal=sr3>0&&sv3>0?cov4/Math.sqrt(sr3*sv3):0;fs=pvCorrVal>0.5?80:pvCorrVal>0?60:pvCorrVal<-0.5?40:50}
-        else if(fkey==='vol_price_rev'){var lv=kl[kl.length-1].v,pv=kl.length>1?kl[kl.length-2].v:lv;var vDelta=pv>0?(lv-pv)/pv:0;var vpr=(vDelta>0?1:-1)*(-pc/100);fs=vpr>0.03?80:vpr>0.01?60:vpr<-0.03?20:vpr<-0.01?40:50}
-        else if(fkey==='decl_slow'){if(kl.length>=21){var earlyC=(kl[kl.length-11].c-kl[kl.length-21].c)/kl[kl.length-21].c;var recentC=(kl[kl.length-1].c-kl[kl.length-11].c)/kl[kl.length-11].c;var declDelta=recentC-earlyC;fs=declDelta>0.05?80:declDelta>0.02?60:declDelta<-0.05?20:declDelta<-0.02?40:50}}
-        else if(fkey==='open_accum'){var n6=Math.min(10,kl.length);var os=[],vs2=[];for(var oi=kl.length-n6;oi<kl.length;oi++){os.push(kl[oi].o);vs2.push(kl[oi].v)}var n7=os.length;var ao2=os.reduce(function(s,x){return s+x},0)/n7;var av3=vs2.reduce(function(s,x){return s+x},0)/n7;var cov5=0,so2=0,sv3=0;for(var oj=0;oj<n7;oj++){cov5+=(os[oj]-ao2)*(vs2[oj]-av3);so2+=Math.pow(os[oj]-ao2,2);sv3+=Math.pow(vs2[oj]-av3,2)}var oaCorr=so2>0&&sv3>0?cov5/Math.sqrt(so2*sv3):0;fs=oaCorr<-0.3?80:oaCorr<0?60:oaCorr>0.3?40:50}
-        else if(fkey==='vwap_z'){var vdevs=[];for(var wz=Math.max(20,kl.length-20);wz<kl.length;wz++){var num2=0,den2=0;for(var wk=wz-20;wk<=wz;wk++){num2+=kl[wk].v*kl[wk].c;den2+=kl[wk].v}var vw2=den2>0?num2/den2:kl[wz].c;if(kl[wz].c>0)vdevs.push((vw2-kl[wz].c)/kl[wz].c*100)}if(vdevs.length>=5){var vMu=vdevs.reduce(function(s,x){return s+x},0)/vdevs.length;var vVa=vdevs.reduce(function(s,x){return s+Math.pow(x-vMu,2)},0)/vdevs.length;var vSd=Math.sqrt(vVa);var vz=vSd>0?(vdevs[vdevs.length-1]-vMu)/vSd:0;fs=vz>1?80:vz>0?60:vz<-1?20:vz<0?40:50}}
-        if(reverse)fs=100-fs;
-        var w=fic;comp+=fs*w;totalW+=w;
-      }
-      comp=totalW>0?Math.round(comp/totalW):50;
-    }else{
-      comp=Math.round(rsS*PARAMS.wRSI_base+maS*PARAMS.wMA_base+vlS*PARAMS.wVol_base+bbS*PARAMS.wBB_base+fundS*PARAMS.wFund_base);
-    }
+    // 统一评分 (全局IC加权: trend-0.370, RSI-0.057, ma+0.079, vol+0.123, BB-0.045)
+    // 18因子JS实现已保留在下方注释段, 生态专属模式可恢复
+    var comp=Math.round(trenS*PARAMS.wTrend_base+rsS*PARAMS.wRSI_base+maS*PARAMS.wMA_base+vlS*PARAMS.wVol_base+bbS*PARAMS.wBB_base+fundS*PARAMS.wFund_base);
     // 财务
     var finScore=50;var fd=window._finData?window._finData[s.c]:null;
     if(fd){finScore=50;if(fd.roe>20)finScore+=15;else if(fd.roe>10)finScore+=8;else if(fd.roe>5)finScore+=3;else if(fd.roe<0)finScore-=10;if(fd.prfG>50)finScore+=10;else if(fd.prfG>20)finScore+=5;else if(fd.prfG<-30)finScore-=8;if(fd.debtR>0&&fd.debtR<40)finScore+=5;else if(fd.debtR>70)finScore-=5;if(fd.grossM>40)finScore+=5;else if(fd.grossM<15)finScore-=3}
@@ -707,8 +682,7 @@ function computeScores(){
     smoothScores[s.c].push(comp);if(smoothScores[s.c].length>3)smoothScores[s.c].shift();
     var smoothComp=comp;if(smoothScores[s.c].length>=3){smoothComp=Math.round((smoothScores[s.c][0]+smoothScores[s.c][1]+smoothScores[s.c][2])/3)}
     var sg,sl;if(smoothComp>=75){sg='s-strong';sl='🔥强买入'}else if(smoothComp>=60){sg='s-buy';sl='📈偏买入'}else if(smoothComp>=40){sg='s-hold';sl='➡️观望'}else if(smoothComp>=25){sg='s-sell';sl='⚠️偏卖出'}else{sg='s-warn';sl='🚨强卖出'}
-    var env='range';var m20v=calcMA(cl,20);var m60v=calcMA(cl,Math.min(60,cl.length));
-    var trendStr=Math.abs(m20v-m60v)/m60v;
+    var env='range';var trendStr=trendStr_;
     if(trendStr>0.03){env='trend'}else{env='range'}
     var dims=[rsS>=60,maS>=60,vlS>=60,bbS>=60,fundS>=60,env!=='volatile'];
     var agree=dims.filter(function(x){return x}).length;
@@ -716,7 +690,7 @@ function computeScores(){
     var stockTrades=tradeHist.filter(function(t){return t.code===s.c});
     var stockWins=stockTrades.filter(function(t){return t.plPct>0}).length;
     var stockWR=stockTrades.length>=3?(stockWins/stockTrades.length*100).toFixed(0)+'%':'-';
-    var techRaw=Math.round(rsS*PARAMS.wRSI_base+maS*PARAMS.wMA_base+vlS*PARAMS.wVol_base+bbS*PARAMS.wBB_base+fundS*PARAMS.wFund_base);
+    var techRaw=Math.round(trenS*PARAMS.wTrend_base+rsS*PARAMS.wRSI_base+maS*PARAMS.wMA_base+vlS*PARAMS.wVol_base+bbS*PARAMS.wBB_base+fundS*PARAMS.wFund_base);
     var q='';if(techRaw>=60&&finScore>=60)q='最佳';else if(techRaw<60&&finScore>=60)q='稳健';else if(techRaw>=60&&finScore<60)q='诱多';else q='回避';
     scores[s.c]={rs:Math.round(rs),m5:Math.round(m5*100)/100,m20:Math.round(m20*100)/100,vr:Math.round(vr*100)/100,comp,sg,sl,tech:techRaw,fin:finScore,flow:fundS,quad:q,env:env,conf:conf,stockWR:stockWR,kelly:15,scRelLevel:'safe',scRelLabel:'ok',scRelReason:'',scTier:null,ev:evLevel,volScale:1,annVol:30};
   }

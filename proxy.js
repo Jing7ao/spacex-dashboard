@@ -41,9 +41,9 @@ function getBaiduToken(cb){
 var ROUTES=[
   {p:'/api/txk',h:'web.ifzq.gtimg.cn',port:443,ssl:true,rew:function(x){return'/appstock/app/fqkline/get'+x.replace('/api/txk','')}},
   {p:'/api/min',h:'ifzq.gtimg.cn',port:443,ssl:true,rew:function(x){return'/appstock/app/minute/query'+x.replace('/api/min','')}},
-  {p:'/api/emf',h:'push2.eastmoney.com',port:80,ssl:false,rew:function(x){return'/api'+x.replace('/api/emf','')}},
+  {p:'/api/emf',h:'push2.eastmoney.com',port:443,ssl:true,rew:function(x){return'/api'+x.replace('/api/emf','')}},
   {p:'/api/emfin',h:'emweb.securities.eastmoney.com',port:80,ssl:false,rew:function(x){return'/PC_HSF10/NewFinanceAnalysis/ZYZBAjaxNew'+x.replace('/api/emfin','')}},
-  {p:'/api/em',h:'push2.eastmoney.com',port:80,ssl:false,rew:function(x){return'/api'+x.replace('/api/em','')}},
+  {p:'/api/em',h:'push2.eastmoney.com',port:443,ssl:true,rew:function(x){return'/api'+x.replace('/api/em','')}},
   {p:'/api/news',h:'searchapi.eastmoney.com',port:80,ssl:false,rew:function(x){return'/bussiness/Web'+x.replace('/api/news','')}},
   {p:'/api/yh',h:'query1.finance.yahoo.com',port:443,ssl:true,rew:function(x){return'/v8/finance'+x.replace('/api/yh','')}},
   {p:'/api/sina',h:'money.finance.sina.com.cn',port:443,ssl:true,rew:function(x){return'/quotes_service/api/json_v2.php'+x.replace('/api/sina','')}},

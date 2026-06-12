@@ -2,74 +2,74 @@
   "nvidia": {
     "name": "英伟达",
     "n": 13,
-    "obs": 143,
+    "obs": 130,
     "top_factors": [
       [
-        "rsi",
-        -0.179,
-        "RSI",
-        true
+        "gap",
+        0.194,
+        "跳空",
+        false
       ],
       [
         "amt_stab",
-        0.167,
+        0.188,
         "成交额稳定",
         false
       ],
       [
-        "gap",
-        -0.148,
-        "跳空",
-        true
+        "ma",
+        0.1,
+        "均线",
+        false
       ]
     ]
   },
   "musk": {
     "name": "马斯克",
     "n": 15,
-    "obs": 165,
+    "obs": 150,
     "top_factors": [
       [
-        "mom5",
-        0.151,
-        "5日动量",
-        false
-      ],
-      [
-        "amt_stab",
-        0.127,
-        "成交额稳定",
-        false
-      ],
-      [
-        "rev5",
-        -0.124,
-        "5日反转",
+        "vwap_z",
+        -0.209,
+        "VWAP乖离Z",
         true
+      ],
+      [
+        "turn_chg",
+        0.169,
+        "换手率变化",
+        false
+      ],
+      [
+        "pv_corr",
+        0.155,
+        "量价相关性",
+        false
       ]
     ]
   },
   "ai_domestic": {
     "name": "AI算力",
     "n": 11,
-    "obs": 120,
+    "obs": 110,
     "top_factors": [
       [
-        "mom5",
-        0.157,
-        "5日动量",
-        false
-      ],
-      [
         "rsi",
-        -0.136,
+        -0.275,
         "RSI",
         true
       ],
       [
-        "amt_stab",
-        0.127,
-        "成交额稳定",
+        "pv_corr",
+        0.261,
+        "量价相关性",
+        false
+      ],
+      [
+        "gap",
+        0.251,
+        "跳空",
         false
       ]
     ]
@@ -77,24 +77,24 @@
   "optical": {
     "name": "光通信",
     "n": 9,
-    "obs": 99,
+    "obs": 90,
     "top_factors": [
       [
-        "ma",
-        -0.408,
-        "均线",
+        "turn_chg",
+        -0.35,
+        "换手率变化",
         true
       ],
       [
-        "mom5",
-        -0.278,
-        "5日动量",
+        "vol",
+        -0.247,
+        "成交量",
         true
       ],
       [
-        "gap",
-        -0.231,
-        "跳空",
+        "shadow",
+        -0.213,
+        "影线",
         true
       ]
     ]
@@ -102,24 +102,24 @@
   "robot_domestic": {
     "name": "机器人",
     "n": 7,
-    "obs": 77,
+    "obs": 70,
     "top_factors": [
       [
-        "amt_stab",
-        0.214,
-        "成交额稳定",
+        "turn_chg",
+        0.276,
+        "换手率变化",
         false
       ],
       [
-        "rsi",
-        -0.212,
-        "RSI",
-        true
+        "vp_div",
+        0.229,
+        "量价背离",
+        false
       ],
       [
-        "ma",
-        0.147,
-        "均线",
+        "open_accum",
+        0.188,
+        "开盘吸筹",
         false
       ]
     ]
@@ -127,24 +127,24 @@
   "semimat": {
     "name": "半导体材料",
     "n": 12,
-    "obs": 132,
+    "obs": 120,
     "top_factors": [
       [
+        "shadow",
+        -0.387,
+        "影线",
+        true
+      ],
+      [
         "vwap",
-        -0.221,
+        -0.278,
         "VWAP偏离",
         true
       ],
       [
-        "rev5",
-        -0.197,
-        "5日反转",
-        true
-      ],
-      [
-        "shadow",
-        -0.135,
-        "影线",
+        "vol_price_rev",
+        -0.257,
+        "放量下跌反转",
         true
       ]
     ]
@@ -152,24 +152,24 @@
   "cooling": {
     "name": "液冷",
     "n": 6,
-    "obs": 66,
+    "obs": 60,
     "top_factors": [
       [
-        "gap",
-        0.367,
-        "跳空",
-        false
-      ],
-      [
         "vwap",
-        0.307,
+        0.343,
         "VWAP偏离",
         false
       ],
       [
-        "rev5",
-        0.244,
-        "5日反转",
+        "amplitude",
+        0.343,
+        "日内振幅",
+        false
+      ],
+      [
+        "amt_stab",
+        0.301,
+        "成交额稳定",
         false
       ]
     ]
@@ -177,24 +177,24 @@
   "power": {
     "name": "电力",
     "n": 13,
-    "obs": 143,
+    "obs": 130,
     "top_factors": [
       [
-        "vwap",
-        0.246,
-        "VWAP偏离",
-        false
-      ],
-      [
         "rsi",
-        0.202,
+        0.3,
         "RSI",
         false
       ],
       [
-        "vp_div",
-        0.185,
-        "量价背离",
+        "vwap",
+        0.25,
+        "VWAP偏离",
+        false
+      ],
+      [
+        "vol",
+        0.23,
+        "成交量",
         false
       ]
     ]
