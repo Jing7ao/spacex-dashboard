@@ -1,0 +1,46 @@
+name: Daily Briefing
+
+on:
+  schedule:
+    # 早报：北京时间 8:45 (UTC 0:45)，周一至周五
+    - cron: '45 0 * * 1-5'
+    # 晚报：北京时间 15:30 (UTC 7:30)，周一至周五
+    - cron: '30 7 * * 1-5'
+
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: '运行模式'
+        required: true
+        default: 'auto'
+        type: choice
+        options:
+          - auto
+          - morning
+          - evening
+
+jobs:
+  brief:
+    name: Run Briefing
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Determine mode
+        id: mode
+        run: |
+          HOUR=$(TZ='Asia/Shanghai' date +%H)
+          if [ "${{ inputs.mode }}" = "morning" ] || [ "$HOUR" -lt 12 ]; then
+            echo "mode=morning" >> $GITHUB_OUTPUT
+          else
+            echo "mode=evening" >> $GITHUB_OUTPUT
+          fi
+      - name: Run morning brief
+        if: steps.mode.outputs.mode == 'morning'
+        run: python morning_brief.py
+      - name: Run evening brief
+        if: steps.mode.outputs.mode == 'evening'
+        run: python evening_brief.py
