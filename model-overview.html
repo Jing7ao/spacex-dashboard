@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>🔗 供应链映射模型 · 总览 v2.7</title>
+<title>🔗 供应链映射模型 · 总览 v5.0</title>
 <style>
 :root{--bg:#0f1117;--ca:#1a1d27;--bd:#252836;--t1:#e2e8f0;--t2:#94a3b8;--t3:#64748b;--ac:#3b82f6;--gr:#22c55e;--rd:#ef4444;--yl:#eab308;--or:#f97316}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -18,8 +18,8 @@ header h1{font-size:1.3rem;background:linear-gradient(135deg,#ef4444,#3b82f6);-w
 .badge-stale{background:rgba(148,163,184,.1);color:#94a3b8}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.grid-6{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
-@media(max-width:900px){.grid-6{grid-template-columns:repeat(3,1fr)}}
+.grid-6{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.grid-9{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}@media(min-width:1200px){.grid-9{grid-template-columns:repeat(3,1fr)}}@media(max-width:900px){.grid-6{grid-template-columns:repeat(3,1fr)}.grid-9{grid-template-columns:repeat(2,1fr)}}
 .panel{background:var(--ca);border:1px solid var(--bd);border-radius:8px;padding:14px}
 .panel.alert{border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.03)}
 .panel.warn{border-color:rgba(234,179,8,.3);background:rgba(234,179,8,.03)}
@@ -51,7 +51,7 @@ a{color:var(--ac);text-decoration:none}
   <h1>🔗 供应链映射模型 · 总览</h1>
   <div style="display:flex;gap:6px;flex-wrap:wrap">
     <span class="badge badge-ok" id="freshBadge">⏳ 加载中…</span>
-    <span style="font-size:0.6rem;color:var(--t3)">v2.7 · 2026-06-06</span>
+    <span style="font-size:0.6rem;color:var(--t3)">v5.0 · 2026-06-15</span>
     <a href="index.html" style="font-size:0.6rem;color:var(--t3)">📊 监控</a>
     <a href="stock-view.html" style="font-size:0.6rem;color:var(--t3)">📋 单票</a>
     <a href="supply-chain.html" style="font-size:0.6rem;color:var(--t3)">🇺🇸 图谱</a>
@@ -60,7 +60,7 @@ a{color:var(--ac);text-decoration:none}
 </header>
 
 <!-- ═══ ECOSYSTEM OVERVIEW ═══ -->
-<div class="grid-6" style="margin-bottom:12px" id="ecoGrid"></div>
+<div class="grid-9" style="margin-bottom:12px" id="ecoGrid"></div>
 
 <!-- ═══ DATA FRESHNESS ═══ -->
 <div class="grid-2" style="margin-bottom:12px">
@@ -79,7 +79,7 @@ a{color:var(--ac);text-decoration:none}
 <!-- ═══ CROSS-ECO MATRIX ═══ -->
 <div class="panel" style="margin-bottom:12px">
   <div class="panel-title">🔄 跨生态标的 (≥2个生态)</div>
-  <table id="crossTable"><thead><tr><th>标的</th><th>马斯克</th><th>英伟达</th><th>AI算力</th><th>商业航天</th><th>机器人</th><th>低空经济</th><th>重叠度</th></tr></thead><tbody></tbody></table>
+  <table id="crossTable"><thead><tr><th>标的</th><th>马斯克</th><th>英伟达</th><th>AI算力</th><th>商业航天</th><th>机器人</th><th>低空</th><th>存储</th><th>MLCC</th><th>重叠度</th></tr></thead><tbody></tbody></table>
 </div>
 
 <!-- ═══ EVIDENCE GAPS ═══ -->
@@ -124,12 +124,15 @@ a{color:var(--ac);text-decoration:none}
 <script>
 // ═══ DATA ═══
 const ECOS = {
-  '马斯克生态':{icon:'🚀',type:'us',stocks:29,sw:0},
-  '英伟达生态':{icon:'🧠',type:'us',stocks:24,sw:0},
-  '国产AI算力':{icon:'💻',type:'cn',stocks:20,sw:2},
-  '中国商业航天':{icon:'🛰️',type:'cn',stocks:12,sw:1},
-  '国产机器人':{icon:'🤖',type:'cn',stocks:12,sw:1},
-  '低空经济':{icon:'🚁',type:'cn',stocks:15,sw:1}
+  '英伟达链':{icon:'🔷',type:'us',stocks:19,sw:2},
+  '国产AI算力':{icon:'🧠',type:'cn',stocks:16,sw:3},
+  '光通信链':{icon:'🔗',type:'cn',stocks:9,sw:1},
+  '先进封装链':{icon:'📦',type:'cn',stocks:8,sw:2},
+  '半导体材料':{icon:'🧪',type:'cn',stocks:19,sw:3},
+  '存储链':{icon:'💾',type:'cn',stocks:11,sw:2},
+  '马斯克链':{icon:'⚡',type:'us',stocks:15,sw:2},
+  'AI数据中心电力':{icon:'🔌',type:'cn',stocks:9,sw:1},
+  'AI散热新材料':{icon:'💎',type:'cn',stocks:6,sw:0}
 };
 
 const CROSS_DATA = [
@@ -162,7 +165,7 @@ function renderAll() {
   renderGaps();
   fetchAndShowPrices();
   document.getElementById('freshBadge').innerHTML = '<span class="fresh">✅ 数据已加载</span> · ' + new Date().toLocaleDateString('zh-CN');
-  document.getElementById('footer').innerHTML = `📁 数据源: <a href="stock-data.json">stock-data.json</a> (${STOCK_DATA.length}只标的) · <a href="events-data.js">events-data.js</a> · 方法论 <a href="供应链映射方法论.md">v2.7</a><br>💹 股价: <a href="https://hq.sinajs.cn">新浪财经免费API</a> (页面打开时自动拉取, 无需手动填)<br>🔄 打开即最新 — 新增标的只需往 stock-data.json 加一条记录<br>⚠️ 所有评分均为 E2 初评，不构成投资建议。`;
+  document.getElementById('footer').innerHTML = `📁 数据源: <a href="stock-data.json">stock-data.json</a> (${STOCK_DATA.length}只标的) · <a href="events-data.js">events-data.js</a> · 方法论 <a href="供应链映射方法论.md">v5.0</a><br>💹 股价: <a href="https://hq.sinajs.cn">新浪财经免费API</a> (页面打开时自动拉取, 无需手动填)<br>🔄 打开即最新 — 新增标的只需往 stock-data.json 加一条记录<br>⚠️ 所有评分均为 E2 初评，不构成投资建议。`;
 }
 
 function fetchAndShowPrices() {
@@ -198,7 +201,7 @@ function renderEcoGrid() {
     </div>
   `).join('') + `
   <div style="grid-column:1/-1;text-align:center;font-size:0.65rem;color:var(--t2);padding:6px">
-    共 <b>${totalStocks}</b> 只标的 · <b>${totalSW}</b> 只物理开关 · 2 美国生态 + 4 国内生态
+    共 <b>${totalStocks}</b> 只标的 · <b>${totalSW}</b> 只物理开关 · 2 美国 + 7 国内生态
   </div>`;
 }
 

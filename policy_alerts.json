@@ -1,18 +1,18 @@
 {
-  "updated": "2026-06-11 23:55:23",
+  "updated": "2026-06-23 09:09:20",
   "policies": [
     {
-      "title": "欧洲央行决策者认为7月按兵不动的可能性比加息更大",
-      "url": "https://finance.sina.com.cn/world/2026-06-11/doc-inicaenh2199949.shtml",
-      "time": "1781193153",
+      "title": "密迪斯肌发布年度业绩 股东应占溢利93.6万港元同比扭亏为盈",
+      "url": "https://finance.sina.com.cn/stock/hkstock/ggscyd/2026-06-23/doc-inieixxc8890376.shtml",
+      "time": "1782176920",
       "source": "sina"
     },
     {
-      "title": "亚马逊完成创纪录140亿加元债券发行，加拿大信贷市场承压",
-      "url": "https://finance.sina.com.cn/stock/usstock/c/2026-06-11/doc-inicaenh2199857.shtml",
-      "time": "1781193141",
+      "title": "芯智控股拟折让约15.01%配售最多9773.62万股 净筹约2.91亿港元",
+      "url": "https://finance.sina.com.cn/stock/hkstock/ggscyd/2026-06-23/doc-inieixxa2112360.shtml",
+      "time": "1782176870",
       "source": "sina"
     }
   ],
-  "analysis": "[\n  {\"id\": 1, \"impact\": \"中性\", \"sector\": \"出口导向型制造业、新能源产业链\", \"reason\": \"欧洲央行若暂停加息可能缓解欧元区经济下行压力，但对中国出口和新能源需求影响有限，需观察后续政策走向。\"},\n  {\"id\": 2, \"impact\": \"利空\", \"sector\": \"跨境融资、中资美元债相关金融板块\", \"reason\": \"亚马逊大规模债券发行推高加拿大信贷市场利率，可能间接增加中国企业海外融资成本，对依赖境外债券融资的行业形成压力。\"}\n]"
+  "analysis": "[\n    {\"id\":1,\"impact\":\"中性\",\"sector\":\"港股医疗美容服务\",\"reason\":\"该业绩公告针对港股个股，与A股产业链无直接关联。\"},\n    {\"id\":2,\"impact\":\"中性\",\"sector\":\"港股半导体分销\",\"reason\":\"该配售事项针对港股个股，对A股半导体产业链无直接影响。\"}\n]"
 }

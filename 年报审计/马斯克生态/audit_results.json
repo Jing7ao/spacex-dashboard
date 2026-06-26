@@ -1,7 +1,39 @@
 {
-  "信维通信：2025年年度报告.pdf": [],
+  "信维通信：2025年年度报告.pdf": {
+    "auto_scan": [],
+    "manual_review": {
+      "date": "2026-06-13",
+      "pages": 217,
+      "keywords_searched": ["SpaceX","Starlink","星链","星舰","马斯克","ITAR"],
+      "result": "未找到任何SpaceX/Starlink/星链关键词。'航天''卫星互联网'仅出现在行业趋势描述中，非客户确认。年报仅提'北美大客户'，未具名。",
+      "evidence_level": "E3 — 确认，不升级",
+      "notes": "与evt_003审计结论一致。市场'独家供应商'说法仅来自互动易，年报未支持。"
+    }
+  },
+  "西部材料：2025年年度报告.pdf": {
+    "auto_scan": [],
+    "manual_review": {
+      "date": "2026-06-13",
+      "pages": 226,
+      "keywords_searched": ["SpaceX","Starlink","星链","星舰","马斯克","ITAR"],
+      "result": "未找到任何SpaceX/Starlink/星链关键词。'航天航空'频繁出现但全部指中国航天(CASC)/中航/核工业体系。探月、探火等为国家工程。",
+      "evidence_level": "E3 — 确认，不升级",
+      "notes": "核级控制棒国内唯一[E1]和钛合金中船金牌供应商[E1]是真实的，但与SpaceX无关。标的逻辑独立于SpaceX链。"
+    }
+  },
+  "菲利华：2025年年度报告.pdf": {
+    "auto_scan": [],
+    "manual_review": {
+      "date": "2026-06-13",
+      "pages": 204,
+      "keywords_searched": ["SpaceX","Starlink","星链","星舰","马斯克","ITAR"],
+      "result": "未找到任何SpaceX/Starlink/星链关键词。'航天航空'全部指中国航天体系（空间站、国家战略）。石英布/石英材料服务于中国航空航天和半导体。",
+      "evidence_level": "E3 — 从E2降级",
+      "notes": "原标注'(E2产业链分析)'基于M9石英布认证的产业链推断，但年报无SpaceX客户证据。2026.6.13手动审计降级为E3。monitor.html和supply-chain.html已同步更新。"
+    }
+  },
   "再升科技：再升科技2025年年度报告.pdf": [],
   "柯力传感：柯力传感2025年年度报告.pdf": [],
   "联创电子：2025年年度报告.pdf": [],
-  "西部材料：2025年年度报告.pdf": []
+  "_summary": "2026.6.13手动审计：信维/西部/菲利华三份年报均未提及SpaceX。E3评级准确，无需升级。菲利华从E2降为E3（产业链推断≠客户证据）。自动化关键词扫描的空结果是正确的。"
 }

@@ -1,4 +1,4 @@
-// Auto-generated 2026-06-07T01:51:08.943Z
+// Auto-generated 2026-06-26T05:57:28.366Z
 var EVENTS_DATA=[
   {
     "id": "evt_001",
@@ -13,7 +13,7 @@ var EVENTS_DATA=[
     "d0_return": -2.54,
     "d5_excess": 1.81,
     "d20_excess": 15.95,
-    "d60_excess": null,
+    "d60_excess": 15.09,
     "notes": "年报发布日。E2级：客户未具名，描述为'国际头部GPU企业'",
     "_filled_at": "2026-06-06"
   },
@@ -65,7 +65,7 @@ var EVENTS_DATA=[
     "d0_return": -2.94,
     "d5_excess": -0.88,
     "d20_excess": 7.66,
-    "d60_excess": null,
+    "d60_excess": 32.3,
     "notes": "对胜宏科技为替代信号(§3.6 C2类)。E1级：年报明确披露认证进展",
     "_filled_at": "2026-06-06"
   },
@@ -80,10 +80,10 @@ var EVENTS_DATA=[
     "source_type": "新闻",
     "evidence_level": "E1",
     "d0_return": 8.5,
-    "d5_excess": -9.4,
+    "d5_excess": -8.39,
     "d20_excess": null,
     "d60_excess": null,
-    "notes": "管制/制裁。S3概率10%→20-25%，新增S8(15%)。⚠️ D0: 板块逆势+4.7%。⚠️ D+5(6/12): 全跌（信维-8.9%/西部-8.0%/宝钛-4.5%/菲利华-0.2%），沪深300同期约+0.5%，超额约-9%。D0情绪反弹→D5基本面回归。验证：缺乏E1证据的标的回吐全部涨幅。与E3虚标诊断一致。",
+    "notes": "管制/制裁。S3概率10%→20-25%，新增S8(15%)。⚠️ D0: 板块逆势+4.7%。⚠️ D+5(6/12): 全跌（信维-8.9%/西部-8.0%/宝钛-4.5%/菲利华-0.2%），沪深300同期约+0.5%，超额约-9%。D0情绪反弹→D5基本面回归。验证：缺乏E1证据的标的回吐全部涨幅。",
     "concurrent_market": "上证-0.74%，深证-2.21%。SpaceX概念板块逆势+4.7%。大盘下行中板块逆势上涨",
     "affected_stocks_d0": {
       "300136_信维通信": {
@@ -106,7 +106,7 @@ var EVENTS_DATA=[
         "close": 65,
         "change": "+3.98%",
         "note": "逆大盘上涨",
-        "d5_close": 59.80,
+        "d5_close": 59.8,
         "d5_return": "-8.0%",
         "d5_excess": "-8.5%"
       },
@@ -114,7 +114,7 @@ var EVENTS_DATA=[
         "close": 31.19,
         "change": "+0.71%",
         "note": "窄幅震荡",
-        "d5_close": 29.80,
+        "d5_close": 29.8,
         "d5_return": "-4.5%",
         "d5_excess": "-5.0%"
       },
@@ -144,7 +144,7 @@ var EVENTS_DATA=[
     "source_type": "社交媒体+新闻",
     "evidence_level": "E1",
     "d0_return": 20,
-    "d5_excess": null,
+    "d5_excess": -10.17,
     "d20_excess": null,
     "d60_excess": null,
     "notes": "Serenity首次涉足A股。触发信号: 海外网红分析师覆盖=新的市场关注维度。绿的谐波当日成交79亿,主力净流入11亿。E1级: 公开社交媒体发文可查证",
@@ -161,7 +161,7 @@ var EVENTS_DATA=[
     "source_type": "新闻",
     "evidence_level": "E1",
     "d0_return": 1.25,
-    "d5_excess": null,
+    "d5_excess": -2.91,
     "d20_excess": null,
     "d60_excess": null,
     "notes": "S9触发信号。五角大楼要求采购转向美国本土,众议院呼吁30亿美元拨款。全球PCB价格3-4月暴涨40%。直接影响胜宏/沪电英伟达链路B3",
@@ -177,9 +177,9 @@ var EVENTS_DATA=[
     "source_ref": "国资委 2026.4.15 会议纪要 / 财联社 / 21世纪经济报道",
     "source_type": "政府会议",
     "evidence_level": "E1",
-    "d0_return": -2.07,
-    "d5_excess": 2.97,
-    "d20_excess": 0.79,
+    "d0_return": -2.08,
+    "d5_excess": 2.98,
+    "d20_excess": 0.81,
     "d60_excess": null,
     "notes": "政策锁定度P2b事件。国资委明确央企低空经济链主定位,莱斯为民航空管央企控股。E1级: 国资委官网可查",
     "_filled_at": "2026-06-06"
@@ -246,7 +246,7 @@ var EVENTS_DATA=[
     "source_type": "东方财富公告",
     "evidence_level": "E2",
     "d0_return": -2.73,
-    "d5_excess": null,
+    "d5_excess": -7.82,
     "d20_excess": null,
     "d60_excess": null,
     "notes": "自动扫描 | 关键词: 中标",
@@ -264,7 +264,7 @@ var EVENTS_DATA=[
     "evidence_level": "E2",
     "d0_return": -2.08,
     "d5_excess": -6.61,
-    "d20_excess": null,
+    "d20_excess": -24.54,
     "d60_excess": null,
     "notes": "自动扫描 | 关键词: 中标",
     "_filled_at": "2026-06-06"
@@ -279,9 +279,9 @@ var EVENTS_DATA=[
     "source_ref": "重大合同 | https://data.eastmoney.com/notices/detail/000400/AN202605071822028550.html",
     "source_type": "东方财富公告",
     "evidence_level": "E2",
-    "d0_return": 0.49,
+    "d0_return": 0.5,
     "d5_excess": -0.03,
-    "d20_excess": -11.31,
+    "d20_excess": -11.42,
     "d60_excess": null,
     "notes": "自动扫描 | 关键词: 中标",
     "_filled_at": "2026-06-06"
@@ -296,9 +296,9 @@ var EVENTS_DATA=[
     "source_ref": "其他 | https://data.eastmoney.com/notices/detail/300054/AN202605061821993238.html",
     "source_type": "东方财富公告",
     "evidence_level": "E2",
-    "d0_return": 6.37,
+    "d0_return": 6.38,
     "d5_excess": 0.4,
-    "d20_excess": 6.39,
+    "d20_excess": 6.4,
     "d60_excess": null,
     "notes": "自动扫描 | 关键词: 获得订单",
     "_filled_at": "2026-06-06"
@@ -381,10 +381,10 @@ var EVENTS_DATA=[
     "source_ref": "重大合同 | https://data.eastmoney.com/notices/detail/600477/AN202601081816853630.html",
     "source_type": "东方财富公告",
     "evidence_level": "E2",
-    "d0_return": 10.09,
-    "d5_excess": 0.82,
-    "d20_excess": 6.82,
-    "d60_excess": -10.89,
+    "d0_return": 10.14,
+    "d5_excess": 0.83,
+    "d20_excess": 6.84,
+    "d60_excess": -10.95,
     "notes": "自动扫描 | 关键词: 中标",
     "_filled_at": "2026-06-06"
   },
@@ -432,10 +432,10 @@ var EVENTS_DATA=[
     "source_ref": "重大合同 | https://data.eastmoney.com/notices/detail/600496/AN202512081796313512.html",
     "source_type": "东方财富公告",
     "evidence_level": "E2",
-    "d0_return": 0.94,
-    "d5_excess": -0.18,
-    "d20_excess": 1.51,
-    "d60_excess": -0.37,
+    "d0_return": 0.99,
+    "d5_excess": -0.29,
+    "d20_excess": 1.78,
+    "d60_excess": -0.29,
     "notes": "自动扫描 | 关键词: 中标",
     "_filled_at": "2026-06-06"
   },
@@ -671,9 +671,9 @@ var EVENTS_DATA=[
     "source_type": "东方财富公告",
     "evidence_level": "E2",
     "d0_return": 0.4,
-    "d5_excess": 4.62,
-    "d20_excess": -1.21,
-    "d60_excess": -4.76,
+    "d5_excess": 4.69,
+    "d20_excess": -1.19,
+    "d60_excess": -4.68,
     "notes": "自动扫描 | 关键词: 中标",
     "_filled_at": "2026-06-06"
   },
@@ -687,10 +687,10 @@ var EVENTS_DATA=[
     "source_ref": "重大合同 | https://data.eastmoney.com/notices/detail/601179/AN202507151709347518.html",
     "source_type": "东方财富公告",
     "evidence_level": "E2",
-    "d0_return": -0.79,
-    "d5_excess": 8.06,
-    "d20_excess": -0.92,
-    "d60_excess": 1.34,
+    "d0_return": -0.8,
+    "d5_excess": 8.16,
+    "d20_excess": -0.88,
+    "d60_excess": 1.5,
     "notes": "自动扫描 | 关键词: 中标",
     "_filled_at": "2026-06-06"
   },
@@ -704,10 +704,10 @@ var EVENTS_DATA=[
     "source_ref": "重大合同 | https://data.eastmoney.com/notices/detail/600496/AN202507031702223891.html",
     "source_type": "东方财富公告",
     "evidence_level": "E2",
-    "d0_return": -0.3,
-    "d5_excess": -0.59,
-    "d20_excess": -2.89,
-    "d60_excess": -7.3,
+    "d0_return": -0.33,
+    "d5_excess": -0.55,
+    "d20_excess": -2.91,
+    "d60_excess": -6.68,
     "notes": "自动扫描 | 关键词: 中标",
     "_filled_at": "2026-06-06"
   },
@@ -790,7 +790,7 @@ var EVENTS_DATA=[
     "source_type": "东方财富公告",
     "evidence_level": "E2",
     "d0_return": 2.69,
-    "d5_excess": null,
+    "d5_excess": -13.07,
     "d20_excess": null,
     "d60_excess": null,
     "notes": "自动扫描 | 关键词: 算力"
@@ -805,9 +805,9 @@ var EVENTS_DATA=[
     "source_ref": "其他 | https://data.eastmoney.com/notices/detail/300054/AN202605251822861126.html",
     "source_type": "东方财富公告",
     "evidence_level": "E2",
-    "d0_return": 3.31,
-    "d5_excess": -14.5,
-    "d20_excess": null,
+    "d0_return": 3.32,
+    "d5_excess": -14.52,
+    "d20_excess": 21.81,
     "d60_excess": null,
     "notes": "自动扫描 | 关键词: CMP"
   },
@@ -823,7 +823,7 @@ var EVENTS_DATA=[
     "evidence_level": "E2",
     "d0_return": 6.02,
     "d5_excess": 1.79,
-    "d20_excess": null,
+    "d20_excess": 44.78,
     "d60_excess": null,
     "notes": "自动扫描 | 关键词: 靶材"
   },
@@ -839,7 +839,7 @@ var EVENTS_DATA=[
     "evidence_level": "E2",
     "d0_return": 5.49,
     "d5_excess": 4.09,
-    "d20_excess": null,
+    "d20_excess": 45.88,
     "d60_excess": null,
     "notes": "自动扫描 | 关键词: 靶材"
   },
@@ -855,7 +855,7 @@ var EVENTS_DATA=[
     "evidence_level": "E2",
     "d0_return": -1.75,
     "d5_excess": 19.62,
-    "d20_excess": null,
+    "d20_excess": 26.74,
     "d60_excess": null,
     "notes": "自动扫描 | 关键词: 靶材"
   },
@@ -1128,7 +1128,7 @@ var EVENTS_DATA=[
     "d0_return": -1.36,
     "d5_excess": -2.55,
     "d20_excess": 25.46,
-    "d60_excess": null,
+    "d60_excess": 106.64,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1144,7 +1144,7 @@ var EVENTS_DATA=[
     "d0_return": 7.05,
     "d5_excess": -0.59,
     "d20_excess": 45.39,
-    "d60_excess": null,
+    "d60_excess": 103.84,
     "notes": "自动扫描 | 关键词: 海光"
   },
   {
@@ -1160,7 +1160,7 @@ var EVENTS_DATA=[
     "d0_return": 7.05,
     "d5_excess": -0.59,
     "d20_excess": 45.39,
-    "d60_excess": null,
+    "d60_excess": 103.84,
     "notes": "自动扫描 | 关键词: 海光"
   },
   {
@@ -1176,7 +1176,7 @@ var EVENTS_DATA=[
     "d0_return": 7.05,
     "d5_excess": -0.59,
     "d20_excess": 45.39,
-    "d60_excess": null,
+    "d60_excess": 103.84,
     "notes": "自动扫描 | 关键词: 海光"
   },
   {
@@ -1192,7 +1192,7 @@ var EVENTS_DATA=[
     "d0_return": 7.05,
     "d5_excess": -0.59,
     "d20_excess": 45.39,
-    "d60_excess": null,
+    "d60_excess": 103.84,
     "notes": "自动扫描 | 关键词: 海光"
   },
   {
@@ -1208,7 +1208,7 @@ var EVENTS_DATA=[
     "d0_return": 7.05,
     "d5_excess": -0.59,
     "d20_excess": 45.39,
-    "d60_excess": null,
+    "d60_excess": 103.84,
     "notes": "自动扫描 | 关键词: 海光"
   },
   {
@@ -1224,7 +1224,7 @@ var EVENTS_DATA=[
     "d0_return": 7.05,
     "d5_excess": -0.59,
     "d20_excess": 45.39,
-    "d60_excess": null,
+    "d60_excess": 103.84,
     "notes": "自动扫描 | 关键词: 海光"
   },
   {
@@ -1240,7 +1240,7 @@ var EVENTS_DATA=[
     "d0_return": 7.05,
     "d5_excess": -0.59,
     "d20_excess": 45.39,
-    "d60_excess": null,
+    "d60_excess": 103.84,
     "notes": "自动扫描 | 关键词: 海光"
   },
   {
@@ -1256,7 +1256,7 @@ var EVENTS_DATA=[
     "d0_return": 7.05,
     "d5_excess": -0.59,
     "d20_excess": 45.39,
-    "d60_excess": null,
+    "d60_excess": 103.84,
     "notes": "自动扫描 | 关键词: 海光"
   },
   {
@@ -1272,7 +1272,7 @@ var EVENTS_DATA=[
     "d0_return": 7.05,
     "d5_excess": -0.59,
     "d20_excess": 45.39,
-    "d60_excess": null,
+    "d60_excess": 103.84,
     "notes": "自动扫描 | 关键词: 海光"
   },
   {
@@ -1288,7 +1288,7 @@ var EVENTS_DATA=[
     "d0_return": 7.05,
     "d5_excess": -0.59,
     "d20_excess": 45.39,
-    "d60_excess": null,
+    "d60_excess": 103.84,
     "notes": "自动扫描 | 关键词: 海光"
   },
   {
@@ -1304,7 +1304,7 @@ var EVENTS_DATA=[
     "d0_return": 7.05,
     "d5_excess": -0.59,
     "d20_excess": 45.39,
-    "d60_excess": null,
+    "d60_excess": 103.84,
     "notes": "自动扫描 | 关键词: 海光"
   },
   {
@@ -1318,9 +1318,9 @@ var EVENTS_DATA=[
     "source_type": "东方财富公告",
     "evidence_level": "E2",
     "d0_return": -0.83,
-    "d5_excess": 17.94,
-    "d20_excess": 11.12,
-    "d60_excess": null,
+    "d5_excess": 17.98,
+    "d20_excess": 11.15,
+    "d60_excess": 93.81,
     "notes": "自动扫描 | 关键词: 光刻, 光刻胶"
   },
   {
@@ -1336,7 +1336,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1352,7 +1352,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1368,7 +1368,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1384,7 +1384,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1400,7 +1400,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1416,7 +1416,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1432,7 +1432,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1448,7 +1448,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1464,7 +1464,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1480,7 +1480,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1496,7 +1496,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1512,7 +1512,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1528,7 +1528,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1544,7 +1544,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1560,7 +1560,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1576,7 +1576,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1592,7 +1592,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1608,7 +1608,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1624,7 +1624,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1640,7 +1640,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1656,7 +1656,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1672,7 +1672,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1688,7 +1688,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1704,7 +1704,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1720,7 +1720,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -1736,7 +1736,7 @@ var EVENTS_DATA=[
     "d0_return": -0.26,
     "d5_excess": -4.34,
     "d20_excess": 11.82,
-    "d60_excess": null,
+    "d60_excess": 64.42,
     "notes": "自动扫描 | 关键词: 寒武纪"
   },
   {
@@ -3205,10 +3205,10 @@ var EVENTS_DATA=[
     "source_ref": "获得认证 | https://data.eastmoney.com/notices/detail/688146/AN202508051721930747.html",
     "source_type": "东方财富公告",
     "evidence_level": "E2",
-    "d0_return": 8.21,
-    "d5_excess": 34.45,
-    "d20_excess": 15.13,
-    "d60_excess": 20.8,
+    "d0_return": 8.26,
+    "d5_excess": 34.67,
+    "d20_excess": 15.28,
+    "d60_excess": 21.02,
     "notes": "自动扫描 | 关键词: 供应商, 光刻"
   },
   {
@@ -3690,127 +3690,165 @@ var EVENTS_DATA=[
     "d20_excess": 7.23,
     "d60_excess": 2.32,
     "notes": "自动扫描 | 关键词: 储能"
+  },
+  {
+    "id": "evt_scan_20260615_300054",
+    "stock_code": "300054",
+    "stock_name": "鼎龙股份",
+    "event_date": "2026-06-12",
+    "event_type": "order_disclose",
+    "event_desc": "鼎龙股份:关于公司高端晶圆光刻胶产品取得日常经营重要订单进展的自愿性公告",
+    "source_ref": "其他 | https://data.eastmoney.com/notices/detail/300054/AN202606111823464566.html",
+    "source_type": "东方财富公告",
+    "evidence_level": "E2",
+    "d0_return": 4.66,
+    "d5_excess": 10.19,
+    "d20_excess": null,
+    "d60_excess": null,
+    "notes": "自动扫描 | 关键词: 光刻, 光刻胶"
+  },
+  {
+    "id": "evt_scan_20260615_603606",
+    "stock_code": "603606",
+    "stock_name": "东方电缆",
+    "event_date": "2026-06-11",
+    "event_type": "order_disclose",
+    "event_desc": "东方电缆:东方电缆关于近期中标相关项目的提示性公告",
+    "source_ref": "重大合同 | https://data.eastmoney.com/notices/detail/603606/AN202606101823427920.html",
+    "source_type": "东方财富公告",
+    "evidence_level": "E2",
+    "d0_return": 7.53,
+    "d5_excess": -6.12,
+    "d20_excess": null,
+    "d60_excess": null,
+    "notes": "自动扫描 | 关键词: 中标"
+  },
+  {
+    "id": "evt_scan_20260615_300054",
+    "stock_code": "300054",
+    "stock_name": "鼎龙股份",
+    "event_date": "2026-06-09",
+    "event_type": "supply_confirm",
+    "event_desc": "鼎龙股份:关于扩建潜江CMP软抛光垫生产线的自愿性披露公告",
+    "source_ref": "其他 | https://data.eastmoney.com/notices/detail/300054/AN202606081823367522.html",
+    "source_type": "东方财富公告",
+    "evidence_level": "E2",
+    "d0_return": 6.47,
+    "d5_excess": 20.58,
+    "d20_excess": null,
+    "d60_excess": null,
+    "notes": "自动扫描 | 关键词: CMP"
+  },
+  {
+    "id": "evt_scan_20260626_600602",
+    "stock_code": "600602",
+    "stock_name": "云赛智联",
+    "event_date": "2026-06-23",
+    "event_type": "supply_confirm",
+    "event_desc": "云赛智联:云赛智联关于参与出资设立”上海仪电智算产业生态基金“暨关联交易的公告",
+    "source_ref": "关联交易 | https://data.eastmoney.com/notices/detail/600602/AN202606221823740367.html",
+    "source_type": "东方财富公告",
+    "evidence_level": "E2",
+    "d0_return": -4.21,
+    "d5_excess": null,
+    "d20_excess": null,
+    "d60_excess": null,
+    "notes": "自动扫描 | 关键词: 智算"
   }
 ];
 var EVENTS_DISPLAY={
-  "updated": "2026-06-07T01:51:08.943Z",
-  "total": 225,
-  "filled": 220,
-  "recentCount": 11,
+  "updated": "2026-06-26T05:57:28.365Z",
+  "total": 229,
+  "filled": 228,
+  "recentCount": 9,
   "byType": {
     "supply_confirm": {
-      "count": 181,
-      "sum_d5": 1008.8100000000007,
-      "sum_d20": 3397.200000000003,
-      "n_d5": 179,
-      "n_d20": 176
+      "count": 183,
+      "sum_d5": 1006.130000000001,
+      "sum_d20": 3491.630000000002,
+      "n_d5": 182,
+      "n_d20": 179
     },
     "order_disclose": {
-      "count": 32,
-      "sum_d5": 12.7,
-      "sum_d20": -41.82000000000001,
-      "n_d5": 31,
-      "n_d20": 29
+      "count": 34,
+      "sum_d5": 9.060000000000002,
+      "sum_d20": -21.350000000000016,
+      "n_d5": 34,
+      "n_d20": 31
     },
     "cert_progress": {
       "count": 6,
-      "sum_d5": 16.450000000000003,
-      "sum_d20": 5.360000000000001,
+      "sum_d5": 16.680000000000003,
+      "sum_d20": 5.529999999999999,
       "n_d5": 6,
       "n_d20": 6
     },
     "sanction": {
       "count": 2,
-      "sum_d5": 0,
+      "sum_d5": -11.3,
       "sum_d20": 0,
-      "n_d5": 0,
+      "n_d5": 2,
       "n_d20": 0
     },
     "expand": {
       "count": 4,
-      "sum_d5": 45.01,
-      "sum_d20": 165.77,
+      "sum_d5": 45.05,
+      "sum_d20": 165.8,
       "n_d5": 4,
       "n_d20": 4
     }
   },
   "latest": [
     {
+      "date": "2026-06-23",
+      "name": "云赛智联",
+      "code": "600602",
+      "type": "供应确认",
+      "desc": "云赛智联:云赛智联关于参与出资设立”上海仪电智算产业生态基金“暨关联交易的公告",
+      "d5": null,
+      "d20": null,
+      "d60": null
+    },
+    {
+      "date": "2026-06-12",
+      "name": "鼎龙股份",
+      "code": "300054",
+      "type": "订单披露",
+      "desc": "鼎龙股份:关于公司高端晶圆光刻胶产品取得日常经营重要订单进展的自愿性公告",
+      "d5": 10.19,
+      "d20": null,
+      "d60": null
+    },
+    {
+      "date": "2026-06-11",
+      "name": "东方电缆",
+      "code": "603606",
+      "type": "订单披露",
+      "desc": "东方电缆:东方电缆关于近期中标相关项目的提示性公告",
+      "d5": -6.12,
+      "d20": null,
+      "d60": null
+    },
+    {
+      "date": "2026-06-09",
+      "name": "鼎龙股份",
+      "code": "300054",
+      "type": "供应确认",
+      "desc": "鼎龙股份:关于扩建潜江CMP软抛光垫生产线的自愿性披露公告",
+      "d5": 20.58,
+      "d20": null,
+      "d60": null
+    },
+    {
       "date": "2026-06-05",
       "name": "信维通信(及全SpaceX链)",
       "code": "300136",
       "type": "管制制裁",
       "desc": "SpaceX IPO禁止中港投资者认购+官网封锁中国IP。彭博/路透报道，基于ITAR内部指引",
-      "d5": null,
-      "d20": null,
-      "d60": null
-    },
-    {
-      "date": "2026-06-05",
-      "name": "绿的谐波",
-      "code": "688017",
-      "type": "供应确认",
-      "desc": "Serenity(@aleabroreddit)发文推荐绿的谐波为人形机器人赛道中国标的,当日20%涨停",
-      "d5": null,
-      "d20": null,
-      "d60": null
-    },
-    {
-      "date": "2026-06-04",
-      "name": "数据港",
-      "code": "603881",
-      "type": "供应确认",
-      "desc": "数据港:上海数据港股份有限公司关于采购算力服务的公告",
-      "d5": null,
-      "d20": null,
-      "d60": null
-    },
-    {
-      "date": "2026-06-03",
-      "name": "胜宏科技(及沪电股份)",
-      "code": "300476",
-      "type": "管制制裁",
-      "desc": "CNBC报道: 美国国防部渲染中国PCB威胁国家安全,参议院提出25%税收抵免法案",
-      "d5": null,
-      "d20": null,
-      "d60": null
-    },
-    {
-      "date": "2026-06-01",
-      "name": "鸿富瀚",
-      "code": "301086",
-      "type": "订单披露",
-      "desc": "鸿富瀚:关于控股子公司收到中标通知书的公告",
-      "d5": null,
+      "d5": -8.39,
       "d20": null,
       "d60": null
     }
-	  },
-	  {
-	    "id": "evt_226",
-	    "stock_code": "SPCX",
-	    "stock_name": "SpaceX(全商业航天链)",
-	    "event_date": "2026-06-12",
-	    "event_type": "ipo",
-	    "event_desc": "SpaceX登陆纳斯达克(SPCX),史上最大IPO($750亿,$1.77万亿)。开盘$174(+29%)",
-	    "source_ref": "彭博/路透/CNBC/证券时报 2026.6.12",
-	    "source_type": "IPO",
-	    "evidence_level": "E1",
-	    "d0_return": 29,
-	    "d5_excess": null,
-	    "d20_excess": null,
-	    "d60_excess": null,
-	    "notes": "史上最大IPO。美股太空股抽血暴跌(Virgin-25%/RocketLab-9%),A股13只涨停(ETF+5.3%)。两个市场相反逻辑:美股资金流向SPCX,A股估值锚定拉涨。长期利好:SpaceX将提交SEC年报,供应链透明度提升。E3票需观察D+5是否回吐。",
-	    "concurrent_market": "A股商业航天13只涨停,美股太空股全线暴跌",
-	    "affected_stocks_d0": {
-	      "美股太空": {"change": "全线暴跌","note":"Virgin-25%,RocketLab-9%"},
-	      "A股商业航天": {"change":"13涨停","note":"航天ETF+5.3%"},
-	      "300136_信维通信":{"close":99.28,"change":"+3.0%","note":"E3降级,跟涨未涨停"},
-	      "002149_西部材料":{"close":61.89,"change":"+8.7%","note":"E3降级,核潜艇逻辑独立"},
-	      "600456_宝钛股份":{"close":29.80,"change":"+4.2%","note":"年报未提SpaceX"},
-	      "605123_派克新材":{"close":98.50,"change":"+4.2%","note":"NASA+SpaceX双认证"}
-	    }
-
   ],
   "needMore": false
 };

@@ -52,7 +52,9 @@ var ROUTES=[
   {p:'/api/ai',ai:true},
   {p:'/api/notify',notify:true},
   {p:'/api/risk',risk:true},
+  {p:'/api/deepseek',ds:true},
 ];
+var DS_KEY='sk-c488cb49d95d4ec4b9da62bbd708a74b';
 
 var clashOn=false;
 
@@ -100,6 +102,21 @@ function checkClash(cb){
 
 checkClash(function(){
   http.createServer(function(req,res){
+  var pn = req.url.split('?')[0];
+  // 财联社 news proxy
+  if (pn.startsWith('/api/cls/')) {
+    var clsPath = pn.replace('/api/cls','') + (req.url.includes('?') ? '?'+req.url.split('?')[1] : '');
+    var clsUrl = 'https://www.cls.cn/api'+clsPath;
+    var u = new URL(clsUrl);
+    var opts = {hostname:u.hostname,port:443,path:u.pathname+u.search,method:'GET',timeout:10000,headers:{'User-Agent':'Mozilla/5.0'}};
+    var preq = require('https').request(opts,function(pres){
+      res.writeHead(pres.statusCode,{'Content-Type':'application/json','Access-Control-Allow-Origin':'*'});
+      pres.pipe(res);
+    });
+    preq.on('error',function(){res.writeHead(502);res.end('[]');});
+    preq.end();
+    return;
+  }
     if(req.method==='OPTIONS'){res.writeHead(200,{'Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'GET,POST,OPTIONS','Access-Control-Allow-Headers':'Content-Type,Authorization'});res.end();return}
     var u=new URL(req.url,'http://localhost');var pn=u.pathname;
     for(var i=0;i<ROUTES.length;i++){
@@ -164,6 +181,14 @@ var gmKey='AQ.Ab8RN6JLMu7tWvnymIs0eh8inYGMbMGQR4eT6JMuH3sUM8XUow';
           res.writeHead(200,{"Content-Type":"application/json","Access-Control-Allow-Origin":"*"});
           res.end(JSON.stringify({status:"generating",updated:new Date().toISOString(),stocks:[]}));
         }
+        return;
+      }
+      if(ROUTES[i].ds&&pn==='/api/deepseek'){
+        var body='';req.on('data',function(d){body+=d});req.on('end',function(){
+          var opts={hostname:'api.deepseek.com',port:443,path:'/chat/completions',method:'POST',timeout:30000,headers:{'Content-Type':'application/json','Authorization':'Bearer '+DS_KEY}};
+          var p2=https.request(opts,function(r2){var b2='';r2.on('data',function(d){b2+=d});r2.on('end',function(){res.writeHead(200,{'Content-Type':'application/json','Access-Control-Allow-Origin':'*'});res.end(b2)})});
+          p2.on('error',function(e){res.writeHead(502);res.end('{"error":"'+e.message+'"}')});p2.end(body);
+        });
         return;
       }
     }

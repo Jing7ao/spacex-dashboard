@@ -1104,5 +1104,454 @@
     "gaps": [
       "年报: eVTOL预浸料市占率原文"
     ]
+  },
+  {
+    "code": "600111",
+    "name": "北方稀土",
+    "market": "主板",
+    "ecosystem": "关键矿产",
+    "tier": "T4",
+    "bottleneck": true,
+    "cross_eco": false,
+    "score_v26": 16,
+    "score_max": 20,
+    "score_grade": "政策深度锁定",
+    "evidence_level": "E2",
+    "key_e1": "全球轻稀土龙头，开采总量控制(E1:矿产法6.15施行)",
+    "score_detail": {
+      "P1": 2,
+      "P2": 2,
+      "P3": 2,
+      "P4": 2,
+      "O1": 0,
+      "O2": 2,
+      "O3": 2,
+      "T1": 3,
+      "T2": 2,
+      "T3b": "E3"
+    },
+    "metrics": {},
+    "e1_audit": [
+      {
+        "claim": "全球轻稀土龙头",
+        "level": "E2",
+        "source": "产业数据",
+        "action": "待翻年报确认"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "稀土价格周期波动"
+      }
+    ],
+    "gaps": [
+      "T3b: 稀土替代技术路线需工程专家判断"
+    ]
+  },
+  {
+    "code": "600549",
+    "name": "厦门钨业",
+    "market": "主板",
+    "ecosystem": "关键矿产",
+    "tier": "T4",
+    "bottleneck": true,
+    "cross_eco": false,
+    "score_v26": 16,
+    "score_max": 20,
+    "score_grade": "政策深度锁定",
+    "evidence_level": "E2",
+    "key_e1": "全球钨供给>80%来自中国(E1:矿产法6.15施行)",
+    "score_detail": {
+      "P1": 2,
+      "P2": 2,
+      "P3": 2,
+      "P4": 2,
+      "O1": 0,
+      "O2": 2,
+      "O3": 2,
+      "T1": 3,
+      "T2": 2,
+      "T3b": "E3"
+    },
+    "metrics": {},
+    "e1_audit": [
+      {
+        "claim": "全球钨龙头",
+        "level": "E2",
+        "source": "产业数据",
+        "action": "待翻年报确认"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "钨价周期波动"
+      }
+    ],
+    "gaps": [
+      "T3b: 钨替代技术路线需工程专家判断"
+    ]
+  },
+  {
+    "code": "601958",
+    "name": "金钼股份",
+    "market": "主板",
+    "ecosystem": "关键矿产",
+    "tier": "T4",
+    "bottleneck": true,
+    "cross_eco": false,
+    "score_v26": 14,
+    "score_max": 20,
+    "score_grade": "政策深度锁定",
+    "evidence_level": "E2",
+    "key_e1": "亚洲最大钼矿，SK海力士钼代钨催化(E2)",
+    "score_detail": {
+      "P1": 2,
+      "P2": 2,
+      "P3": 2,
+      "P4": 0,
+      "O1": 0,
+      "O2": 2,
+      "O3": 2,
+      "T1": 2,
+      "T2": 2,
+      "T3b": "E3"
+    },
+    "metrics": {},
+    "e1_audit": [
+      {
+        "claim": "亚洲最大钼矿",
+        "level": "E2",
+        "source": "产业数据",
+        "action": "待翻年报确认"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "钼铁现货与股价背离"
+      }
+    ],
+    "gaps": [
+      "年报E1审计待做"
+    ]
+  },
+  {
+    "code": "002428",
+    "name": "云南锗业",
+    "market": "主板",
+    "ecosystem": "关键矿产",
+    "tier": "T4",
+    "bottleneck": true,
+    "cross_eco": false,
+    "score_v26": 16,
+    "score_max": 20,
+    "score_grade": "政策深度锁定",
+    "evidence_level": "E2",
+    "key_e1": "国内唯一6英寸磷化铟量产，锗资源储量第一(E2)",
+    "score_detail": {
+      "P1": 2,
+      "P2": 2,
+      "P3": 2,
+      "P4": 2,
+      "O1": 0,
+      "O2": 2,
+      "O3": 2,
+      "T1": 3,
+      "T2": 2,
+      "T3b": "E3"
+    },
+    "metrics": {},
+    "e1_audit": [
+      {
+        "claim": "国内唯一6英寸磷化铟批量供货",
+        "level": "E2",
+        "source": "券商研报",
+        "action": "待翻年报确认"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "磷化铟国产化率<10%，量产风险"
+      }
+    ],
+    "gaps": [
+      "年报E1审计待做",
+      "T3b: 磷化铟替代技术路线需工程专家判断"
+    ]
+  },
+  {
+    "code": "601600",
+    "name": "中国铝业",
+    "market": "主板",
+    "ecosystem": "关键矿产",
+    "tier": "T4",
+    "bottleneck": true,
+    "cross_eco": false,
+    "score_v26": 12,
+    "score_max": 20,
+    "score_grade": "政策显著受益",
+    "evidence_level": "E2",
+    "key_e1": "全球镓龙头(市占40%+)，铝副产镓(E2)",
+    "score_detail": {
+      "P1": 2,
+      "P2": 1,
+      "P3": 2,
+      "P4": 2,
+      "O1": 0,
+      "O2": 1,
+      "O3": 2,
+      "T1": 1,
+      "T2": 1,
+      "T3b": "E3"
+    },
+    "metrics": {},
+    "e1_audit": [
+      {
+        "claim": "全球镓龙头",
+        "level": "E2",
+        "source": "产业数据",
+        "action": "待翻年报确认"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "铝主业周期波动"
+      }
+    ],
+    "gaps": [
+      "年报E1审计待做"
+    ]
+  },
+  {
+    "code": "000960",
+    "name": "锡业股份",
+    "market": "主板",
+    "ecosystem": "关键矿产",
+    "tier": "T4",
+    "bottleneck": true,
+    "cross_eco": false,
+    "score_v26": 12,
+    "score_max": 20,
+    "score_grade": "政策显著受益",
+    "evidence_level": "E2",
+    "key_e1": "全球铟龙头，铟储量/产量双第一(E2)",
+    "score_detail": {
+      "P1": 2,
+      "P2": 1,
+      "P3": 2,
+      "P4": 1,
+      "O1": 0,
+      "O2": 1,
+      "O3": 2,
+      "T1": 2,
+      "T2": 1,
+      "T3b": "E3"
+    },
+    "metrics": {},
+    "e1_audit": [
+      {
+        "claim": "全球铟龙头",
+        "level": "E2",
+        "source": "产业数据",
+        "action": "待翻年报确认"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "锡铟价格周期波动"
+      }
+    ],
+    "gaps": [
+      "年报E1审计待做"
+    ]
+  },
+  {
+    "code": "605376",
+    "name": "博迁新材",
+    "market": "主板",
+    "ecosystem": "被动元器件",
+    "tier": "T4",
+    "bottleneck": true,
+    "cross_eco": false,
+    "score_v26": 14,
+    "score_max": 20,
+    "score_grade": "政策深度锁定",
+    "evidence_level": "E2",
+    "key_e1": "全球第二/国内唯一80nm纳米镍粉量产，三星5年长单(E2)",
+    "score_detail": {
+      "P1": 2,
+      "P2": 1,
+      "P3": 2,
+      "P4": 0,
+      "O1": 0,
+      "O2": 2,
+      "O3": 2,
+      "T1": 3,
+      "T2": 2,
+      "T3b": "E3"
+    },
+    "metrics": {},
+    "e1_audit": [
+      {
+        "claim": "国内唯一80nm纳米镍粉量产",
+        "level": "E2",
+        "source": "券商研报+公告",
+        "action": "待翻年报确认"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "三星集中度风险"
+      }
+    ],
+    "gaps": [
+      "年报E1审计待做"
+    ]
+  },
+  {
+    "code": "002859",
+    "name": "洁美科技",
+    "market": "主板",
+    "ecosystem": "被动元器件",
+    "tier": "T2",
+    "bottleneck": true,
+    "cross_eco": false,
+    "score_v26": 12,
+    "score_max": 20,
+    "score_grade": "政策显著受益",
+    "evidence_level": "E2",
+    "key_e1": "MLCC载带/离型膜龙头，供三星/国巨/风华(E2)",
+    "score_detail": {
+      "P1": 2,
+      "P2": 1,
+      "P3": 2,
+      "P4": 0,
+      "O1": 0,
+      "O2": 2,
+      "O3": 2,
+      "T1": 2,
+      "T2": 1,
+      "T3b": "E3"
+    },
+    "metrics": {},
+    "e1_audit": [
+      {
+        "claim": "MLCC载带龙头",
+        "level": "E2",
+        "source": "产业数据",
+        "action": "待翻年报确认"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "🟡",
+        "text": "MLCC周期波动"
+      }
+    ],
+    "gaps": [
+      "年报E1审计待做"
+    ]
+  },
+  {
+    "code": "300054",
+    "name": "鼎龙股份",
+    "market": "创业板",
+    "ecosystem": "国产存储",
+    "tier": "T3",
+    "bottleneck": true,
+    "cross_eco": false,
+    "score_v26": 14,
+    "score_max": 20,
+    "score_grade": "政策深度锁定",
+    "evidence_level": "E1",
+    "key_e1": "国内唯一CMP抛光垫全品种覆盖(E1:年报确认)",
+    "score_detail": {
+      "P1": 2,
+      "P2": 1,
+      "P3": 2,
+      "P4": 0,
+      "O1": 0,
+      "O2": 2,
+      "O3": 2,
+      "T1": 3,
+      "T2": 2,
+      "T3b": "E3"
+    },
+    "metrics": {
+      "YTD": "+82%",
+      "PE": "90x",
+      "注意": "近10日主力净流出4.75亿"
+    },
+    "e1_audit": [
+      {
+        "claim": "国内唯一CMP抛光垫全品种覆盖",
+        "level": "E1",
+        "source": "2025年报",
+        "action": "已确认"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "HOT",
+        "text": "PE 90x高位，YTD+82%已充分定价"
+      }
+    ],
+    "gaps": [
+      "目标价88已到，需业绩验证估值"
+    ]
+  },
+  {
+    "code": "688268",
+    "name": "华特气体",
+    "market": "科创板",
+    "ecosystem": "国产存储",
+    "tier": "T3",
+    "bottleneck": true,
+    "cross_eco": false,
+    "score_v26": 12,
+    "score_max": 20,
+    "score_grade": "政策显著受益",
+    "evidence_level": "E2",
+    "key_e1": "国内唯一ASML认证电子特气供应商(E2待E1确认)",
+    "score_detail": {
+      "P1": 2,
+      "P2": 1,
+      "P3": 2,
+      "P4": 0,
+      "O1": 0,
+      "O2": 2,
+      "O3": 1,
+      "T1": 2,
+      "T2": 2,
+      "T3b": "E3"
+    },
+    "metrics": {
+      "YTD": "+205%",
+      "风险": "Q1利润-23.7%，纯叙事驱动"
+    },
+    "e1_audit": [
+      {
+        "claim": "ASML认证",
+        "level": "E2",
+        "source": "公司公告",
+        "action": "待翻年报确认E1"
+      }
+    ],
+    "risks": [
+      {
+        "severity": "EXTREME",
+        "text": "YTD+205%，Q1利润-23.7%，严重脱离基本面"
+      }
+    ],
+    "gaps": [
+      "年报E1审计待做",
+      "估值极度超前"
+    ]
   }
 ]

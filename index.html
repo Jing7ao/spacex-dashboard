@@ -134,7 +134,7 @@ function ma(d,p){if(d.length<p)return d[d.length-1];var s=0;for(var i=d.length-p
 function calcRSI(cl,p){p=p||14;if(cl.length<p+1)return 50;var g=0,l=0;for(var i=cl.length-p;i<cl.length;i++){var d=cl[i]-cl[i-1];if(d>0)g+=d;else l-=d}if(l===0)return 100;return 100-(100/(1+g/l))}
 
 async function run(){
-  budget=parseInt(document.getElementById('budget').value)||parseInt(localStorage.getItem('mx_b'))||2000;document.getElementById('budget').value=budget;
+  budget=parseInt(localStorage.getItem('mx_b'))||parseInt(document.getElementById('budget').value)||2000;document.getElementById('budget').value=budget;
   document.getElementById('grid').innerHTML='<div style="padding:20px;color:#64748b">拉取行情...</div>';
   loadRisk(); // 异步加载风险数据,不阻塞行情
 
@@ -229,9 +229,10 @@ async function run(){
     var mb=ma(cl,20);var vv=0;for(var i=cl.length-20;i<cl.length;i++)vv+=Math.pow(cl[i]-mb,2);var sd=Math.sqrt(vv/20);var bu=mb+2*sd,bl=mb-2*sd;var bp=(cp-bl)/(bu-bl||1);
     var bbS=bp<.15?80:bp<.3?65:bp>.85?20:bp>.7?35:50;
     var ff=prices[s.c]&&prices[s.c].ff;var fundS=50;if(ff!==undefined){if(ff>1e8)fundS=100;else if(ff>5e7)fundS=80;else if(ff>0)fundS=65;else if(ff>-5e7)fundS=35;else if(ff>-1e8)fundS=20;else fundS=0}
-    // 新评分: 技术40% + 供应链25% + 资金10% + 基本面10% + 催化预留15%
-    var scpScore=(s.scpS||0)*10; // 供应链卡点评分(0-100)
-    var comp=Math.round(rsS*0.20+maS*0.15+vlS*0.15+bbS*0.10+scpScore*0.25+fundS*0.15);
+    // v4.0 统一评分 (IC加权: trend -0.370, ma +0.079, RSI -0.057, vol +0.123, BB -0.045)
+    var trendStr=m60>0?Math.abs(m20-m60)/m60:0;
+    var trenS=trendStr>0.08?20:trendStr>0.05?35:trendStr>0.03?45:trendStr>0.02?65:80;
+    var comp=Math.round(trenS*0.35+maS*0.20+rsS*0.15+vlS*0.15+bbS*0.10+fundS*0.05);
     // PE惩罚(高PE科创板正常,只惩罚极端值)
     if(s.pew>300||s.pew===0)comp-=10;else if(s.pew>200)comp-=5;
     // 风险数据扣分(来自risk-check.js检测结果)
@@ -252,13 +253,19 @@ async function run(){
 
   // 4. 渲染
   var html='';
-  // All stocks in one list, >=65 gets checkmark
+  // All stocks in one list, >=60 gets checkmark
   ranked.forEach(function(r,i){
-    var qual=r.sc>=65;
+    var qual=r.sc>=60;
     html+='<div class="card" data-code="'+r.s.c+'" style="'+(i===0&&qual?'border-color:#22c55e':'')+';'+(qual?'':'opacity:0.65')+'">'+
       '<div style="display:flex;justify-content:space-between"><div><span class="r">#'+(i+1)+'</span> <span class="n">'+r.s.n+'</span><span class="c"> '+r.s.c+'</span>'+(qual?' <span style="font-size:0.5rem;color:#22c55e">✓</span>':'')+'</div>'+
       '<span style="font-size:0.6rem;padding:2px 5px;border-radius:3px;background:rgba(59,130,246,.1);color:#60a5fa">'+r.s.eco+' · '+r.s.tier+'</span></div>'+
-      '<div style="margin:6px 0"><span class="p">¥'+fn(r.p)+'</span> <span class="'+(r.ch>=0?'up':'down')+'" style="font-size:0.75rem">'+fp(r.ch)+'%</span> <span style="font-size:0.65rem;color:#64748b">评分'+r.sc+' RSI'+r.rsi+(qual?' <span style="color:#22c55e">✓</span>':'')+' | '+r.s.scpN+'</span></div>'+
+      '<div style="margin:6px 0"><span class="p">¥'+fn(r.p)+'</span> <span class="'+(r.ch>=0?'up':'down')+'" style="font-size:0.75rem">'+fp(r.ch)+'%</span> '+
+      (r.sc>=75?'<span style="font-size:0.65rem;background:#dc2626;color:#fff;padding:1px 6px;border-radius:3px">强烈买入</span> ':
+       r.sc>=60?'<span style="font-size:0.65rem;background:#22c55e;color:#fff;padding:1px 6px;border-radius:3px">买入</span> ':
+       r.sc>=40?'<span style="font-size:0.65rem;background:#64748b;color:#fff;padding:1px 6px;border-radius:3px">持有</span> ':
+       r.sc>=25?'<span style="font-size:0.65rem;background:#eab308;color:#fff;padding:1px 6px;border-radius:3px">卖出</span> ':
+       '<span style="font-size:0.65rem;background:#dc2626;color:#fff;padding:1px 6px;border-radius:3px">强烈卖出</span> ')+
+      '<span style="font-size:0.65rem;color:#64748b">评分'+r.sc+' RSI'+r.rsi+'</span></div>'+
       '<div class="row"><span class="l">供应链卡点</span><span style="color:#60a5fa">'+('★'.repeat(r.s.scpS||0))+('☆'.repeat(10-(r.s.scpS||0)))+' '+(r.s.scpS||0)+'/10</span></div>'+
       '<div class="row"><span class="l">价格 | MA20</span><span>¥'+fn(r.p)+' | ¥'+fn(r.m20)+'</span></div></div>';
   });
@@ -267,19 +274,19 @@ async function run(){
   document.getElementById('grid').innerHTML=html||'<div style="padding:20px;color:#64748b;text-align:center">暂无数据</div>';
   // Plan
   var plan='';
-  var qualR=ranked.filter(function(r){return r.sc>=65});
+  var qualR=ranked.filter(function(r){return r.sc>=60});
   if(qualR.length>0){
-    plan+='<div style="font-size:0.7rem;color:#64748b;margin-bottom:4px">评分>=65的标的('+qualR.length+'只):</div>';
+    plan+='<div style="font-size:0.7rem;color:#64748b;margin-bottom:4px">评分>=60的标的('+qualR.length+'只):</div>';
     qualR.slice(0,5).forEach(function(r,i){
       plan+='<div style="padding:4px 0;border-bottom:1px solid rgba(37,40,54,.3)"><strong>'+(i+1)+'.</strong> '+r.s.n+' <span style="color:#22c55e">'+r.sc+'分</span> | '+r.s.scpN+'</div>';
     });
-  }else if(ranked.length>0){plan='<span style="color:#eab308">当前筛选下暂无评分>=65的标的</span>';}
+  }else if(ranked.length>0){plan='<span style="color:#eab308">当前筛选下暂无评分>=60的标的</span>';}
   else{plan='<span style="color:#64748b">暂无数据</span>';}
   document.getElementById('plan').innerHTML='<strong>综合分析</strong><br>'+plan;
   // Summary
-  var qualCount=ranked.filter(function(r){return r.sc>=65}).length;
+  var qualCount=ranked.filter(function(r){return r.sc>=60}).length;
   document.getElementById('s1').textContent=ranked.length+'只';
-  document.getElementById('s2').textContent=qualCount+'只>=65';
+  document.getElementById('s2').textContent=qualCount+'只>=60';
   var avgScore=ranked.length>0?Math.round(ranked.reduce(function(s,r){return s+r.sc},0)/ranked.length):0;
   document.getElementById('s3').textContent=avgScore+'分';
   // News
@@ -297,10 +304,10 @@ async function run(){
 // ====== Event to Stock Mapping ======
 var EVENT_STOCK_MAP = {
   'NVIDIA GTC':              {eco:'英伟达',label:'英伟达供应链',cs:['300308','300394','300502','601138','300476','002463','002837','002851','600584']},
-  'COMPUTEX':                {eco:'英伟达',label:'AI服务器/光模块',cs:['300308','300394','300502','601138','300476']},
+  'COMPUTEX 台北':                {eco:'英伟达',label:'AI服务器/光模块',cs:['300308','300394','300502','601138','300476']},
   '台积电供应链大会':         {eco:'英伟达',label:'先进封装/制造',cs:['600584','601138','300476']},
   '特斯拉AI Day':             {eco:'马斯克',label:'机器人/FSD供应链',cs:['688017','601689','002050','603305']},
-  'CES':                     {label:'消费电子/AI/芯片',cs:['300476','601138','300308','300136']},
+  'CES 拉斯维加斯':                     {label:'消费电子/AI/芯片',cs:['300476','601138','300308','300136']},
   '华为全联接大会':            {label:'国产替代/华为',cs:['688017','300394','300136','600584']},
   '两会开幕':                 {label:'政策全板块',cs:[]},
   '政治局会议':               {label:'政策全板块',cs:[]},
@@ -542,9 +549,9 @@ setTimeout(loadCalendar, 3000);
     }
     // 批量分析：一次API调用分析所有标题
     var titles=all.map(function(n,i){return (i+1)+'. '+n.title;}).join('\n');
-    fetch('https://api.deepseek.com/v1/chat/completions',{
+    fetch('/api/deepseek',{
       method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer sk-c488cb49d95d4ec4b9da62bbd708a74b'},
+      headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'deepseek-chat',
         messages:[{role:'user',content:'分析以下新闻标题对供应链(英伟达/OpenAI/SpaceX/特斯拉/光模块/PCB/华为)是利好、利空还是中性。只返回JSON数组，每个元素是数字：1=利好 0=中性 -1=利空。不要任何其他文字。\n\n'+titles}],
         max_tokens:500,temperature:0})

@@ -21,14 +21,15 @@ W = {'trend':0.35, 'rsi':0.15, 'ma':0.20, 'vol':0.15, 'bb':0.10, 'fund':0.05}
 
 # ── 股票池(所有生态, 去重) ──
 ECOS = {
-    "nvidia":["300476","601138","300308","300394","002463","600183","300502","002837","002851","600584","002916","002156","688300"],
-    "musk":["688102","002149","300136","600456","603601","301522","688333","605123","603308","300395","603305","601689","002050","688017","603662"],
-    "ai_domestic":["688629","603986","002371","688012","300567","002281","000938","600487","002916","688981","688256"],
-    "optical":["300308","300394","300502","002281","000988","688498","600487","000938","301165"],
-    "robot_domestic":["688017","603662","601689","601100","300124","002050","300660"],
-    "semimat":["601208","688300","600183","688268","300346","688126","300666","688019","300054","603650","300260","002378"],
-    "cooling":["002837","301018","300499","300249","002126","688668"],
-    "power":["600089","601179","601877","600875","600406","000400","002335","002364","002028","300274","601012","600487","600522"],
+    "nvidia":["601138","300476","002463","002837","002851","300308","300394","300502","600584","002156","600183","601208","688300","301018","300249","300990","603256","301389","605589"],
+    "ai_domestic":["600584","002156","301018","002837","002843","688629","002916","688183","603186","002436","002281","688256","688041","688012","002371","002851"],
+    "optical":["300308","300502","002281","300394","300570","300620","688498","601869","002428"],
+    "packaging":["603005","600584","002156","002916","002436","603186","688535","688012","002371"],
+    "semimat":["300331","301013","688126","688268","688146","688019","300054","603650","300655","300666","600206","603688","300395","688535","300285","605376","600259","000831","600111","600392","002428"],
+    "storage":["600584","002156","600667","301308","688525","688019","300054","688535","300666","688268","688126"],
+    "power":["688676","002335","300153","002364","002028","000400","600487","600522","603606"],
+    "diamond":["301071","300179","600172","688028","002046","002145"],
+    "musk":["002466","002192","688102","605123","603308","603601","600456","300136","002792","603212","601689","002050","603305","688017","603662","600143","000977"],
 }
 
 def get_universe():
@@ -461,6 +462,7 @@ def main():
     print(f"OOS交易日: {len(oos_dates)}")
 
     # 4. 运行回测
+    mode_label = 'walk_forward' if walk_forward else 'simple_oos'
     if walk_forward:
         bt = run_walk_forward(stock_data, date_idx_map, oos_dates)
         report(bt, "滚动回测 (Walk-Forward)")
@@ -468,16 +470,81 @@ def main():
         bt = run_simple_oos(stock_data, date_idx_map, oos_dates)
         report(bt, "简单OOS回测 (2025, 固定权重)")
 
-    # 5. 保存结果
+    # 5. 拉取基准(沪深300)同期数据做真实对比
+    bench_data = None
+    try:
+        # 沪深300指数用sh000300, 不在fetch_kline的6/5开头规则中, 单独处理
+        url = "http://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh000300,day,,,400,qfq"
+        req = urllib.request.Request(url, headers={"User-Agent":"Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            data = json.loads(resp.read())
+            klines = (data.get("data",{}).get("sh000300",{}).get("qfqday",[]) or
+                      data.get("data",{}).get("sh000300",{}).get("day",[]))
+            if klines and len(klines) >= 60:
+                bench_data = []
+                for k in klines:
+                    if len(k) >= 6:
+                        bench_data.append({'d': k[0], 'o': float(k[1]), 'c': float(k[2]), 'h': float(k[3]), 'l': float(k[4]), 'v': float(k[5])})
+                print(f"  基准(沪深300)数据: {len(bench_data)} 条")
+    except Exception as e:
+        print(f"  基准(沪深300)获取失败: {e}")
+    bench_ret = 0
+    if bench_data and bt.nav_history:
+        bench_dates = {k['d']: k for k in bench_data}
+        first_d = bt.nav_history[0]['date']
+        last_d = bt.nav_history[-1]['date']
+        if first_d in bench_dates and last_d in bench_dates:
+            bench_start = bench_dates[first_d]['c']
+            bench_end = bench_dates[last_d]['c']
+            bench_ret = (bench_end - bench_start) / bench_start * 100
+
+    # 6. 保存完整结果(全量NAV, 不分文件名覆盖)
+    navs = [n['nav'] for n in bt.nav_history]
+    daily_rets = [(navs[i]-navs[i-1])/navs[i-1] for i in range(1, len(navs))]
+    peak = navs[0]; max_dd = 0
+    for n in navs:
+        peak = max(peak, n); max_dd = max(max_dd, (peak-n)/peak*100)
+
+    win_trades = [t for t in bt.trades if t['pl_pct'] > 0]
+    avg_win = sum(t['pl_pct'] for t in win_trades)/len(win_trades) if win_trades else 0
+    loss_trades = [t for t in bt.trades if t['pl_pct'] <= 0]
+    avg_loss = sum(t['pl_pct'] for t in loss_trades)/len(loss_trades) if loss_trades else 0
+
+    total_ret = (navs[-1]-navs[0])/navs[0]*100
+    n_dates = len(navs)
+    ann_ret = total_ret * (252/n_dates)
+    ann_vol = math.sqrt(sum((r-sum(daily_rets)/len(daily_rets))**2 for r in daily_rets)/len(daily_rets))*math.sqrt(252)*100 if daily_rets else 0
+    sharpe = ann_ret/ann_vol if ann_vol > 0 else 0
+
+    fname = f'backtest_{mode_label}.json'
     result = {
-        'mode': 'walk_forward' if walk_forward else 'simple_oos',
-        'nav_history': bt.nav_history[-50:] if bt.nav_history else [],  # 最近50天
-        'trades_count': len(bt.trades),
-        'final_nav': bt.nav_history[-1]['nav'] if bt.nav_history else 0,
+        'mode': mode_label,
+        'range': f'{bt.nav_history[0]["date"]} -> {bt.nav_history[-1]["date"]}' if bt.nav_history else 'N/A',
+        'trading_days': n_dates,
+        'total_return_pct': round(total_ret, 2),
+        'annual_return_pct': round(ann_ret, 2),
+        'annual_volatility_pct': round(ann_vol, 2),
+        'sharpe': round(sharpe, 2),
+        'max_drawdown_pct': round(max_dd, 2),
+        'benchmark_hs300_return_pct': round(bench_ret, 2),
+        'excess_return_pct': round(total_ret - bench_ret, 2),
+        'total_trades': len(bt.trades),
+        'win_rate_pct': round(len(win_trades)/len(bt.trades)*100, 1) if bt.trades else 0,
+        'avg_win_pct': round(avg_win, 2),
+        'avg_loss_pct': round(avg_loss, 2),
+        'profit_factor': round(abs(avg_win/avg_loss), 2) if avg_loss != 0 else 999,
+        'start_nav': round(navs[0], 2) if navs else 0,
+        'final_nav': round(navs[-1], 2) if navs else 0,
+        'nav_history': bt.nav_history,  # 全量保存
+        'trades_sample': bt.trades[-30:] if bt.trades else [],
+        'stock_universe_size': len(codes),
+        'valid_stocks': len(stock_data),
     }
-    with open(os.path.join(DIR, 'backtest_result.json'), 'w', encoding='utf-8') as f:
+    with open(os.path.join(DIR, fname), 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
-    print(f"\n结果已保存到 backtest_result.json")
+    print(f"\n完整结果已保存到 {fname}")
+    print(f"  基准(沪深300)同期: {bench_ret:+.2f}%")
+    print(f"  超额收益: {total_ret - bench_ret:+.2f}%")
 
 if __name__ == '__main__':
     main()
