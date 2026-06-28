@@ -3,8 +3,11 @@
 import urllib.request, json, ssl, time, os
 ssl._create_default_https_context = ssl._create_unverified_context
 
+import json, os
+
 from push_wx import push
 
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 TODAY = time.strftime('%Y-%m-%d %A', time.localtime())
 
 HOLDINGS = [
@@ -92,6 +95,62 @@ def calendar_tomorrow():
     return '- 中报预披露窗口继续\n- 关注美股期货夜盘方向\n- 明日开盘前关注竞价热力图'
 
 
+def _req(url, timeout=10):
+    try:
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        resp = urllib.request.urlopen(req, timeout=timeout)
+        return resp.read().decode('utf-8', errors='replace') if 'eastmoney' in url or 'cls' in url else \
+               resp.read().decode('gbk', errors='replace')
+    except:
+        return ''
+
+
+def scan_news():
+    try:
+        kw = json.loads(open(os.path.join(SCRIPT_DIR, 'keywords.json'), 'r', encoding='utf-8').read())
+    except:
+        return {'P0': [], 'P1': []}
+
+    headlines = []
+    try:
+        url = 'https://www.cls.cn/api/sw?app=CailianpressWeb&os=web&sv=8.4.6'
+        data = json.loads(_req(url)).get('data', {}).get('roll_data', [])
+        for item in data[:60]:
+            title = item.get('title', '')
+            brief = item.get('brief', '')
+            text = title + ' ' + brief
+            headlines.append({'title': title, 'text': text})
+    except:
+        pass
+
+    p0_matches = []
+    p1_matches = []
+    for cat_name, cat_data in kw.items():
+        p0_list = cat_data.get('P0', [])
+        p0_with = cat_data.get('P0_with', [])
+        p1_list = cat_data.get('P1', [])
+        for h in headlines:
+            text = h['text']
+            for kw_word in p0_list:
+                if kw_word in text:
+                    if p0_with:
+                        for ctx in p0_with:
+                            if ctx in text:
+                                p0_matches.append(f"[{cat_data.get('name','?')}] {h['title']}")
+                                break
+                    else:
+                        p0_matches.append(f"[{cat_data.get('name','?')}] {h['title']}")
+                    break
+            for kw_word in p1_list:
+                if kw_word in text:
+                    p1_matches.append(f"[{cat_data.get('name','?')}] {h['title']}")
+                    break
+    p0_matches = list(set(p0_matches))[:8]
+    p1_matches = list(set(p1_matches))[:12]
+    p1_matches = [m for m in p1_matches if m not in p0_matches]
+    return {'P0': p0_matches, 'P1': p1_matches}
+
+
 def main():
     print(f'[Evening] {TODAY}')
 
@@ -99,6 +158,17 @@ def main():
     vol_label = fetch_turnover()
     holdings, alerts, total = fetch_holdings()
     us = fetch_us()
+    news = scan_news()
+
+    news_section = ''
+    if news.get('P0'):
+        news_section += '\n### 🚨 P0 今日事件\n\n'
+        for m in news['P0']:
+            news_section += f'- {m}\n'
+    if news.get('P1'):
+        news_section += '\n### 📰 P1 今日事件\n\n'
+        for m in news['P1']:
+            news_section += f'- {m}\n'
 
     content = f'''# 🌙 每日晚报
 
@@ -128,7 +198,7 @@ def main():
 
 ---
 
-## 🇺🇸 美股盘前
+{news_section}## 🇺🇸 美股盘前
 
 {us}
 

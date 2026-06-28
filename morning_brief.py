@@ -98,7 +98,77 @@ def fetch_macro():
 
 def calendar_today():
     """今日关注事件"""
-    return '- ⚠️ 中报预披露窗口（7/15截止）\n- 持仓标的未触发预警'
+    return '- ⚗️ 中报预披露窗口（7/15截止）\n- 持仓标的未触发预警'
+
+
+def scan_news():
+    """扫描财联社快讯，匹配 P0/P1 关键词"""
+    try:
+        kw = json.loads(open(os.path.join(SCRIPT_DIR, 'keywords.json'), 'r', encoding='utf-8').read())
+    except:
+        return {'P0': [], 'P1': []}
+
+    # 拉财联社快讯
+    headlines = []
+    try:
+        url = 'https://www.cls.cn/api/sw?app=CailianpressWeb&os=web&sv=8.4.6'
+        data = json.loads(_req(url)).get('data', {}).get('roll_data', [])
+        for item in data[:60]:  # 最近60条
+            title = item.get('title', '')
+            brief = item.get('brief', '')
+            text = title + ' ' + brief
+            headlines.append({'title': title, 'text': text, 'time': item.get('ctime', '')})
+    except Exception as e:
+        print(f'[News] cls.cn: {e}')
+
+    # Fallback: 东方财富快讯
+    if not headlines:
+        try:
+            url = 'https://np-anotice-stock.eastmoney.com/api/security/ann/announcement/NoticeList?page_size=20&page_index=1&ann_type=SHA'
+            data = json.loads(_req(url)).get('data', {}).get('list', [])
+            for item in data:
+                title = item.get('title', '')
+                headlines.append({'title': title, 'text': title, 'time': item.get('notice_date', '')})
+        except Exception as e:
+            print(f'[News] eastmoney: {e}')
+
+    p0_matches = []
+    p1_matches = []
+
+    for cat_name, cat_data in kw.items():
+        p0_list = cat_data.get('P0', [])
+        p0_with = cat_data.get('P0_with', [])
+        p1_list = cat_data.get('P1', [])
+
+        for h in headlines:
+            text = h['text']
+            # P0: keyword alone or keyword + context
+            for kw_word in p0_list:
+                if kw_word in text:
+                    # Check if context words also match (if P0_with is specified)
+                    if p0_with:
+                        for ctx in p0_with:
+                            if ctx in text:
+                                p0_matches.append(f"[{cat_data.get('name','?')}] {h['title']}")
+                                break
+                    else:
+                        p0_matches.append(f"[{cat_data.get('name','?')}] {h['title']}")
+                    break
+
+            # P1: simpler matching
+            for kw_word in p1_list:
+                if kw_word in text:
+                    p1_matches.append(f"[{cat_data.get('name','?')}] {h['title']}")
+                    break
+
+    # Deduplicate
+    p0_matches = list(set(p0_matches))[:8]
+    p1_matches = list(set(p1_matches))[:12]
+    # Remove P1 items already in P0
+    p1_matches = [m for m in p1_matches if m not in p0_matches]
+
+    print(f'[News] P0={len(p0_matches)} P1={len(p1_matches)}')
+    return {'P0': p0_matches, 'P1': p1_matches}
 
 
 def main():
@@ -109,6 +179,20 @@ def main():
     macro = fetch_macro()
     holdings, alerts, total = fetch_holdings()
     calendar = calendar_today()
+    news = scan_news()
+
+    # 新闻事件
+    news_section = ''
+    if news.get('P0'):
+        news_section += '\n### 🚨 P0 立即关注\n\n'
+        for m in news['P0']:
+            news_section += f'- {m}\n'
+    if news.get('P1'):
+        news_section += '\n### 📰 P1 值得关注\n\n'
+        for m in news['P1']:
+            news_section += f'- {m}\n'
+    if not news.get('P0') and not news.get('P1'):
+        news_section = '\n### 📰 新闻扫描\n\n暂无 P0/P1 事件命中\n'
 
     content = f'''# ☀️ 每日早报
 
@@ -152,7 +236,7 @@ def main():
 
 ---
 
-## 📅 今日关注
+{news_section}## 📅 今日关注
 
 {calendar}
 
