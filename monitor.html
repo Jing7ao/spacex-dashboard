@@ -16,7 +16,7 @@
 *{box-sizing:border-box;margin:0;padding:0}.main>div:last-child::-webkit-scrollbar{width:3px}.main>div:last-child::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
 body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--t1);font-size:14px}
 .header{background:#13151d;border-bottom:1px solid var(--bd);padding:8px 14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;position:sticky;top:0;z-index:100}
-.logo{font-weight:800;font-size:1rem;background:linear-gradient(135deg,#3b82f6,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo{font-weight:800;font-size:1rem;color:#e2e8f0;letter-spacing:-0.3px}
 .tabs{display:flex;gap:3px;padding:6px 14px;overflow-x:auto;border-bottom:1px solid var(--bd);flex-wrap:wrap}
 .tab{padding:6px 14px;border-radius:16px;border:1px solid var(--bd);cursor:pointer;font-size:0.8rem;white-space:nowrap;background:var(--ca);color:var(--t2);transition:all .15s;text-align:center;line-height:1.3}
 .tab .tab-sub{display:block;font-size:0.5rem;font-weight:400;opacity:.65;margin-top:1px}
@@ -53,7 +53,7 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
 .score-bar{height:3px;background:rgba(148,163,184,.12);border-radius:2px;margin-top:2px;overflow:hidden}
 .score-fill{height:100%;border-radius:2px}
 .alert-item{padding:5px 7px;border-radius:4px;margin-bottom:3px;font-size:0.7rem;display:flex;align-items:flex-start;gap:4px}
-.al-crit{border-left:3px solid var(--rd);background:rgba(239,68,68,.1)}.al-warn{border-left:3px solid var(--yl);background:rgba(234,179,8,.1)}.al-info{border-left:3px solid var(--ac);background:rgba(59,130,246,.06)}
+.al-crit{border-top:2px solid var(--rd);background:rgba(239,68,68,.06)}.al-warn{border-top:2px solid var(--yl);background:rgba(234,179,8,.06)}.al-info{border-top:2px solid var(--ac);background:rgba(59,130,246,.04)}
 .news-item{padding:4px 0;border-bottom:1px solid rgba(37,40,54,.5);font-size:0.68rem}
 .source-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;font-size:0.63rem}
 .si{display:flex;align-items:center;gap:4px;padding:2px 4px;border-radius:3px;background:rgba(148,163,184,.04)}
@@ -112,13 +112,13 @@ button:hover{border-color:var(--ac)}.btn-ac{background:var(--ac);color:#fff;bord
 <div class="global-bar" id="gbar"></div>
 <div id="morningAlert" style="display:none;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:8px;padding:6px 10px;margin-bottom:8px"></div>
 <div class="summary">
-  <div class="sc" style="border-left:3px solid var(--ac)"><div class="sl">💰 可用资金</div><div class="sv" id="sc1">¥2,000</div></div>
+  <div class="sc" style="border-top:2px solid var(--ac)"><div class="sl">💰 可用资金</div><div class="sv" id="sc1">¥2,000</div></div>
   <div class="sc"><div class="sl">💼 总资产</div><div class="sv" id="scTotal">¥2,000</div></div>
   <div class="sc"><div class="sl">📦 持仓 / 盈亏</div><div class="sv" id="sc2">空仓</div></div>
   <div class="sc"><div class="sl">🎯 推荐标的</div><div class="sv" id="sc3" style="font-size:0.9rem">--</div></div>
   <div class="sc"><div class="sl">📊 市场日</div><div class="sv" id="sc5" style="font-size:0.9rem">--</div></div>
   <div class="sc"><div class="sl">⚠️ 风险变化</div><div class="sv" id="riskAlert" style="font-size:0.65rem;color:var(--t3)">--</div></div>
-  <div class="sc" style="border-left:3px solid var(--rd)"><div class="sl">🚨 预警</div><div class="sv" id="sc4" style="color:var(--rd);font-size:0.9rem">✓ 无</div></div>
+  <div class="sc" style="border-top:2px solid var(--rd)"><div class="sl">🚨 预警</div><div class="sv" id="sc4" style="color:var(--rd);font-size:0.9rem">✓ 无</div></div>
 </div>
 
 <!-- K线弹窗 -->
@@ -211,7 +211,7 @@ button:hover{border-color:var(--ac)}.btn-ac{background:var(--ac);color:#fff;bord
     <span style="font-size:0.6rem;color:var(--t3)" id="ecoUpdateTime">等待数据...</span>
   </div>
   <div id="ecoScoreGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px"><span style="font-size:0.65rem;color:var(--t3);grid-column:1/-1;text-align:center;padding:8px">⏳ 数据加载中，4秒后自动刷新...</span></div>
-  <div id="ecoAdvice" style="font-size:0.62rem;margin-top:8px;padding:6px 8px;border-radius:4px;background:rgba(59,130,246,.06);border-left:2px solid var(--ac);color:var(--t3)">等待首次评分计算...</div>
+  <div id="ecoAdvice" style="font-size:0.62rem;margin-top:8px;padding:6px 8px;border-radius:4px;background:rgba(59,130,246,.06);border-top:1px solid var(--ac);color:var(--t3)">等待首次评分计算...</div>
 <div style="margin-top:6px;font-size:0.55rem;color:var(--gr)" id="pushStatus">📱 微信推送已就绪（直连测试号）</div>
 </div>
 
@@ -685,15 +685,15 @@ function renderTriLights(){
   var nonBnWt=pos.filter(function(p){var t=((window._ecoBN&&window._ecoBN[cur]?window._ecoBN[cur][p.c]:null)||'');return t==='⚪'||t==='❌'}).reduce(function(s,p){var pr=prices[p.c];return s+(pr?pr.p*p.s:p.bp*p.s)},0)/Math.max(portVal,1)*100;
   // 渲染三灯
   var html='';
-  html+='<span class="gi" style="border-left:3px solid #22c55e">🟢 进场:'+(entering.length>0?entering.slice(0,2).map(function(e){return e.n+' '+e.sc+'分'}).join('、'):'无')+'</span>';
-  html+='<span class="gi" style="border-left:3px solid #eab308">🟡 离场:'+(exiting.length>0?exiting.slice(0,2).map(function(e){return e.n+' '+e.reason}).join('、'):'无')+'</span>';
-  html+='<span class="gi" style="border-left:3px solid #ef4444">🔴 止损:'+(stopping.length>0?stopping.slice(0,2).map(function(e){return e.n+' '+e.reason}).join('、'):'无')+'</span>';
+  html+='<span class="gi" style="border-top:2px solid #22c55e">🟢 进场:'+(entering.length>0?entering.slice(0,2).map(function(e){return e.n+' '+e.sc+'分'}).join('、'):'无')+'</span>';
+  html+='<span class="gi" style="border-top:2px solid #eab308">🟡 离场:'+(exiting.length>0?exiting.slice(0,2).map(function(e){return e.n+' '+e.reason}).join('、'):'无')+'</span>';
+  html+='<span class="gi" style="border-top:2px solid #ef4444">🔴 止损:'+(stopping.length>0?stopping.slice(0,2).map(function(e){return e.n+' '+e.reason}).join('、'):'无')+'</span>';
   // 组合约束
   var limits=[];
   if(ecoWeight>30)limits.push('同生态'+(ecoWeight).toFixed(0)+'%>30%');
   if(singleMax>15)limits.push('单票'+(singleMax).toFixed(0)+'%>15%');
   if(nonBnWt>5)limits.push('可替代'+(nonBnWt).toFixed(0)+'%>5%');
-  if(limits.length>0)html+='<span class="gi" style="border-left:3px solid #f97316">⚡ 约束:'+limits.join('、')+'</span>';
+  if(limits.length>0)html+='<span class="gi" style="border-top:2px solid #f97316">⚡ 约束:'+limits.join('、')+'</span>';
   var sub='';
   if(entering.length>0)sub+=entering.length+'可进 ';
   if(exiting.length>0)sub+=exiting.length+'待离 ';
