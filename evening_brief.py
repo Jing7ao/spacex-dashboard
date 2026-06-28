@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
-"""🌙 每日晚报：行情复盘 + 持仓盈亏 + 美股期货 + 明日日历"""
-import urllib.request, json, ssl, time, os
+"""🌙 每日晚报：行情复盘 + 持仓盈亏 + 美股盘前 + 明日日历"""
+import urllib.request, json, ssl, time, os, re
 ssl._create_default_https_context = ssl._create_unverified_context
-
-import json, os
 
 from push_wx import push
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-TODAY = time.strftime('%Y-%m-%d %A', time.localtime())
+_WN = ['周一','周二','周三','周四','周五','周六','周日']
+TODAY = time.strftime('%Y-%m-%d ', time.localtime()) + _WN[time.localtime().tm_wday]
 
 HOLDINGS = [
     {'name': '紫光股份', 'code': '000938', 'cost': 26.20, 'shares': 100},
@@ -21,7 +20,7 @@ def _req(url, timeout=10):
     try:
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         resp = urllib.request.urlopen(req, timeout=timeout)
-        return resp.read().decode('utf-8', errors='replace') if 'eastmoney' in url else \
+        return resp.read().decode('utf-8', errors='replace') if 'eastmoney' in url or 'cls' in url else \
                resp.read().decode('gbk', errors='replace')
     except:
         return ''
@@ -31,7 +30,7 @@ def fetch_a_index():
     idx_map = {'1.000001': '上证', '0.399001': '深证', '0.399006': '创业板', '1.000688': '科创50'}
     lines = []
     for sid, name in idx_map.items():
-        data = json.loads(_req(f'https://push2.eastmoney.com/api/qt/stock/get?secid={sid}&fields=f43,f170,f47,f48')).get('data',{})
+        data = json.loads(_req(f'https://push2.eastmoney.com/api/qt/stock/get?secid={sid}&fields=f43,f170,f47')).get('data',{})
         px = data.get('f43',0)/100
         chg = data.get('f170',0)/100
         vol = data.get('f47',0)/1e8 if data.get('f47') else 0
@@ -54,7 +53,7 @@ def fetch_holdings():
             emoji = '🟢' if pl > 0 else '🔴'
             items.append(f'| {emoji} {h["name"]} | ¥{px:.2f} | {pl_pct:+.1f}% | ¥{pl:+.0f} |')
             if pl_pct < -5:
-                alerts.append(f'> 🚨 {h["name"]} 今日跌幅超5%，距成本-8%止损还差 {-pl_pct-8:.1f}%')
+                alerts.append(f'> 🚨 {h["name"]} 今日跌幅超5%，距-8%止损仅差 {-pl_pct-8:.1f}%')
         else:
             items.append(f'| ❓ {h["name"]} | -- | -- | -- |')
             total += h['cost'] * h['shares']
@@ -62,24 +61,28 @@ def fetch_holdings():
 
 
 def fetch_us():
-    symbols = {'NVDA': '英伟达', 'SMH': '费城半导体', 'QQQ': '纳指ETF', 'VXX': 'VIX'}
-    lines = []
-    for sym, name in symbols.items():
-        try:
-            url = f'https://query1.finance.yahoo.com/v8/finance/chart/{sym}?interval=1d&range=1d'
-            data = json.loads(_req(url)).get('chart',{}).get('result',[{}])[0].get('meta',{})
-            prev = data.get('previousClose',0)
-            curr = data.get('regularMarketPrice',0)
-            if prev and curr:
-                chg = (curr/prev-1)*100
-                lines.append(f'| {name}({sym}) | ${curr:.2f} | **{chg:+.2f}%** |')
-        except:
-            pass
-    return '\n'.join(lines) if lines else '暂无'
+    symbols = {'gb_nvda': '英伟达', 'gb_tsla': '特斯拉', 'gb_smh': '费城半导体'}
+    results = {}
+    url = 'https://hq.sinajs.cn/list=' + ','.join(symbols.keys())
+    try:
+        raw = _req(url, timeout=10)
+        for chunk in raw.split('var '):
+            if '=' not in chunk: continue
+            key = chunk.split('=')[0].strip()
+            val = chunk.split('"')[1] if '"' in chunk else ''
+            if key not in symbols: continue
+            parts = val.split(',')
+            if len(parts) < 5: continue
+            price = float(parts[1]) if parts[1] else 0
+            prev = float(parts[2]) if parts[2] else 0
+            if price and prev:
+                results[symbols[key]] = f'{(price/prev-1)*100:+.2f}%'
+    except Exception as e:
+        print(f'[US] {e}')
+    return results
 
 
 def fetch_turnover():
-    """市场情绪"""
     try:
         data = json.loads(_req('https://push2.eastmoney.com/api/qt/stock/get?secid=1.000001&fields=f47')).get('data',{})
         vol = data.get('f47',0)/1e8
@@ -93,16 +96,6 @@ def fetch_turnover():
 
 def calendar_tomorrow():
     return '- 中报预披露窗口继续\n- 关注美股期货夜盘方向\n- 明日开盘前关注竞价热力图'
-
-
-def _req(url, timeout=10):
-    try:
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        resp = urllib.request.urlopen(req, timeout=timeout)
-        return resp.read().decode('utf-8', errors='replace') if 'eastmoney' in url or 'cls' in url else \
-               resp.read().decode('gbk', errors='replace')
-    except:
-        return ''
 
 
 def scan_news():
@@ -170,6 +163,8 @@ def main():
         for m in news['P1']:
             news_section += f'- {m}\n'
 
+    us_text = ' | '.join([f'{k}:{v}' for k, v in us.items()]) if us else '暂无'
+
     content = f'''# 🌙 每日晚报
 
 > {TODAY} 收盘
@@ -200,7 +195,7 @@ def main():
 
 {news_section}## 🇺🇸 美股盘前
 
-{us}
+{us_text}
 
 ---
 

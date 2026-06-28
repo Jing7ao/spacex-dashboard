@@ -6,7 +6,8 @@ ssl._create_default_https_context = ssl._create_unverified_context
 from push_wx import push
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-TODAY = time.strftime('%Y-%m-%d %A', time.localtime())
+_WN = ['周一','周二','周三','周四','周五','周六','周日']
+TODAY = time.strftime('%Y-%m-%d ', time.localtime()) + _WN[time.localtime().tm_wday]
 
 HOLDINGS = [
     {'name': '紫光股份', 'code': '000938', 'cost': 26.20, 'shares': 100, 'stop_pct': -8},
@@ -65,20 +66,27 @@ def fetch_holdings():
 
 
 def fetch_us():
-    """美股核心标的"""
-    symbols = {'NVDA': '英伟达', 'SMH': '费城半导体', 'QQQ': '纳指ETF', 'TSLA': '特斯拉', 'SPCX': 'SpaceX'}
+    """美股核心标的 — 用新浪财经"""
+    symbols = {'gb_nvda': '英伟达', 'gb_tsla': '特斯拉', 'gb_smh': '费城半导体'}
     lines = []
-    for sym, name in symbols.items():
-        try:
-            url = f'https://query1.finance.yahoo.com/v8/finance/chart/{sym}?interval=1d&range=1d'
-            data = json.loads(_req(url)).get('chart',{}).get('result',[{}])[0].get('meta',{})
-            prev = data.get('previousClose', 0)
-            curr = data.get('regularMarketPrice', 0)
-            if prev and curr:
-                chg = (curr/prev-1)*100
-                lines.append(f'| {name}({sym}) | ${curr:.2f} | **{chg:+.2f}%** |')
-        except:
-            lines.append(f'| {name}({sym}) | -- | -- |')
+    url = 'https://hq.sinajs.cn/list=' + ','.join(symbols.keys())
+    try:
+        raw = _req(url, timeout=10)
+        for chunk in raw.split('var '):
+            if '=' not in chunk: continue
+            key = chunk.split('=')[0].strip()
+            val = chunk.split('"')[1] if '"' in chunk else ''
+            if key not in symbols: continue
+            parts = val.split(',')
+            if len(parts) < 5: continue
+            name = symbols[key]
+            price = float(parts[1]) if parts[1] else 0
+            prev = float(parts[2]) if parts[2] else 0
+            if price and prev:
+                chg = (price/prev - 1) * 100
+                lines.append(f'| {name} | ${price:.2f} | **{chg:+.2f}%** |')
+    except Exception as e:
+        print(f'[US] sina: {e}')
     return '\n'.join(lines) if lines else '暂无'
 
 
